@@ -1,0 +1,18 @@
+#Pour les pages statiques, on crée un nouveau fichier static.yml
+#Route vers la page contact
+store_backend_statics_contact:
+    path:     /contact
+    defaults: { _controller:StoreBackendBundle:Statics:contact }
+    # structure Racine+nomDuBundle(ici racine : Store, bundle: BackendBundle):Controller:action
+#Route vers la page à propos
+store_backend_statics_about:
+    path:     /about
+    defaults: { _controller:StoreBackendBundle:Statics:about }
+#Route vers la page concept
+store_backend_statics_concept:
+    path:     /concept
+    defaults: { _controller:StoreBackendBundle:Statics:concept }
+#Route vers la page mentions légales
+store_backend_statics_terms:
+    path:     /terms
+    defaults: { _controller:StoreBackendBundle:Statics:terms }

@@ -1,0 +1,13 @@
+#Page list of cms
+store_backend_cms_list:
+   path:     /list
+   defaults: {_controller: 'StoreBackendBundle:CMS:list'}
+
+#Page view for cms
+store_backend_cms_view:
+   path:     /view/{id}/{name}
+   requirements:
+     id: \d+
+     name: ([A-z]-?){3,50}
+     _method: GET
+   defaults: {_controller: 'StoreBackendBundle:CMS:view'}

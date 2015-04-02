@@ -12,6 +12,7 @@ class MainController extends Controller
 {
     /**
      * Page DashBoard on backend
+     * @return \Symfony\Component\HttpFoundation\Response
      */
     public function indexAction()
     {

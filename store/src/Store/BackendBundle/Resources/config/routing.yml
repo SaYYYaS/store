@@ -1,6 +1,32 @@
 store_backend_homepage:
     path:     /hello/{name}
     defaults: { _controller: StoreBackendBundle:Default:index }
+#Structure de la route ns_bundle_action
 store_backend_index:
     path:     /dashboard
     defaults: { _controller:StoreBackendBundle:Main:index }
+
+#Importation des routes statiques de l'application
+store_backend_statics:
+    resource: "@StoreBackendBundle/Resources/config/statics.yml"
+    prefix:   /
+
+#Importation des routes product (on nom store_backend_categories au pluriel pour signifier que l'on importe plus d'une route)
+store_backend_products:
+    resource: "@StoreBackendBundle/Resources/config/modules/product.yml"
+    prefix:   /products
+
+#Importation des routes categorie (on nom store_backend_categories au pluriel pour signifier que l'on importe plus d'une route)
+store_backend_categories:
+    resource: "@StoreBackendBundle/Resources/config/modules/category.yml"
+    prefix:   /categories
+
+#Importation des routes cms (pour le confort de l'utilisateur on garde cms au lieu de cmss)
+store_backend_cms:
+    resource: "@StoreBackendBundle/Resources/config/modules/cms.yml"
+    prefix:   /cms
+
+#Importation des routes supplier
+store_backend_suppliers:
+    resource: "@StoreBackendBundle/Resources/config/modules/supplier.yml"
+    prefix:   /suppliers
