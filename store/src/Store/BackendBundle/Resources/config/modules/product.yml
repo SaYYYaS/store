@@ -1,6 +1,6 @@
 #Page list of products
 store_backend_product_list:
-   path:     /list/{}
+   path:     /list
    defaults: {_controller: 'StoreBackendBundle:Product:list'}
 
 #Page view product

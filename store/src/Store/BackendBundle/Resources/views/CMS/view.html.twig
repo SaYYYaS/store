@@ -1,1 +1,12 @@
-<h1>voir le cms {{ name }} qui a l'id : {{ id }}</h1>
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}
+    book
+{% endblock %}
+
+{% block titlepage %}
+    Content Managing System
+{% endblock %}
+
+{% block content %}
+    <h1>voir le cms {{ name }} qui a l'id : {{ id }}</h1>
+{% endblock %}

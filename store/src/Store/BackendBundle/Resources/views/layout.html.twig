@@ -1,24 +1,74 @@
 {% extends "::base.html.twig" %}
 
+{% block classname %} theme-default main-menu-animated {% endblock %}
+{#Stylesheet#}
+        {% block stylesheets %}
+            {{ parent() }}
+            <!-- Backend's stylesheets -->
+            <link href="{{ asset('assets/backend/stylesheets/pixel-admin.min.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('assets/backend/stylesheets/widgets.min.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('assets/backend/stylesheets/rtl.min.css')}}" rel="stylesheet" type="text/css">
+            <link href="{{ asset('assets/backend/stylesheets/themes.min.css')}}" rel="stylesheet" type="text/css">
+        {% endblock %}
+
 {% block body %}
+    {#init.push() tableau pour pousser tout le jquery#}
+    <script>var init = [];</script>
 
-    <h1>Back-Office pour Bijoutiers</h1>
-    {% block menu %}
-        <ul>
-            <li>Home</li>
-            <li>Produits</li>
-            <li>Categories</li>
-            <li>Contact</li>
-        </ul>
-    {% endblock %}
-    {% block content %}
-    {% endblock %}
-    {% block footer %}
-        <ul>
-            <li>A propos</li>
-            <li>Mentions légales</li>
-            <li>Concept</li>
-        </ul>
-    {% endblock %}
+    <div id="main-wrapper">
+        {{ include('StoreBackendBundle:Partial:main_navigation.html.twig') }}
 
+        {{ include('StoreBackendBundle:Partial:main_menu.html.twig') }}
+        <div id="content-wrapper">
+            <div class="page-header">
+
+                <div class="row">
+                    <!-- Page header, center on small screens -->
+                    <h1 class="col-xs-12 col-sm-4 text-center text-left-sm">
+                        <i class="fa fa-{% block classtitle %}{% endblock %} page-header-icon"></i>{% block titlepage %}{% endblock %}
+                    </h1>
+
+                    <div class="col-xs-12 col-sm-8">
+                        <div class="row">
+                            <hr class="visible-xs no-grid-gutter-h">
+                            <!-- "Create project" button, width=auto on desktops -->
+                            <div class="pull-right col-xs-12 col-sm-auto">
+                                <a href="#" class="btn btn-primary btn-labeled" style="width: 100%;">
+                                    <span class="btn-label icon fa fa-plus"></span>Create project
+                                </a>
+                            </div>
+
+                            <!-- Margin -->
+                            <div class="visible-xs clearfix form-group-margin"></div>
+
+                            <!-- Search field -->
+                            <form action="" class="pull-right col-xs-12 col-sm-6">
+                                <div class="input-group no-margin">
+                                    <span class="input-group-addon" style="border:none;background: #fff;background: rgba(0,0,0,.05);"><i class="fa fa-search"></i></span>
+                                    <input type="text" placeholder="Search..." class="form-control no-padding-hr" style="border:none;background: #fff;background: rgba(0,0,0,.05);">
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div> <!-- / .page-header -->
+            {#le bloc ou va être écrit le contenu de nos vues fille#}
+            {% block content %}
+            {% endblock %}
+        </div><!-- / #content-wrapper -->
+        <div id="main-menu-bg"></div>
+    </div><!-- / #main-wrapper -->
+{% endblock %}
+
+{# Javascript files #}
+{% block javascript %}
+    {{ parent() }}
+    <script src="{{ asset('assets/backend/javascripts/pixel-admin.min.js') }}"></script>
+
+    <script type="text/javascript">
+        init.push(function () {
+            // Javascript code here
+        })
+        window.PixelAdmin.start(init);
+    </script>
 {% endblock %}

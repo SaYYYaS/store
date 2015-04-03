@@ -1,1 +1,9 @@
-<h1>voir le Produit {{ name }} a l'id : {{ id }}</h1>
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}money{% endblock %}
+{% block titlepage %}
+    Dashboard
+{% endblock %}
+
+{% block content %}
+    <h1>voir le Produit {{ name }} a l'id : {{ id }}</h1>
+{% endblock %}
