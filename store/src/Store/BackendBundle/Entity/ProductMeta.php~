@@ -1,0 +1,112 @@
+<?php
+
+namespace Store\BackendBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ProductMeta
+ *
+ * @ORM\Table(name="product_meta", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
+ * @ORM\Entity
+ */
+class ProductMeta
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="weight", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $weight;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="length", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $length;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="width", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $width;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="video", type="string", length=300, nullable=true)
+     */
+    private $video;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="extras", type="text", nullable=true)
+     */
+    private $extras;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="subtitle", type="string", length=300, nullable=true)
+     */
+    private $subtitle;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="note", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $note;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="view", type="integer", nullable=true)
+     */
+    private $view;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_keyword", type="text", nullable=true)
+     */
+    private $metaKeyword;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_description", type="text", nullable=true)
+     */
+    private $metaDescription;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="meta_title", type="text", nullable=true)
+     */
+    private $metaTitle;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
+     */
+    private $product;
+
+
+}

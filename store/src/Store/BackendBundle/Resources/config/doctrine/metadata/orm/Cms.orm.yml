@@ -1,0 +1,95 @@
+Cms:
+    type: entity
+    table: cms
+    indexes:
+        jeweler_id:
+            columns:
+                - jeweler_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        summary:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        image:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        video:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        state:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        active:
+            type: boolean
+            nullable: true
+            comment: ''
+        view:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        dateActive:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_active
+        dateUpdated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_updated
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+    manyToOne:
+        jeweler:
+            targetEntity: Jeweler
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                jeweler_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: cms
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

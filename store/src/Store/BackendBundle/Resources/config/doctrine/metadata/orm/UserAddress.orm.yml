@@ -1,0 +1,45 @@
+UserAddress:
+    type: entity
+    table: user_address
+    indexes:
+        user_id:
+            columns:
+                - user_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        city:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        zipcode:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        address:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+    manyToOne:
+        user:
+            targetEntity: User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

@@ -1,0 +1,186 @@
+<?php
+
+namespace Store\BackendBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Jeweler
+ *
+ * @ORM\Table(name="jeweler", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
+ * @ORM\Entity
+ */
+class Jeweler
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username", type="string", length=300, nullable=true)
+     */
+    private $username;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email", type="string", length=150, nullable=true)
+     */
+    private $email;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password", type="string", length=300, nullable=true)
+     */
+    private $password;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=300, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="description", type="text", nullable=true)
+     */
+    private $description;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=300, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="type", type="integer", nullable=true)
+     */
+    private $type;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="enabled", type="boolean", nullable=true)
+     */
+    private $enabled;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="locked", type="boolean", nullable=true)
+     */
+    private $locked;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="expired", type="boolean", nullable=true)
+     */
+    private $expired;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="salt", type="string", length=300, nullable=true)
+     */
+    private $salt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="token", type="string", length=300, nullable=true)
+     */
+    private $token;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="username_canonical", type="string", length=300, nullable=true)
+     */
+    private $usernameCanonical;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="email_canonical", type="string", length=300, nullable=true)
+     */
+    private $emailCanonical;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="credentials_expired", type="boolean", nullable=true)
+     */
+    private $credentialsExpired;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="credentials_expire_at", type="datetime", nullable=true)
+     */
+    private $credentialsExpireAt;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="confirmation_token", type="string", length=300, nullable=true)
+     */
+    private $confirmationToken;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="password_requested_at", type="string", length=300, nullable=true)
+     */
+    private $passwordRequestedAt;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="fid", type="integer", nullable=true)
+     */
+    private $fid;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="slug", type="string", length=30, nullable=true)
+     */
+    private $slug;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accountNonLocked", type="boolean", nullable=true)
+     */
+    private $accountnonlocked;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="accountNonExpired", type="boolean", nullable=true)
+     */
+    private $accountnonexpired;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_created", type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+
+}

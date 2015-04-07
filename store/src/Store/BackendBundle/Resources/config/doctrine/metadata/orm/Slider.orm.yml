@@ -1,0 +1,49 @@
+Slider:
+    type: entity
+    table: slider
+    indexes:
+        product_id:
+            columns:
+                - product_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        caption:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        image:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        position:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        active:
+            type: boolean
+            nullable: true
+            comment: ''
+    manyToOne:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

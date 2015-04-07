@@ -1,0 +1,63 @@
+<?php
+
+namespace Store\BackendBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Slider
+ *
+ * @ORM\Table(name="slider", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
+ * @ORM\Entity
+ */
+class Slider
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="caption", type="text", nullable=true)
+     */
+    private $caption;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=300, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="position", type="integer", nullable=true)
+     */
+    private $position;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="active", type="boolean", nullable=true)
+     */
+    private $active;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
+     */
+    private $product;
+
+
+}

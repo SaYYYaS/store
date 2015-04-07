@@ -1,0 +1,66 @@
+Message:
+    type: entity
+    table: message
+    indexes:
+        jeweler_id:
+            columns:
+                - user_id
+        jeweler_id_2:
+            columns:
+                - jeweler_id
+                - user_id
+        IDX_B6BD307F3A7280C6:
+            columns:
+                - jeweler_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        title:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        content:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        state:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+    manyToOne:
+        jeweler:
+            targetEntity: Jeweler
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                jeweler_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

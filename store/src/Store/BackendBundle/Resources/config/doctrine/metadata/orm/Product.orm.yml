@@ -1,0 +1,224 @@
+Product:
+    type: entity
+    table: product
+    indexes:
+        jeweler_id:
+            columns:
+                - jeweler_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        ref:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+        title:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        summary:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        composition:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        price:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        taxe:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        quantity:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        active:
+            type: boolean
+            nullable: true
+            comment: ''
+        dateActive:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_active
+        cover:
+            type: boolean
+            nullable: true
+            comment: ''
+        shop:
+            type: boolean
+            nullable: true
+            comment: ''
+        position:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        slug:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+        dateUpdated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_updated
+    manyToOne:
+        jeweler:
+            targetEntity: Jeweler
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                jeweler_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    manyToMany:
+        user:
+            targetEntity: User
+            cascade: {  }
+            mappedBy: product
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+        order:
+            targetEntity: Orders
+            cascade: {  }
+            mappedBy: product
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+        business:
+            targetEntity: Business
+            cascade: {  }
+            mappedBy: null
+            inversedBy: product
+            joinTable:
+                name: product_business
+                joinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: business_id
+                        referencedColumnName: id
+            orderBy: null
+        category:
+            targetEntity: Category
+            cascade: {  }
+            mappedBy: null
+            inversedBy: product
+            joinTable:
+                name: product_category
+                joinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: category_id
+                        referencedColumnName: id
+            orderBy: null
+        cms:
+            targetEntity: Cms
+            cascade: {  }
+            mappedBy: null
+            inversedBy: product
+            joinTable:
+                name: product_cms
+                joinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: cms_id
+                        referencedColumnName: id
+            orderBy: null
+        product2:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: null
+            inversedBy: product
+            joinTable:
+                name: product_featured
+                joinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: product2_id
+                        referencedColumnName: id
+            orderBy: null
+        supplier:
+            targetEntity: Supplier
+            cascade: {  }
+            mappedBy: null
+            inversedBy: product
+            joinTable:
+                name: product_supplier
+                joinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: supplier_id
+                        referencedColumnName: id
+            orderBy: null
+        tag:
+            targetEntity: Tag
+            cascade: {  }
+            mappedBy: null
+            inversedBy: product
+            joinTable:
+                name: product_tag
+                joinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: tag_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

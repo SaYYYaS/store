@@ -1,0 +1,65 @@
+Comment:
+    type: entity
+    table: comment
+    indexes:
+        product_id:
+            columns:
+                - product_id
+                - user_id
+        user_id:
+            columns:
+                - user_id
+        IDX_9474526C4584665A:
+            columns:
+                - product_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        note:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        content:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        state:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+    manyToOne:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+        user:
+            targetEntity: User
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                user_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

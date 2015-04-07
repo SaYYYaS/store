@@ -1,0 +1,96 @@
+ProductMeta:
+    type: entity
+    table: product_meta
+    indexes:
+        product_id:
+            columns:
+                - product_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        weight:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        length:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        width:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        video:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        extras:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        subtitle:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        note:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        view:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        metaKeyword:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: meta_keyword
+        metaDescription:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: meta_description
+        metaTitle:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+            column: meta_title
+    manyToOne:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                product_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

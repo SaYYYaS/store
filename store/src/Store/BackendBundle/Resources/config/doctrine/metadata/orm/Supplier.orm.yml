@@ -1,0 +1,54 @@
+Supplier:
+    type: entity
+    table: supplier
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        name:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        image:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        active:
+            type: boolean
+            nullable: true
+            comment: ''
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+        dateUpdated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_updated
+    manyToMany:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: supplier
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

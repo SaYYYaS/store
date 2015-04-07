@@ -1,0 +1,73 @@
+<?php
+
+namespace Store\BackendBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Message
+ *
+ * @ORM\Table(name="message", indexes={@ORM\Index(name="jeweler_id", columns={"user_id"}), @ORM\Index(name="jeweler_id_2", columns={"jeweler_id", "user_id"}), @ORM\Index(name="IDX_B6BD307F3A7280C6", columns={"jeweler_id"})})
+ * @ORM\Entity
+ */
+class Message
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="title", type="string", length=300, nullable=true)
+     */
+    private $title;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="content", type="text", nullable=true)
+     */
+    private $content;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="state", type="integer", nullable=true)
+     */
+    private $state;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_created", type="datetime", nullable=true)
+     */
+    private $dateCreated;
+
+    /**
+     * @var \Jeweler
+     *
+     * @ORM\ManyToOne(targetEntity="Jeweler")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="jeweler_id", referencedColumnName="id")
+     * })
+     */
+    private $jeweler;
+
+    /**
+     * @var \User
+     *
+     * @ORM\ManyToOne(targetEntity="User")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="user_id", referencedColumnName="id")
+     * })
+     */
+    private $user;
+
+
+}

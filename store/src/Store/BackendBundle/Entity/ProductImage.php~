@@ -1,0 +1,49 @@
+<?php
+
+namespace Store\BackendBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * ProductImage
+ *
+ * @ORM\Table(name="product_image", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
+ * @ORM\Entity
+ */
+class ProductImage
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image", type="string", length=300, nullable=true)
+     */
+    private $image;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="image_thumb", type="string", length=300, nullable=true)
+     */
+    private $imageThumb;
+
+    /**
+     * @var \Product
+     *
+     * @ORM\ManyToOne(targetEntity="Product")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     * })
+     */
+    private $product;
+
+
+}

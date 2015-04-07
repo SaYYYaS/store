@@ -1,0 +1,116 @@
+JewelerMeta:
+    type: entity
+    table: jeweler_meta
+    indexes:
+        jeweler_id:
+            columns:
+                - jeweler_id
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        city:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        address:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        phone:
+            type: string
+            nullable: true
+            length: 20
+            fixed: false
+            comment: ''
+        website:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        retour:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        propos:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        delai:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        longituide:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        latitude:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        optin:
+            type: boolean
+            nullable: true
+            comment: ''
+        lastActivity:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+            column: last_activity
+        mention:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        expedition:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        dawanda:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        littlemarket:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+    manyToOne:
+        jeweler:
+            targetEntity: Jeweler
+            cascade: {  }
+            mappedBy: null
+            inversedBy: null
+            joinColumns:
+                jeweler_id:
+                    referencedColumnName: id
+            orphanRemoval: false
+    lifecycleCallbacks: {  }

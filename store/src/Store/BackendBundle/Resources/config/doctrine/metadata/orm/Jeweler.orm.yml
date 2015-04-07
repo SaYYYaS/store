@@ -1,0 +1,147 @@
+Jeweler:
+    type: entity
+    table: jeweler
+    uniqueConstraints:
+        email:
+            columns:
+                - email
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        username:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        email:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        password:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        title:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        description:
+            type: text
+            nullable: true
+            length: null
+            fixed: false
+            comment: ''
+        image:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        type:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        enabled:
+            type: boolean
+            nullable: true
+            comment: ''
+        locked:
+            type: boolean
+            nullable: true
+            comment: ''
+        expired:
+            type: boolean
+            nullable: true
+            comment: ''
+        salt:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        token:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        usernameCanonical:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+            column: username_canonical
+        emailCanonical:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+            column: email_canonical
+        credentialsExpired:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: credentials_expired
+        credentialsExpireAt:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: credentials_expire_at
+        confirmationToken:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+            column: confirmation_token
+        passwordRequestedAt:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+            column: password_requested_at
+        fid:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        slug:
+            type: string
+            nullable: true
+            length: 30
+            fixed: false
+            comment: ''
+        accountnonlocked:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: accountNonLocked
+        accountnonexpired:
+            type: boolean
+            nullable: true
+            comment: ''
+            column: accountNonExpired
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+    lifecycleCallbacks: {  }

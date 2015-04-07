@@ -1,0 +1,83 @@
+User:
+    type: entity
+    table: user
+    uniqueConstraints:
+        email:
+            columns:
+                - email
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        active:
+            type: boolean
+            nullable: true
+            comment: ''
+        lastLogin:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: last_login
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+        dateUpdated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_updated
+        firstname:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        lastname:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        email:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+        fid:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        password:
+            type: string
+            nullable: true
+            length: 150
+            fixed: false
+            comment: ''
+    manyToMany:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: null
+            inversedBy: user
+            joinTable:
+                name: like
+                joinColumns:
+                    -
+                        name: user_id
+                        referencedColumnName: id
+                inverseJoinColumns:
+                    -
+                        name: product_id
+                        referencedColumnName: id
+            orderBy: null
+    lifecycleCallbacks: {  }

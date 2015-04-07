@@ -1,0 +1,53 @@
+Business:
+    type: entity
+    table: business
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        type:
+            type: integer
+            nullable: true
+            unsigned: false
+            comment: ''
+        amount:
+            type: float
+            nullable: true
+            precision: 10
+            scale: 0
+            comment: ''
+        message:
+            type: string
+            nullable: true
+            length: 300
+            fixed: false
+            comment: ''
+        dateExpired:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_expired
+        dateCreated:
+            type: datetime
+            nullable: true
+            comment: ''
+            column: date_created
+        active:
+            type: boolean
+            nullable: true
+            comment: ''
+    manyToMany:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: business
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

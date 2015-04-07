@@ -1,0 +1,28 @@
+Tag:
+    type: entity
+    table: tag
+    id:
+        id:
+            type: integer
+            nullable: false
+            unsigned: false
+            comment: ''
+            id: true
+            generator:
+                strategy: IDENTITY
+    fields:
+        word:
+            type: string
+            nullable: true
+            length: 100
+            fixed: false
+            comment: ''
+    manyToMany:
+        product:
+            targetEntity: Product
+            cascade: {  }
+            mappedBy: tag
+            inversedBy: null
+            joinTable: null
+            orderBy: null
+    lifecycleCallbacks: {  }

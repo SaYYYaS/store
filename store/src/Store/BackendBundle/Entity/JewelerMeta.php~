@@ -1,0 +1,140 @@
+<?php
+
+namespace Store\BackendBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * JewelerMeta
+ *
+ * @ORM\Table(name="jeweler_meta", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
+ * @ORM\Entity
+ */
+class JewelerMeta
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="id", type="integer", nullable=false)
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $id;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="city", type="string", length=300, nullable=true)
+     */
+    private $city;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="address", type="string", length=300, nullable=true)
+     */
+    private $address;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="phone", type="string", length=20, nullable=true)
+     */
+    private $phone;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="website", type="string", length=300, nullable=true)
+     */
+    private $website;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="retour", type="text", nullable=true)
+     */
+    private $retour;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="propos", type="text", nullable=true)
+     */
+    private $propos;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="delai", type="text", nullable=true)
+     */
+    private $delai;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="longituide", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $longituide;
+
+    /**
+     * @var float
+     *
+     * @ORM\Column(name="latitude", type="float", precision=10, scale=0, nullable=true)
+     */
+    private $latitude;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="optin", type="boolean", nullable=true)
+     */
+    private $optin;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="last_activity", type="integer", nullable=true)
+     */
+    private $lastActivity;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="mention", type="text", nullable=true)
+     */
+    private $mention;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="expedition", type="text", nullable=true)
+     */
+    private $expedition;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="dawanda", type="string", length=300, nullable=true)
+     */
+    private $dawanda;
+
+    /**
+     * @var string
+     *
+     * @ORM\Column(name="littlemarket", type="string", length=300, nullable=true)
+     */
+    private $littlemarket;
+
+    /**
+     * @var \Jeweler
+     *
+     * @ORM\ManyToOne(targetEntity="Jeweler")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="jeweler_id", referencedColumnName="id")
+     * })
+     */
+    private $jeweler;
+
+
+}
