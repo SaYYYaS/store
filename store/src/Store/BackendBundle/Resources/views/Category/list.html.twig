@@ -5,6 +5,28 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Liste des catégories</h1>
+    {% for category in categories %}
+        <p>
+        <h3>{{ category.title }}
+            {% if category.active == 0 %}
+                <i class="fa fa-times"></i>
+            {% else %}
+                <i class="fa fa-check"></i>
+            {% endif %}
+        </h3>
+        </p>
+        <hr/>
+        <p class="jumbotron">Description <i>{{ category.description }}</i></p>
+        <div class=""alert alert-primary>
+            <h3>Produits dans la catégorie</h3>
+            <ul class="list-unstyled">
+                {% for product in category.product %}
+                    <li>Titre: {{ product.title }} </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-dark">Aucunes catégories.</div>
+    {% endfor %}
 {% endblock %}
 

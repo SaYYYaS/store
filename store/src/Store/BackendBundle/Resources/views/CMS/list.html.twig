@@ -5,6 +5,20 @@
 {% endblock %}
 
 {% block content %}
-    <h1>Liste des cms</h1>
+    {% for cms in cmss %}
+        <p>
+        <h3>{{ cms.title }}
+            {% if cms.active == 0 %}
+                <i class="fa fa-times"></i>
+            {% else %}
+                <i class="fa fa-check"></i>
+            {% endif %}
+        </h3>
+        </p>
+        <hr/>
+        <p class="jumbotron">Description <i>{{ cms.description }}</i></p>
+    {% else %}
+        <div class="alert alert-dark">Aucunes catégories.</div>
+    {% endfor %}
 {% endblock %}
 

@@ -17,7 +17,11 @@ class CMSController extends Controller
      */
     public function listAction()
     {
-        return $this->render('StoreBackendBundle:CMS:list.html.twig');
+        $em = $this->getDoctrine()->getManager();
+        //Récupère toutes les catégories de ma base de données
+        $cmss = $em->getRepository('StoreBackendBundle:Cms')->findAll();
+        dump($cmss);
+        return $this->render('StoreBackendBundle:CMS:list.html.twig', ['cmss' => $cmss]);
     }
 
     /**

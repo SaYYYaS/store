@@ -1,9 +1,49 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
 {% block classtitle %}money{% endblock %}
 {% block titlepage %}
-    &nbsp;&nbsp;Produits
+    &nbsp;&nbsp;Liste de mes produits
 {% endblock %}
 
 {% block content %}
-    <h1>Liste des produits</h1>
+
+    {#{%  set products = "" %}#}
+    {% for product in products %}
+        <p>
+        <h3>{{ product.title }} - <i>{{ product.dateCreated|date('d/m/Y') }}</i>
+            {% if product.active == 0 %}
+                <i class="fa fa-times"></i>
+            {% else %}
+                <i class="fa fa-check"></i>
+            {% endif %}
+        </h3>
+        <sub>{{ product.ref }}</sub>
+        </p>
+
+        <hr/>
+        <h5>Nom de la boutique de mon produit: {{ product.jeweler.title }}</h5>
+        <p>Produit : <strong>{{ product.price }} € ~</strong> Taxe: {{ product.taxe }}</p>
+        <p class="jumbotron">Description <i>{{ product.description }}</i></p>
+        <p>Quantité: {{ product.quantity }} quantités</p>
+        <p><b>Composition: </b><i>{{ product.composition }}</i></p>
+        <p>Description de la boutique de mon produit: {{ product.jeweler.description }}</p>
+        <div class="alert alert-dark">
+            <h3>Promotions</h3>
+            <ul class="list-unstyled">
+                {% for promotion in product.business %}
+                    <li>Montant: {{ promotion.amount }}  Message: {{ promotion.message }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+        <div class=""alert alert-primary>
+            <h3>Categories</h3>
+            <ul class="list-unstyled">
+                {% for category in product.category %}
+                    <li>Titre: {{ category.title }} </li>
+                    <li>Description: {{ category.description }} </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-dark">Aucun produits.</div>
+    {% endfor %}
 {% endblock %}

@@ -17,7 +17,13 @@ class ProductController extends Controller
      */
     public function listAction()
     {
-        return $this->render('StoreBackendBundle:Product:list.html.twig');
+        //Récupere le manager de doctrine : Le conteneur d'objets (em = entity manager)
+        //Conteneur d'objet de doctrine
+        $em = $this->getDoctrine()->getManager();
+        //Récupère tous les produits de ma base de données
+        $products = $em->getRepository('StoreBackendBundle:Product')->findAll();
+        dump($products);
+        return $this->render('StoreBackendBundle:Product:list.html.twig', ['products' => $products]);
     }
 
     /**
