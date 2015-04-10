@@ -21,8 +21,7 @@ class ProductController extends Controller
         //Conteneur d'objet de doctrine
         $em = $this->getDoctrine()->getManager();
         //Récupère tous les produits de ma base de données
-        $products = $em->getRepository('StoreBackendBundle:Product')->findAll();
-        dump($products);
+        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser(2);
         return $this->render('StoreBackendBundle:Product:list.html.twig', ['products' => $products]);
     }
 
@@ -33,6 +32,25 @@ class ProductController extends Controller
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function viewAction($id,$name){
-        return $this->render('StoreBackendBundle:Product:view.html.twig',['id' => $id, 'name' => $name]);
+        $em = $this->getDoctrine()->getManager();
+        //Récupère un produit de ma base de données
+        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
+        return $this->render('StoreBackendBundle:Product:view.html.twig',['product' => $product]);
+    }
+
+    /**
+     * Delete a product
+     * @param $id
+     * @internal param $name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
+        //remove supprime l'objet en cache
+        $em->remove($product);
+        //Flush permet d'envoyer la requette en bdd pour faire persister la modification
+        $em->flush();
+        return $this->redirectToRoute('store_backend_product_list');
     }
 }

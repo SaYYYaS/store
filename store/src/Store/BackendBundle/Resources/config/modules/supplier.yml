@@ -11,3 +11,11 @@ store_backend_supplier_view:
         name: ([A-z\-?]){3,30}
         _method: GET
     defaults: {_controller: 'StoreBackendBundle:Supplier:view'}
+
+#Page delete supplier
+store_backend_supplier_delete:
+    path:        /delete/{id}
+    requirements:
+        id:      \d+
+        _method: GET
+    defaults:    {_controller: 'StoreBackendBundle:Supplier:delete'}

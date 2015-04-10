@@ -722,4 +722,10 @@ class Jeweler
     {
         return $this->dateCreated;
     }
+
+    function __toString()
+    {
+        return (string)$this->title;
+    }
+
 }

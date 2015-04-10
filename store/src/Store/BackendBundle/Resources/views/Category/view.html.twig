@@ -1,9 +1,34 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block classtitle %}th-large{% endblock %}
+{% block classtitle %}th{% endblock %}
 {% block titlepage %}
     Categorie
 {% endblock %}
 
 {% block content %}
-    <h1>voir la catégorie {{ name }} qui a l'id : {{ id }}</h1>
+    <p>
+    <h3>{{ category.title }}
+        {% if category.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    </h3>
+    </p>
+
+    <hr/>
+
+    <p class="jumbotron">Description <i>{{ category.description }}</i></p>
+
+    <h2>Listes produits </h2>
+
+    {% for product in category.product %}
+        <div class="alert alert-primary">
+            <ul class="list-unstyled">
+                <li><h3><a href="{{ path('store_backend_product_view',{name: product.title,id: product.id}) }}">{{ product.title }}</a></h3></li>
+                <li>Description: {{ product.description }} </li>
+            </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-dark">Aucun produits.</div>
+    {% endfor %}
 {% endblock %}

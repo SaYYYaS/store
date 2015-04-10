@@ -88,7 +88,7 @@ class User
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Product", inversedBy="user")
-     * @ORM\JoinTable(name="like",
+     * @ORM\JoinTable(name="likes",
      *   joinColumns={
      *     @ORM\JoinColumn(name="user_id", referencedColumnName="id")
      *   },

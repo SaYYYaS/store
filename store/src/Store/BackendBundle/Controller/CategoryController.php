@@ -19,8 +19,7 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère toutes les catégories de ma base de données
-        $categories = $em->getRepository('StoreBackendBundle:Category')->findAll();
-        dump($categories);
+        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
         return $this->render('StoreBackendBundle:Category:list.html.twig',['categories' => $categories]);
     }
 
@@ -32,8 +31,27 @@ class CategoryController extends Controller
      */
     public function viewAction($id, $name)
     {
+        $em = $this->getDoctrine()->getManager();
+        //Récupère toutes les catégories de ma base de données
+        $category = $em->getRepository('StoreBackendBundle:Category')->find($id);
         return $this->render('StoreBackendBundle:Category:view.html.twig',
-            ['id' => $id, 'name' => $name]
+            ['category' => $category]
         );
+    }
+
+    /**
+     * Delete a category
+     * @param $id
+     * @internal param $name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function deleteAction($id){
+        $em = $this->getDoctrine()->getManager();
+        $category = $em->getRepository('StoreBackendBundle:Category')->find($id);
+        //remove supprime l'objet en cache
+        $em->remove($category);
+        //Flush permet d'envoyer la requette en bdd pour faire persister la modification
+        $em->flush();
+        return $this->redirectToRoute('store_backend_category_list');
     }
 }

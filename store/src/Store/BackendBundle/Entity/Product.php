@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\ProductRepository")
  */
 class Product
 {
@@ -203,6 +203,12 @@ class Product
     private $cms;
 
     /**
+     * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product")
+     * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
+     **/
+    private $image;
+
+    /**
      * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Product", inversedBy="product")
@@ -260,6 +266,7 @@ class Product
         $this->product2 = new \Doctrine\Common\Collections\ArrayCollection();
         $this->supplier = new \Doctrine\Common\Collections\ArrayCollection();
         $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->image = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -318,6 +325,23 @@ class Product
     {
         return $this->title;
     }
+
+    /**
+     * @param \Doctrine\Common\Collections\Collection $image
+     */
+    public function setImage($image)
+    {
+        $this->image = $image;
+    }
+
+    /**
+     * @return \Doctrine\Common\Collections\Collection
+     */
+    public function getImage()
+    {
+        return $this->image;
+    }
+
 
     /**
      * Set summary

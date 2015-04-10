@@ -1,6 +1,6 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
 {% block classtitle %}
-    book
+    briefcase
 {% endblock %}
 
 {% block titlepage %}
@@ -8,5 +8,17 @@
 {% endblock %}
 
 {% block content %}
-    <h1>voir le cms {{ name }} qui a l'id : {{ id }}</h1>
+    <p>
+    <h3>{{ cms.title }} - <i>{{ cms.dateCreated|date('d/m/Y') }}</i>
+        {% if cms.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    </h3>
+    </p>
+
+    <hr/>
+    <h5>Nom de la boutique : {{ cms.jeweler.title }}</h5>
+    <p class="jumbotron">Description <i>{{ cms.description }}</i></p>
 {% endblock %}

@@ -26,19 +26,19 @@
     <div>
     <ul class="nav navbar-nav">
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_index' %} active {% endif %}">
-            <a href="{{ path('store_backend_index') }}">Home</a>
+            <a href="{{ path('store_backend_index') }}"><i class="fa fa-home"></i>&nbsp;Home</a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_product_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_product_list') }}">Products</a>
+            <a href="{{ path('store_backend_product_list') }}"><i class="fa fa-bookmark"></i>&nbsp;Products</a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_category_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_category_list') }}">Categories</a>
+            <a href="{{ path('store_backend_category_list') }}"><i class="fa fa-th"></i>&nbsp;Categories</a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_cms_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_cms_list') }}">Content Managing System</a>
+            <a href="{{ path('store_backend_cms_list') }}"><i class="fa fa-briefcase"></i>&nbsp;Content Managing System</a>
         </li>
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_supplier_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_supplier_list') }}">Suppliers</a>
+            <a href="{{ path('store_backend_supplier_list') }}"><i class="fa fa-plane"></i>&nbsp;Suppliers</a>
         </li>
     </ul> <!-- / .navbar-nav -->
 

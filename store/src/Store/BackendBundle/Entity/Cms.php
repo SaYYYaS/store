@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Cms
  *
  * @ORM\Table(name="cms", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\CmsRepository")
  */
 class Cms
 {

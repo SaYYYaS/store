@@ -8,6 +8,14 @@ store_backend_product_view:
     path:        /view/{id}/{name}
     requirements:
         id:      \d+
-        name:    "[a-z\-?]{5,50}"
+        name:    (.){5,50}
         _method: GET
     defaults:    {_controller: 'StoreBackendBundle:Product:view'}
+
+#Page delete product
+store_backend_product_delete:
+    path:        /delete/{id}
+    requirements:
+        id:      \d+
+        _method: GET
+    defaults:    {_controller: 'StoreBackendBundle:Product:delete'}

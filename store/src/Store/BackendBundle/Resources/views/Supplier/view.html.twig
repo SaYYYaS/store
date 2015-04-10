@@ -1,5 +1,32 @@
 {% extends "StoreBackendBundle::layout.html.twig" %}
-{% block classtitle %}wheelchair{% endblock %}
+{% block classtitle %}plane{% endblock %}
+{% block titlepage %}
+    Fournisseur
+{% endblock %}
 {% block content %}
-    <h1>voir le fournisseur {{ name }} a l'id : {{ id }}</h1>
+    <p>
+    <h3>{{ supplier.name }} - <i>{{ supplier.dateCreated|date('d/m/Y') }}</i>
+        {% if supplier.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    </h3>
+    </p>
+
+    <hr/>
+    <p class="jumbotron">Description <i>{{ supplier.description }}</i></p>
+    <h2>Listes produits </h2>
+
+    {% for product in supplier.product %}
+        <div class="alert alert-primary">
+        <ul class="list-unstyled">
+            <li><h3><a href="{{ path('store_backend_product_view',{id:product.id,name:product.title}) }}">{{ product.title }}</a></h3></li>
+            <li>Description: {{ product.description }} </li>
+        </ul>
+        </div>
+    {% else %}
+        <div class="alert alert-dark">Aucun produits.</div>
+    {% endfor %}
+
 {% endblock %}

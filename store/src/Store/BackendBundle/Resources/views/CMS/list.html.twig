@@ -1,24 +1,58 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block classtitle %}book{% endblock %}
+{% block classtitle %}briefcase{% endblock %}
 {% block titlepage %}
     Content managing system
 {% endblock %}
 
 {% block content %}
-    {% for cms in cmss %}
-        <p>
-        <h3>{{ cms.title }}
-            {% if cms.active == 0 %}
-                <i class="fa fa-times"></i>
+
+    <div class="table-info">
+        <table class="table table-bordered">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>titre</th>
+                <th>Resumé</th>
+                <th>État</th>
+                <th>Nombre de produits affectés</th>
+                <th>Crée le</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for cms in cmss %}
+                <tr>
+                    <td>{{ cms.id }}</td>
+                    <td><a href="{{ path('store_backend_cms_view',{'id' : cms.id,'name' : cms.title}) }}">{{ cms.title }}</a></td>
+                    <td class="col-md-3">{{ cms.summary }}</td>
+                    <td>
+                        {% if cms.state %}
+                            <i class="fa fa-check"></i>
+                        {% else %}
+                            <i class="fa fa-crosshairs"></i>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <span class="label label-info">{{ cms.product|length }}</span>
+                    </td>
+                    <td>{{ cms.dateCreated|date('d/m/Y') }}</td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i>&nbsp;Actions&nbsp;<i class="fa fa-caret-down"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('store_backend_cms_view',{id: cms.id, name: cms.title}) }}"><i class="fa fa-search"></i>Voir</a></li>
+                                <li><a href="#"><i class="fa fa-pencil"></i>Editer</a></li>
+                                <li><a href="{{ path('store_backend_cms_delete',{id: cms.id}) }}"><i class="fa fa-times"></i>Supprimer</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
             {% else %}
-                <i class="fa fa-check"></i>
-            {% endif %}
-        </h3>
-        </p>
-        <hr/>
-        <p class="jumbotron">Description <i>{{ cms.description }}</i></p>
-    {% else %}
-        <div class="alert alert-dark">Aucunes catégories.</div>
-    {% endfor %}
+                <div class="alert alert-dark">Aucunes pages cms.</div>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+
 {% endblock %}
 

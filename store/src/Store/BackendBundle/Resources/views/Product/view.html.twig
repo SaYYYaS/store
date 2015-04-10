@@ -1,9 +1,61 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block classtitle %}money{% endblock %}
+{% block classtitle %}bookmark{% endblock %}
 {% block titlepage %}
-    Dashboard
+    Produit
 {% endblock %}
 
 {% block content %}
-    <h1>voir le Produit {{ name }} a l'id : {{ id }}</h1>
+    <p>
+    <h3>{{ product.title }} - <i>{{ product.dateCreated|date('d/m/Y') }}</i>
+        {% if product.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    </h3>
+    <sub>Référence produit :{{ product.ref }}</sub>
+    {% if product.tag is not empty %}
+        <h4>Tags :
+            <span class="tags">
+                {% for tag in product.tag %}
+                    <i class="fa fa-tag">&nbsp;{{ tag.word }}&nbsp;</i>{% if not loop.last %},{% endif %}
+                {% endfor %}
+            </span>
+        </h4>
+    {% endif %}
+    </p>
+
+    <hr/>
+    <h5>Nom de la boutique de mon produit: {{ product.jeweler.title }}</h5>
+    <p>Produit : <strong>{{ product.price }} € ~</strong> Taxe: {{ product.taxe }}</p>
+    <p class="jumbotron">Description <i>{{ product.description }}</i></p>
+    <div class="text-center padding-sm">
+    {% for image in product.image %}
+        <div class="img-rounded img-thumbnail">
+            <img src="{{ image.imageThumb }}" alt="">
+        </div>
+    {% endfor %}
+    </div>
+    <p>Quantité: {{ product.quantity }} quantités</p>
+    <p><b>Composition: </b><i>{{ product.composition }}</i></p>
+    <p>Description de la boutique de mon produit: {{ product.jeweler.description }}</p>
+    <div class="alert alert-dark">
+        <h3>Promotions</h3>
+        <ul class="list-unstyled">
+            {% for promotion in product.business %}
+                <li>Montant: {{ promotion.amount }}  Message: {{ promotion.message }}</li>
+            {% else %}
+                <div class="alert alert-dark">Aucunes promotions pour ce produit.</div>
+            {% endfor %}
+        </ul>
+    </div>
+    <div class="alert alert-primary">
+        <h3>Categories</h3>
+        <ul class="list-unstyled">
+            {% for category in product.category %}
+                <li><a href="{{ path('store_backend_category_view',{id: category.id, name: category.title}) }}">{{ category.title }}</a></li>
+                <li>Description: {{ category.description }} </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}
