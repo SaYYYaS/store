@@ -19,7 +19,7 @@ class SupplierController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère tous les produits de ma base de données
-        $suppliers = $em->getRepository('StoreBackendBundle:Supplier')->getSupplierByUser(2);
+        $suppliers = $em->getRepository('StoreBackendBundle:Supplier')->getSupplierByUser(1);
         return $this->render('StoreBackendBundle:Supplier:list.html.twig',['suppliers' => $suppliers]);
     }
 

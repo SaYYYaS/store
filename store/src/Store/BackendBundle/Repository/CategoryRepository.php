@@ -18,4 +18,21 @@ class CategoryRepository extends EntityRepository{
             ->setParameter('user',$user);
         return $query->getResult();
     }
+
+    /**
+     * Get count categories by user id
+     * @param null $user
+     * @return array
+     * SELECT count(`category`.id) AS nbprods FROM `category` WHERE `category`.jeweler_id = 1
+     */
+    public function getCountByUser($user){
+        $query = $this->getEntityManager()->createQuery(
+            "
+            SELECT count(c.id) AS nbprods
+            FROM StoreBackendBundle:Category AS c
+            WHERE c.jeweler = :user
+            "
+        )->setParameter(':user', $user);
+        return $query->getSingleScalarResult();
+    }
 } 

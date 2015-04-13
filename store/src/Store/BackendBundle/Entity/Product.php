@@ -203,6 +203,7 @@ class Product
     private $cms;
 
     /**
+     * @var \Doctrine\Common\Collections\Collection
      * @ORM\OneToMany(targetEntity="ProductImage", mappedBy="product")
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      **/

@@ -26,9 +26,10 @@
     </p>
 
     <hr/>
-    <h5>Nom de la boutique de mon produit: {{ product.jeweler.title }}</h5>
-    <p>Produit : <strong>{{ product.price }} € ~</strong> Taxe: {{ product.taxe }}</p>
-    <p class="jumbotron">Description <i>{{ product.description }}</i></p>
+    <h5><strong>Nom de la boutique de mon produit:</strong> <a href="{#  path('store_backend_jeweler_view',{'id' : product.jeweler.id,'name' : product.jeweler.username}) #}">{{ product.jeweler.title }}</a></h5>
+    <p><strong>Produit :</strong> {{ product.price }} € ~ <strong>Taxe:</strong> {{ product.taxe }}</p>
+    <p><strong>Description du produit:</strong></p>
+    <p class="jumbotron"><i>{{ product.description }}</i></p>
     <div class="text-center padding-sm">
     {% for image in product.image %}
         <div class="img-rounded img-thumbnail">
@@ -36,9 +37,10 @@
         </div>
     {% endfor %}
     </div>
-    <p>Quantité: {{ product.quantity }} quantités</p>
-    <p><b>Composition: </b><i>{{ product.composition }}</i></p>
-    <p>Description de la boutique de mon produit: {{ product.jeweler.description }}</p>
+    <p><strong>Quantité</strong>: {{ product.quantity }} quantités</p>
+    <p><strong>Composition: </strong><i>{{ product.composition }}</i></p>
+    <p><strong>Description de la boutique de mon produit:</strong></p>
+    <p class="jumbotron"><i>{{ product.jeweler.description }}</i></p>
     <div class="alert alert-dark">
         <h3>Promotions</h3>
         <ul class="list-unstyled">

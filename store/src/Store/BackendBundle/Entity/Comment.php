@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Comment
  *
  * @ORM\Table(name="comment", indexes={@ORM\Index(name="product_id", columns={"product_id", "user_id"}), @ORM\Index(name="user_id", columns={"user_id"}), @ORM\Index(name="IDX_9474526C4584665A", columns={"product_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\CommentRepository")
  */
 class Comment
 {
