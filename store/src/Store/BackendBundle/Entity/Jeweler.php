@@ -723,6 +723,10 @@ class Jeweler
         return $this->dateCreated;
     }
 
+    /**
+     * Return title
+     * @return string
+     */
     function __toString()
     {
         return (string)$this->title;

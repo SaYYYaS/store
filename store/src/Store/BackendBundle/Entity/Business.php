@@ -259,4 +259,15 @@ class Business
     {
         return $this->product;
     }
+
+    /**
+     * Return amount
+     * @return string
+     */
+    function __toString()
+    {
+        return (string)$this->amount;
+    }
+
+
 }

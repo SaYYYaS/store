@@ -109,4 +109,13 @@ class Tag
     {
         return $this->product;
     }
+
+    /**
+     * Return word
+     * @return string
+     */
+    function __toString()
+    {
+        return (string)$this->word;
+    }
 }

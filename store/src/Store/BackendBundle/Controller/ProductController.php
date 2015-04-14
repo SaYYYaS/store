@@ -3,6 +3,7 @@
 namespace Store\BackendBundle\Controller;
 
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use \Store\BackendBundle\Form\ProductType;
 
 /**
  * Class ProductController
@@ -60,8 +61,9 @@ class ProductController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(){
-        $em = $this->getDoctrine()->getManager();
+        //Je crée un forumaire de produit
+        $form = $this->createForm(new ProductType());
 
-        return $this->render('StoreBackendBundle:Product:new.html.twig');
+        return $this->render('StoreBackendBundle:Product:new.html.twig',['form' => $form->createView()]);
     }
 }

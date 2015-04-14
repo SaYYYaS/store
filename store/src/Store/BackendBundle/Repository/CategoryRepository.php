@@ -12,6 +12,7 @@ use Doctrine\ORM\EntityRepository;
 
 class CategoryRepository extends EntityRepository{
 
+    #TODO debuger la query
     public function getCategoryByUser($user = null){
         $query = $this->getEntityManager()
             ->createQuery("
@@ -19,8 +20,9 @@ class CategoryRepository extends EntityRepository{
             FROM StoreBackendBundle:Category AS cat
             JOIN cat.product as p
             WHERE p.jeweler = :user
+            GROUP BY cat.id
             ")
-            ->setParameter('user',$user);
+            ->setParameter('user',1);
         return $query->getResult();
     }
 

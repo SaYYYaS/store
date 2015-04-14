@@ -155,4 +155,13 @@ class UserAddress
     {
         return $this->user;
     }
+
+    /**
+     * Return address
+     * @return string
+     */
+    function __toString()
+    {
+        return (string)$this->address . ', ' . $this->zipcode;
+    }
 }
