@@ -53,4 +53,15 @@ class ProductController extends Controller
         $em->flush();
         return $this->redirectToRoute('store_backend_product_list');
     }
+
+
+    /**
+     * Create new product
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function newAction(){
+        $em = $this->getDoctrine()->getManager();
+
+        return $this->render('StoreBackendBundle:Product:new.html.twig');
+    }
 }

@@ -19,6 +19,7 @@ class MainController extends Controller
         //stats bloc
         $em = $this->getDoctrine()->getManager();
         $nbrprods = $em->getRepository('StoreBackendBundle:Product')->getCountByUser(1);
+        $likes = $em->getRepository('StoreBackendBundle:Product')->getLikesByUser(1);
         $nbrcats = $em->getRepository('StoreBackendBundle:Category')->getCountByUser(1);
         $nbrsuppliers = $em->getRepository('StoreBackendBundle:Supplier')->getCountByUser(1);
         $nbrorders = $em->getRepository('StoreBackendBundle:Orders')->getCountByUser(1);
@@ -28,8 +29,14 @@ class MainController extends Controller
 
         //meta-informations
         $coms = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,5);
+        $coms_pending = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 0);
+        $coms_active = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 1);
+        $coms_inactive = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 2);
         $totalmoney = $em->getRepository('StoreBackendBundle:Orders')->getSumOrdersByUser(1);
         $orders = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser(1,10);
+        $msgs = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser(1,10);
+        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
+        dump($categories);
 
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
@@ -40,7 +47,13 @@ class MainController extends Controller
                 'nbrpages'     => $nbrpages,
                 'nbrsuppliers' => $nbrsuppliers,
                 'coms'         => $coms,
+                'coms_active'         => $coms_active,
+                'coms_inactive'         => $coms_inactive,
+                'coms_pending'         => $coms_pending,
                 'orders'       => $orders,
+                'msgs'         => $msgs,
+                'likes'        => $likes,
+                'categories' => $categories,
                 'totalmoney'   => $totalmoney
             ]
         );

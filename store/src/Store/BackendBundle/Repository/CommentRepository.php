@@ -35,12 +35,24 @@ class CommentRepository extends EntityRepository{
      * @param int $nbr to define count to retrive
      * @return array
      */
-    public function getCommentsByUser($user = null, $nbr = 5){
-        $query = $this->getEntityManager()
-            ->createQuery("
+    public function getCommentsByUser($user = null, $nbr = 5,$state = null){
+        if(is_null($state))
+        {
+            $query = $this->getEntityManager()
+                ->createQuery("
             SELECT com FROM StoreBackendBundle:Comment AS com JOIN com.product AS p WHERE p.jeweler = :user ORDER BY com.dateCreated DESC")
-            ->setMaxResults($nbr)
-            ->setParameter(':user', $user);
-        return $query->getResult();
+                ->setMaxResults($nbr)
+                ->setParameter(':user', $user);
+            $data =  $query->getResult();
+        }
+        else{
+            $query = $this->getEntityManager()
+                ->createQuery("
+            SELECT count(com) as nbr_com FROM StoreBackendBundle:Comment AS com JOIN com.product AS p WHERE p.jeweler = :user AND com.state = :state ORDER BY com.dateCreated DESC")
+                ->setMaxResults($nbr)
+                ->setParameters([':user'=> $user, ':state' => $state]);
+            $data =  $query->getSingleScalarResult();
+        }
+        return $data;
     }
 }

@@ -39,4 +39,16 @@ class ProductRepository extends EntityRepository{
         )->setParameter(':user', $user);
         return $query->getSingleScalarResult();
     }
+
+    public function getLikesByUser($user){
+        $query = $this->getEntityManager()
+            ->createQuery("
+            SELECT count(p)
+            FROM StoreBackendBundle:Product AS p
+            JOIN p.user as u
+            WHERE p.jeweler = ?1
+            ")
+            ->setParameter(1,$user);
+        return $query->getSingleScalarResult();
+    }
 } 

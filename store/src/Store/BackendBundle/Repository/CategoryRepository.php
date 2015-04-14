@@ -14,7 +14,12 @@ class CategoryRepository extends EntityRepository{
 
     public function getCategoryByUser($user = null){
         $query = $this->getEntityManager()
-            ->createQuery("SELECT cat FROM StoreBackendBundle:Category AS cat WHERE cat.jeweler = :user")
+            ->createQuery("
+            SELECT cat
+            FROM StoreBackendBundle:Category AS cat
+            JOIN cat.product as p
+            WHERE p.jeweler = :user
+            ")
             ->setParameter('user',$user);
         return $query->getResult();
     }
@@ -23,12 +28,12 @@ class CategoryRepository extends EntityRepository{
      * Get count categories by user id
      * @param null $user
      * @return array
-     * SELECT count(`category`.id) AS nbprods FROM `category` WHERE `category`.jeweler_id = 1
+     * SELECT count(`category`.id) AS nbcats FROM `category` WHERE `category`.jeweler_id = 1
      */
     public function getCountByUser($user){
         $query = $this->getEntityManager()->createQuery(
             "
-            SELECT count(c.id) AS nbprods
+            SELECT count(c.id) AS nbcats
             FROM StoreBackendBundle:Category AS c
             WHERE c.jeweler = :user
             "

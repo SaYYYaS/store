@@ -1,6 +1,15 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block classtitle %}dashboard{% endblock %}
-
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            $('#dashboard-support-tickets .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
+        })
+    </script>
+{% endblock %}
+{% block classtitle %}
+    dashboard
+{% endblock %}
 {% block titlepage %}
     Dashboard
 {% endblock %}
@@ -22,38 +31,6 @@ Afficher les catégories avec nb de produits de la boutique#}
 
                         Uploads chart
         -->
-        <!-- Javascript -->
-        <script>
-            init.push(function () {
-                var uploads_data = [
-                    { day: '2014-03-10', v: 20 },
-                    { day: '2014-03-11', v: 10 },
-                    { day: '2014-03-12', v: 15 },
-                    { day: '2014-03-13', v: 12 },
-                    { day: '2014-03-14', v: 5  },
-                    { day: '2014-03-15', v: 5  },
-                    { day: '2014-03-16', v: 20 }
-                ];
-                Morris.Line({
-                    element: 'hero-graph',
-                    data: uploads_data,
-                    xkey: 'day',
-                    ykeys: ['v'],
-                    labels: ['Value'],
-                    lineColors: ['#fff'],
-                    lineWidth: 2,
-                    pointSize: 4,
-                    gridLineColor: 'rgba(255,255,255,.5)',
-                    resize: true,
-                    gridTextColor: '#fff',
-                    xLabels: "day",
-                    xLabelFormat: function(d) {
-                        return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec'][d.getMonth()] + ' ' + d.getDate();
-                    }
-                });
-            });
-        </script>
-        <!-- / Javascript -->
 
         <div class="stat-panel">
             <div class="stat-row">
@@ -133,7 +110,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <div class="stat-row">
                         <!-- Dark gray background, small padding, extra small text, semibold text -->
                         <div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-                            <i class="fa fa-globe"></i>&nbsp;&nbsp;BANDWIDTH
+                            <i class="fa fa-globe"></i>&nbsp;&nbsp;Fichiers complétés de bijoux
                         </div>
                     </div> <!-- /.stat-row -->
                     <div class="stat-row">
@@ -151,7 +128,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <div class="stat-row">
                         <!-- Dark gray background, small padding, extra small text, semibold text -->
                         <div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-                            <i class="fa fa-flash"></i>&nbsp;&nbsp;PICK LOAD
+                            <i class="fa fa-flash"></i>&nbsp;&nbsp;Fichies référencés de bijoux
                         </div>
                     </div> <!-- /.stat-row -->
                     <div class="stat-row">
@@ -169,7 +146,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <div class="stat-row">
                         <!-- Dark gray background, small padding, extra small text, semibold text -->
                         <div class="stat-cell bg-dark-gray padding-sm text-xs text-semibold">
-                            <i class="fa fa-cloud"></i>&nbsp;&nbsp;USED RAM
+                            <i class="fa fa-cloud"></i>&nbsp;&nbsp;Bijoux liés à une page cms
                         </div>
                     </div> <!-- /.stat-row -->
                     <div class="stat-row">
@@ -211,9 +188,9 @@ Afficher les catégories avec nb de produits de la boutique#}
             <!-- /7. $EARNED_TODAY_STAT_PANEL -->
 
 
-            <!-- 8. $RETWEETS_GRAPH_STAT_PANEL =================================================================
+            <!-- 8. $commentaires_GRAPH_STAT_PANEL =================================================================
 
-                                Retweets graph stat panel
+                                commentaires graph stat panel
             -->
             <div class="col-sm-4 col-md-12">
                 <!-- Javascript -->
@@ -243,7 +220,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <!-- Purple background, small padding -->
                         <div class="stat-cell bg-pa-purple padding-sm">
                             <!-- Extra small text -->
-                            <div class="text-xs" style="margin-bottom: 5px;">RETWEETS GRAPH</div>
+                            <div class="text-lg" style="margin-bottom: 5px;">COMMENTAIRES</div>
                             <div class="stats-sparklines" id="stats-sparklines-3" style="width: 100%"><canvas width="476" height="45" style="display: inline-block; width: 476px; height: 45px; vertical-align: top;"></canvas></div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -253,29 +230,29 @@ Afficher les catégories avec nb de produits de la boutique#}
                             <!-- Small padding, without horizontal padding -->
                             <div class="stat-cell col-xs-4 padding-sm no-padding-hr">
                                 <!-- Big text -->
-                                <span class="text-bg"><strong>312</strong></span><br>
+                                <span class="text-bg"><strong>{{ coms_active }}</strong></span><br>
                                 <!-- Extra small text -->
-                                <span class="text-xs text-muted">TWEETS</span>
+                                <span class="text-xs text-muted">Actif</span>
                             </div>
                             <!-- Small padding, without horizontal padding -->
                             <div class="stat-cell col-xs-4 padding-sm no-padding-hr">
                                 <!-- Big text -->
-                                <span class="text-bg"><strong>1000</strong></span><br>
+                                <span class="text-bg"><strong>{{ coms_pending }}</strong></span><br>
                                 <!-- Extra small text -->
-                                <span class="text-xs text-muted">FOLLOWERS</span>
+                                <span class="text-xs text-muted">EN COURS</span>
                             </div>
                             <!-- Small padding, without horizontal padding -->
                             <div class="stat-cell col-xs-4 padding-sm no-padding-hr">
                                 <!-- Big text -->
-                                <span class="text-bg"><strong>523</strong></span><br>
+                                <span class="text-bg"><strong>{{ coms_inactive }}</strong></span><br>
                                 <!-- Extra small text -->
-                                <span class="text-xs text-muted">FOLLOWING</span>
+                                <span class="text-xs text-muted">INNACTIFS</span>
                             </div>
                         </div> <!-- /.stat-counters -->
                     </div> <!-- /.stat-row -->
                 </div> <!-- /.stat-panel -->
             </div>
-            <!-- /8. $RETWEETS_GRAPH_STAT_PANEL -->
+            <!-- /8. $commentaires_GRAPH_STAT_PANEL -->
 
             <!-- 9. $UNIQUE_VISITORS_STAT_PANEL ================================================================
 
@@ -283,34 +260,25 @@ Afficher les catégories avec nb de produits de la boutique#}
             -->
             <div class="col-sm-4 col-md-12">
                 <!-- Javascript -->
-                <script>
-                    init.push(function () {
-                        $("#stats-sparklines-2").pixelSparkline(
-                                [275,490,397,487,339,403,402,312,300,294,411,367,319,416,355,416,371,479,279,361,312,269,402,327,474,422,375,283,384,372], {
-                                    type: 'bar',
-                                    height: '36px',
-                                    width: '100%',
-                                    barSpacing: 2,
-                                    zeroAxis: false,
-                                    barColor: '#ffffff'
-                                });
-                    });
-                </script>
+
                 <!-- / Javascript -->
 
                 <div class="stat-panel">
                     <div class="stat-row">
-                        <!-- Warning background -->
-                        <div class="stat-cell bg-warning">
+                        <div class="stat-cell bg-success valign-middle">
+                            <!-- Stat panel bg icon -->
+                            <i class="fa fa-star bg-icon"></i>
+                            <!-- Extra large text -->
+                            <span class="text-xlg"><span class="text-lg text-slim"></span><strong>{{ likes }}</strong></span><br>
                             <!-- Big text -->
-                            <span class="text-bg">11% more</span><br>
+                            <span class="text-bg">Likes</span><br>
                             <!-- Small text -->
-                            <span class="text-sm">Unique visitors today</span>
-                        </div>
+                            <span class="text-sm"><a href="#">Sur tout les produits</a></span>
+                        </div> <!-- /.stat-cell -->
                     </div> <!-- /.stat-row -->
                     <div class="stat-row">
-                        <!-- Warning background, small padding, without top padding, horizontally centered text -->
-                        <div class="stat-cell bg-warning padding-sm no-padding-t text-center">
+                        <!-- success background, small padding, without top padding, horizontally centered text -->
+                        <div class="stat-cell bg-success padding-sm no-padding-t text-center">
                             <div id="stats-sparklines-2" class="stats-sparklines" style="width: 100%"><canvas width="448" height="36" style="display: inline-block; width: 448px; height: 36px; vertical-align: top;"></canvas></div>
                         </div>
                     </div> <!-- /.stat-row -->
@@ -326,20 +294,19 @@ Afficher les catégories avec nb de produits de la boutique#}
 
                 Support tickets
     -->
-    <!-- Javascript -->
-    <script>
-        init.push(function () {
-            $('#dashboard-support-tickets .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
-        })
-    </script>
-    <!-- / Javascript -->
+
 
     <div class="col-md-6">
         <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
             <div class="panel-heading">
-                <span class="panel-title"><i class="panel-title-icon fa fa-bullhorn"></i>Dernières commandes</span>
+                <span class="panel-title"><i class="panel-title-icon fa fa-shopping-cart"></i>Dernières commandes</span>
                 <div class="panel-heading-controls">
-                    <div class="panel-heading-text"><a href="#">15 new tickets</a></div>
+                    <div class="panel-heading-text"><a href="#">
+                            {%  set count_ord_p = 0 %}
+                            {% for order in orders %}
+                                {% if order.state == 1 %}
+                                    {% set count_ord_p = count_ord_p + 1 %}
+                                {% endif %}{% endfor %}{{ count_ord_p }} new orders</a></div>
                 </div>
             </div> <!-- / .panel-heading -->
             <div class="panel-body tab-content-padding">
@@ -347,7 +314,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                 <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for order in orders %}
                                 <div class="ticket">
-                                    {% if order.state == 1 %}
+                                    {% if order.state == 0 %}
                                         <span class="label label-danger ticket-label">Rejected</span>
                                     {% elseif order.state == 1 %}
                                         <span class="label label-warning ticket-label">Pending</span>
@@ -361,117 +328,7 @@ Afficher les catégories avec nb de produits de la boutique#}
 								</span>
                             </div> <!-- / .ticket -->
                         {%  endfor %}
-
-                        <div class="ticket">
-                            <span class="label label-info ticket-label">In progress</span>
-                            <a href="#" title="" class="ticket-title">
-                                <i class="fa fa-warning text-danger"></i>PayPal issue<span>[#201796]</span>
-                            </a>
-								<span class="ticket-info">
-									Opened by <a href="#">Robert Jang</a> 3 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-danger ticket-label">Rejected</span>
-                            <a href="#" title="" class="ticket-title">IE8 problem<span>[#201795]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Robert Jang</a> 4 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-success ticket-label">Completed</span>
-                            <a href="#" title="" class="ticket-title">Server unavaible<span>[#201794]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Timothy Owens</a> 5 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-success ticket-label">Completed</span>
-                            <a href="#" title="" class="ticket-title">Server unavaible<span>[#201798]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#" title="">Timothy Owens</a> today
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-warning ticket-label">Pending</span>
-                            <a href="#" title="" class="ticket-title">Mobile App Problem<span>[#201797]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Denise Steiner</a> 2 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-info ticket-label">In progress</span>
-                            <a href="#" title="" class="ticket-title">
-                                <i class="fa fa-warning text-danger"></i>PayPal issue<span>[#201796]</span>
-                            </a>
-								<span class="ticket-info">
-									Opened by <a href="#">Robert Jang</a> 3 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-danger ticket-label">Rejected</span>
-                            <a href="#" title="" class="ticket-title">IE8 problem<span>[#201795]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Robert Jang</a> 4 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-success ticket-label">Completed</span>
-                            <a href="#" title="" class="ticket-title">Server unavaible<span>[#201794]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Timothy Owens</a> 5 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-success ticket-label">Completed</span>
-                            <a href="#" title="" class="ticket-title">Server unavaible<span>[#201798]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#" title="">Timothy Owens</a> today
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-warning ticket-label">Pending</span>
-                            <a href="#" title="" class="ticket-title">Mobile App Problem<span>[#201797]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Denise Steiner</a> 2 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-info ticket-label">In progress</span>
-                            <a href="#" title="" class="ticket-title">
-                                <i class="fa fa-warning text-danger"></i>PayPal issue<span>[#201796]</span>
-                            </a>
-								<span class="ticket-info">
-									Opened by <a href="#">Robert Jang</a> 3 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-danger ticket-label">Rejected</span>
-                            <a href="#" title="" class="ticket-title">IE8 problem<span>[#201795]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Robert Jang</a> 4 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-
-                        <div class="ticket">
-                            <span class="label label-success ticket-label">Completed</span>
-                            <a href="#" title="" class="ticket-title">Server unavaible<span>[#201794]</span></a>
-								<span class="ticket-info">
-									Opened by <a href="#">Timothy Owens</a> 5 days ago
-								</span>
-                        </div> <!-- / .ticket -->
-                    </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 57px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 93.5550935550936px; background: rgb(136, 136, 136);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                    </div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
             </div> <!-- / .panel-body -->
         </div> <!-- / .panel -->
     </div>
@@ -481,91 +338,112 @@ Afficher les catégories avec nb de produits de la boutique#}
 
                 Recent activity
     -->
-    <!-- Javascript -->
-    <script>
-        init.push(function () {
-            $('#dashboard-recent .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
-        })
-    </script>
-    <!-- / Javascript -->
 
-    <div class="col-md-6">
+        <div class="col-md-6">
+            <div class="panel panel-warning" id="dashboard-recent">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="panel-title-icon fa fa-comments text-danger"></i>Latest Comments</span>
+                    <ul class="nav nav-tabs nav-tabs-xs">
+                        <li class="active">
+                            <a href="#dashboard-active-comments" data-toggle="tab">Actifs</a>
+                        </li>
+                        <li>
+                            <a href="#dashboard-pending-comments" data-toggle="tab">En cours de modération</a>
+                        </li>
+                        <li>
+                            <a href="#dashboard-disabled-comments" data-toggle="tab">Inactifs</a>
+                        </li>
+                    </ul>
+                </div> <!-- / .panel-heading -->
+                <div class="tab-content">
 
+                    <!-- Comments widget -->
 
-    <div class="panel panel-warning" id="dashboard-recent">
-    <div class="panel-heading">
-        <span class="panel-title"><i class="panel-title-icon fa fa-fire text-danger"></i>Latest Comments</span>
-        <ul class="nav nav-tabs nav-tabs-xs">
-            <li class="active">
-                <a href="#dashboard-recent-comments" data-toggle="tab">Comments</a>
-            </li>
-            <li>
-                <a href="#dashboard-recent-threads" data-toggle="tab">En cours de modération</a>
-            </li>
-        </ul>
-    </div> <!-- / .panel-heading -->
-    <div class="tab-content">
+                    <!-- Without padding -->
+                    <div class="widget-comments panel-body tab-pane no-padding fade active in" id="dashboard-active-comments">
+                        <!-- Panel padding, without vertical padding -->
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                                {% for com in coms %}
+                                    {% if com.state == 1 %}
+                                        <div class="comment">
+                                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                            <div class="comment-body">
+                                                <div class="comment-by">
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
+                                                </div>
+                                                <div class="comment-text">
+                                                    {{ com.content }}
+                                                </div>
+                                                <div class="comment-actions">
+                                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                                    <span class="pull-right">2 hours ago</span>
+                                                </div>
+                                            </div> <!-- / .comment-body -->
+                                        </div> <!-- / .comment -->
+                                    {% endif %}
+                                {% endfor %}
+                            </div></div>
+                    </div> <!-- / .widget-comments -->
 
-    <!-- Comments widget -->
+                    <!-- Threads widget -->
 
-    <!-- Without padding -->
-    <div class="widget-comments panel-body tab-pane no-padding fade active in" id="dashboard-recent-comments">
-        <!-- Panel padding, without vertical padding -->
-        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                {% for com in coms %}
-                    {% if com.state == 1 %}
-                        <div class="comment">
-                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
-                            <div class="comment-body">
-                                <div class="comment-by">
-                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
-                                </div>
-                                <div class="comment-text">
-                                    {{ com.content }}
-                                </div>
-                                <div class="comment-actions">
-                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                    <span class="pull-right">2 hours ago</span>
-                                </div>
-                            </div> <!-- / .comment-body -->
-                        </div> <!-- / .comment -->
-                    {% endif %}
-                {% endfor %}
-            </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; height: 112.640801001252px; background: rgb(136, 136, 136);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-    </div> <!-- / .widget-comments -->
+                    <!-- Without padding -->
+                    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-pending-comments">
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                                {% for com in coms %}
+                                    {% if com.state == 0 %}
+                                        <div class="comment">
+                                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                            <div class="comment-body">
+                                                <div class="comment-by">
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
+                                                </div>
+                                                <div class="comment-text">
+                                                    {{ com.content }}
+                                                </div>
+                                                <div class="comment-actions">
+                                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                                    <span class="pull-right">2 hours ago</span>
+                                                </div>
+                                            </div> <!-- / .comment-body -->
+                                        </div> <!-- / .comment -->
+                                    {% endif %}
+                                {% endfor %}
+                            </div>
+                        </div>
+                    </div> <!-- / .panel-body -->
 
-    <!-- Threads widget -->
-
-    <!-- Without padding -->
-    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-recent-threads">
-        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                        {% for com in coms %}
-                            {% if com.state == 0 %}
-                                <div class="comment">
-                                    <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
-                                    <div class="comment-body">
-                                        <div class="comment-by">
-                                            <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
-                                        </div>
-                                        <div class="comment-text">
-                                            {{ com.content }}
-                                        </div>
-                                        <div class="comment-actions">
-                                            <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                                            <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                            <span class="pull-right">2 hours ago</span>
-                                        </div>
-                                    </div> <!-- / .comment-body -->
-                                </div> <!-- / .comment -->
-                            {% endif %}
-                        {% endfor %}
-            </div><div class="slimScrollBar" style="width: 7px; position: absolute; top: 0px; opacity: 0.4; display: block; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; z-index: 99; right: 1px; background: rgb(136, 136, 136);"></div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-    </div> <!-- / .panel-body -->
-    </div>
-    </div> <!-- / .widget-threads -->
-    </div>
-    <!-- /11. $RECENT_ACTIVITY -->
+                    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-disabled-comments">
+                        <!-- Panel padding, without vertical padding -->
+                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                                {% for com in coms %}
+                                    {% if com.state == 2 %}
+                                        <div class="comment">
+                                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                            <div class="comment-body">
+                                                <div class="comment-by">
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
+                                                </div>
+                                                <div class="comment-text">
+                                                    {{ com.content }}
+                                                </div>
+                                                <div class="comment-actions">
+                                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                                    <span class="pull-right">2 hours ago</span>
+                                                </div>
+                                            </div> <!-- / .comment-body -->
+                                        </div> <!-- / .comment -->
+                                    {% endif %}
+                                {% endfor %}
+                            </div></div>
+                    </div> <!-- / .widget-comments-inactifs -->
+                </div>
+            </div> <!-- / .widget-threads -->
+        </div>
+        <!-- /11. $RECENT_ACTIVITY -->
     </div>
     <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
     <div class="row">
@@ -575,139 +453,136 @@ Afficher les catégories avec nb de produits de la boutique#}
                         Alt messages list
         -->
         <div class="widget-messages-alt col-md-6">
-            <div class="panel-heading">
-                <span class="panel-title"><i class="panel-title-icon fa fa-envelope"></i>Messages</span>
-            </div> <!-- / .panel-heading -->
-            <div class="panel-body padding-sm">
-                <div class="messages-list">
-
-                    <div class="message">
-                        <img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
-                        <a href="#" class="message-subject">{{ msg.title }}</a>
-                        <div class="message-description">
-                            from <a href="#">Robert Jang</a>
-                            <p>{{ msg.content }}</p>
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            2h ago
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            {% if msg.state == 0 %}
-                                <span class="label label-default pull-right">Désactivé</span>
-                            {% elseif msg.state == 1 %}
-                                <span class="label label-default pull-right">Non lu</span>
-                            {% elseif msg.state == 2 %}
-                                <span class="label label-default pull-right">Lu</span>
-                            {% endif %}
-                        </div> <!-- / .message-description -->
-                    </div> <!-- / .message -->
-
-                    <div class="message">
-                        <img src="assets/demo/avatars/3.jpg" alt="" class="message-avatar">
-                        <a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                        <div class="message-description">
-                            from <a href="#">Michelle Bortz</a>
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            2h ago
-                        </div> <!-- / .message-description -->
-                    </div> <!-- / .message -->
-
-                    <div class="message">
-                        <img src="assets/demo/avatars/4.jpg" alt="" class="message-avatar">
-                        <a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-                        <div class="message-description">
-                            from <a href="#">Timothy Owens</a>
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            2h ago
-                        </div> <!-- / .message-description -->
-                    </div> <!-- / .message -->
-
-                    <div class="message">
-                        <img src="assets/demo/avatars/5.jpg" alt="" class="message-avatar">
-                        <a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                        <div class="message-description">
-                            from <a href="#">Denise Steiner</a>
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            2h ago
-                        </div> <!-- / .message-description -->
-                    </div> <!-- / .message -->
-
-                    <div class="message">
-                        <img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
-                        <a href="#" class="message-subject">Lorem ipsum dolor sit amet.</a>
-                        <div class="message-description">
-                            from <a href="#">Robert Jang</a>
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            2h ago
-                        </div> <!-- / .message-description -->
-                    </div> <!-- / .message -->
-
-                    <div class="message">
-                        <img src="assets/demo/avatars/3.jpg" alt="" class="message-avatar">
-                        <a href="#" class="message-subject">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</a>
-                        <div class="message-description">
-                            from <a href="#">Michelle Bortz</a>
-                            &nbsp;&nbsp;·&nbsp;&nbsp;
-                            2h ago
-                        </div> <!-- / .message-description -->
-                    </div> <!-- / .message -->
-
-                </div> <!-- / .messages-list -->
-                <a href="#" class="messages-link">MORE MESSAGES</a>
-            </div> <!-- / .panel-body -->
-        </div> <!-- / .panel -->
+            <div class="panel panel-danger">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="panel-title-icon fa fa-envelope"></i>Messages</span>
+                </div> <!-- / .panel-heading -->
+                <div class="panel-body padding-sm">
+                    <div class="messages-list">
+                        {% for msg in msgs %}
+                            <div class="message">
+                                <img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
+                                <a href="#" class="message-subject">{{ msg.title }}</a>
+                                <div class="message-description">
+                                    from <a href="#">Robert Jang</a>
+                                    <p>{{ msg.content }}</p>
+                                    &nbsp;&nbsp;·&nbsp;&nbsp;
+                                    2h ago
+                                    &nbsp;&nbsp;·&nbsp;&nbsp;
+                                    {% if msg.state == 0 %}
+                                        <span class="label label-default pull-right">Désactivé</span>
+                                    {% elseif msg.state == 1 %}
+                                        <span class="label label-primary pull-right">Lire</span>
+                                    {% elseif msg.state == 2 %}
+                                        <span class="label label-success pull-right">Lu</span>
+                                    {% endif %}
+                                </div> <!-- / .message-description -->
+                            </div> <!-- / .message -->
+                        {% endfor %}
+                    </div> <!-- / .messages-list -->
+                    <a href="#" class="messages-link">MORE MESSAGES</a>
+                </div> <!-- / .panel-body -->
+            </div> <!-- / .panel -->
+        </div> <!-- / .widget-messages-alt col-md-6 -->
         <!-- /8. $MESSAGES_LIST_ALT -->
 
-
-        <!-- 13. $NOTIFICATIONS ============================================================================
-
-                        Notifications
+        <!-- 9. $STRIPED_TABLES ============================================================================
+                        Striped tables
         -->
-        <div class="widget-notifications col-md-6">
-            <div class="panel-heading">
-                <span class="panel-title"><i class="panel-title-icon fa fa-fire"></i>Notifications</span>
-            </div> <!-- / .panel-heading -->
-            <div class="panel-body padding-sm">
-                <div class="notifications-list">
-
-                    <div class="notification">
-                        <div class="notification-title text-danger">SYSTEM</div>
-                        <div class="notification-description"><strong>Error 500</strong>: Syntax error in index.php at line <strong>461</strong>.</div>
-                        <div class="notification-ago">12h ago</div>
-                        <div class="notification-icon fa fa-hdd-o bg-danger"></div>
-                    </div> <!-- / .notification -->
-
-                    <div class="notification">
-                        <div class="notification-title text-info">STORE</div>
-                        <div class="notification-description">You have <strong>9</strong> new orders.</div>
-                        <div class="notification-ago">12h ago</div>
-                        <div class="notification-icon fa fa-truck bg-info"></div>
-                    </div> <!-- / .notification -->
-
-                    <div class="notification">
-                        <div class="notification-title text-default">CRON DAEMON</div>
-                        <div class="notification-description">Job <strong>"Clean DB"</strong> has been completed.</div>
-                        <div class="notification-ago">12h ago</div>
-                        <div class="notification-icon fa fa-clock-o bg-default"></div>
-                    </div> <!-- / .notification -->
-
-                    <div class="notification">
-                        <div class="notification-title text-success">SYSTEM</div>
-                        <div class="notification-description">Server <strong>up</strong>.</div>
-                        <div class="notification-ago">12h ago</div>
-                        <div class="notification-icon fa fa-hdd-o bg-success"></div>
-                    </div> <!-- / .notification -->
-
-                    <div class="notification">
-                        <div class="notification-title text-warning">SYSTEM</div>
-                        <div class="notification-description"><strong>Warning</strong>: Processor load <strong>92%</strong>.</div>
-                        <div class="notification-ago">12h ago</div>
-                        <div class="notification-icon fa fa-hdd-o bg-warning"></div>
-                    </div> <!-- / .notification -->
-
+        <div class="col-md-6">
+            <div class="panel panel-warning">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="panel-title-icon fa fa-star"></i>Categories</span>
                 </div>
-                <a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
-            </div> <!-- / .panel-body -->
-        </div> <!-- / .panel -->
-        <!-- /13. $NOTIFICATIONS -->
+                <div class="panel-body">
+                    <table class="table table-striped">
+                        <thead>
+                        <tr>
+                            <th>Id</th>
+                            <th>Nom</th>
+                            <th>Nombre de produits</th>
+                            <th>Actions</th>
+                        </tr>
+                        </thead>
+                        <tbody>
+                        {% for category in categories %}
+                        <tr>
+                            <td></td>
+                            <td></td>
+                            <td></td>
+                            <td>
+                                <div class="pull-right col-sm-auto">
+                                    <a href="#" class="btn btn-primary btn-labeled" style="width: 100%;">
+                                        <span class="btn-label icon fa fa-plus"></span>Voir categorie
+                                    </a>
+                                </div>
+                            </td>
+                        </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+        </div>
     </div>
+    <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
+    <div class="row">
+        <!-- /9. $STRIPED_TABLES -->
+
+        <div class="col-md-6">
+            <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="panel-title-icon fa fa-dollar"></i>Promotions et Réduction</span>
+                </div> <!-- / .panel-heading -->
+                <div class="panel-body tab-content-padding">
+                    <!-- Panel padding, without vertical padding -->
+                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                            {% for order in orders %}
+                                <div class="ticket">
+                                        <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
+                                    <a href="#" title="" class="ticket-title">Product name<span>[#{{ order.id }}]
+                                            <span class="label">75€</span>
+                                        </span></a>
+								<span class="ticket-info">
+                                    <span>promotion or reduction</span>
+								</span>
+                                </div> <!-- / .ticket -->
+                            {%  endfor %}
+                        </div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                </div> <!-- / .panel-body -->
+            </div> <!-- / .panel -->
+        </div>
+        <div class="col-md-6">
+
+            <!-- 7. $PROFILE_WIDGET_CENTERED_EXAMPLE ===========================================================
+
+                            Profile widget - Centered example
+            -->
+            <div class="panel panel-danger panel-dark panel-body-colorful widget-profile widget-profile-centered">
+                <div class="panel-heading">
+                    <img src="assets/demo/avatars/1.jpg" alt="" class="widget-profile-avatar">
+                    <div class="widget-profile-header">
+                        <span>Boutique de username</span><br>
+                        <a href="https://twitter.com/test">https://twitter.com/test</a>
+                    </div>
+                </div> <!-- / .panel-heading -->
+                <div class="panel-body">
+                    <div class="widget-profile-text" style="padding: 0;">
+                        phone icone : 06 02 10 12 12
+                        email icon : julien@email.com
+                        http://www.google.com
+                        26 rue des chips et cacahuètes grillés
+                        Lyon
+                        link icone : url 1
+                        link icone : url 2
+                    </div>
+                </div>
+            </div> <!-- / .panel -->
+            <!-- /7. $PROFILE_WIDGET_CENTERED_EXAMPLE -->
+
+        </div>
+    </div>
+
+    {#add widget google map#}
 
 {% endblock %}

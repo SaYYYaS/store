@@ -15,14 +15,14 @@ class MessageRepository extends EntityRepository{
      * Get count Messages by user id
      * @param null $user
      * @return array
-     * SELECT count(`Message`.id) AS nbprods FROM `Message` WHERE `Message`.jeweler_id = 1
+     * SELECT count(`Message`.id) AS nbrmessages FROM `Message` WHERE `Message`.jeweler_id = 1
      */
     public function getCountByUser($user){
         $query = $this->getEntityManager()->createQuery(
             "
-            SELECT count(com.id) AS nbrcoms
-            FROM StoreBackendBundle:Message AS com
-            JOIN com.product AS p
+            SELECT count(msg.id) AS nbrmsgs
+            FROM StoreBackendBundle:Message AS msg
+            JOIN msg.product AS p
             WHERE p.jeweler = :user
             "
         )->setParameter(':user', $user);
@@ -38,7 +38,7 @@ class MessageRepository extends EntityRepository{
     public function getMessagesByUser($user = null, $nbr = 5){
         $query = $this->getEntityManager()
             ->createQuery("
-            SELECT com FROM StoreBackendBundle:Message AS com JOIN com.product AS p WHERE p.jeweler = :user ORDER BY com.dateCreated DESC")
+            SELECT msg FROM StoreBackendBundle:Message AS msg  WHERE msg.jeweler = :user ORDER BY msg.dateCreated DESC")
             ->setMaxResults($nbr)
             ->setParameter(':user', $user);
         return $query->getResult();

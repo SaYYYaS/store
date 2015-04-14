@@ -19,3 +19,9 @@ store_backend_product_delete:
         id:      \d+
         _method: GET
     defaults:    {_controller: 'StoreBackendBundle:Product:delete'}
+
+#Page creation product
+store_backend_product_new:
+    path:        /new
+
+    defaults:    {_controller: 'StoreBackendBundle:Product:new'}
