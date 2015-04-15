@@ -32,14 +32,23 @@ class ProductType extends AbstractType{
             ]
         ]);
 
+        $builder->add('slug',null,
+            [
+                'label' => 'Titre url html',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Mettre un titre soigné',
+                    ]
+            ]);
+
         $builder->add('ref',null,
             [
                 'label' => 'Référence produit',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'AAAA-XX-B',
-                        'patern' => '/\[A-Z]{4}-[0-9]{2}-[A-Z]{1}/' //Pourra être remplacé directement dans l'entité lors de la validation
+                        'placeholder' => 'AAAA-00-B',
                     ]
             ]);
 
@@ -71,6 +80,16 @@ class ProductType extends AbstractType{
                     [
                         'class' => 'form-control',
                         'placeholder' => 'Description du bijoux',
+                    ]
+            ]);
+
+        $builder->add('composition',null,
+            [
+                'label' => 'Composition',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Descriptif technique du produit',
                     ]
             ]);
 
@@ -112,7 +131,7 @@ class ProductType extends AbstractType{
                 'label' => 'Produit en ligne?',
                 'attr' =>
                     [
-                        'class' => 'col-centered col-md-12 checkbox',
+                        'class' => 'col-centered col-md-12 col-sm-12 checkbox',
                     ]
             ]);
 
@@ -121,7 +140,7 @@ class ProductType extends AbstractType{
                 'label' => 'Image à la une?',
                 'attr' =>
                     [
-                        'class' => 'col-centered col-md-12 checkbox',
+                        'class' => 'col-centered col-md-12 col-sm-12 checkbox',
                     ]
             ]);
 

@@ -1,0 +1,35 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}th{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            $('textarea').summernote({
+                height: 200,
+                tabsize: 2,
+                codemirror : {theme : 'monokai'}
+            });
+        });
+    </script>
+{% endblock %}
+{% block titlepage %}
+    Ajouter une catégorie
+{% endblock %}
+{% block content %}
+
+    {{ form_start(form) }}
+    <div class="row">
+        <div class="col-md-10">{{ form_row(form.title) }}</div>
+        <div class="col-md-2">{{ form_row(form.position) }}</div>
+    </div>
+    <hr/>
+    <div class="row">
+        <div class="col-md-12">{{ form_row(form.description) }}</div>
+    </div>
+    <hr/>
+    {{ form_widget(form.envoyer,{'attr' : {'class' : 'pull-right btn btn-lg btn btn-primary'}}) }}
+    {{ form_widget(form._token) }}
+    {{ form_end(form,{'render_rest' : false}) }} {# permet d'ajouter le button envoyer et 'render_rest' empèche l'affichage des autres fields#}
+
+{% endblock %}
+

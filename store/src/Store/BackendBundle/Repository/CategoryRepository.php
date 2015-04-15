@@ -12,20 +12,12 @@ use Doctrine\ORM\EntityRepository;
 
 class CategoryRepository extends EntityRepository{
 
-    #TODO debuger la query
     public function getCategoryByUser($user = null){
-        $query = $this->getEntityManager()->createQuery("
-            SELECT cat as category,count(p) as count_product
-            FROM StoreBackendBundle:Category
-            AS cat
-            JOIN cat.product as p
-            WHERE p.jeweler = :user
-            GROUP BY cat.title"
-        )
+        $query = $this->getEntityManager()
+            ->createQuery("SELECT cat FROM StoreBackendBundle:Category AS cat WHERE cat.jeweler = :user")
             ->setParameter('user',$user);
         return $query->getResult();
     }
-
     /**
      * Get count categories by user id
      * @param null $user

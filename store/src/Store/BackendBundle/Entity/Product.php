@@ -3,6 +3,7 @@
 namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Product
@@ -23,6 +24,8 @@ class Product
 
     /**
      * @var string
+     * @Assert\NotBlank( message = "La référence ne doit pas être vide")
+     * @Assert\Regex( pattern = "/[A-Z]{4}-[0-9]{2}-[A-Z]{1}/" , message = "La référence ne doit être valide")
      *
      * @ORM\Column(name="ref", type="string", length=30, nullable=true)
      */
@@ -32,6 +35,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
+     * @Assert\Length(
+     * min = "4",
+     * max = "200",
+     * minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "Le titre ne doit pas être vide")
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,200}/", message = "Votre titre n'est pas valide")
      */
     private $title;
 
@@ -39,6 +50,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="summary", type="text", nullable=true)
+     * @Assert\Length(
+     * min = "4",
+     * max = "200",
+     * minMessage = "Votre résumé doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre résumé peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "Le résumé ne doit pas être vide")
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,10}/", message = "Votre résumé n'est pas valide")
      */
     private $summary;
 
@@ -46,6 +65,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\Length(
+     * min = "4",
+     * max = "500",
+     * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "Le description ne doit pas être vide")
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,15}/", message = "Votre description n'est pas valide")
      */
     private $description;
 
@@ -53,6 +80,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="composition", type="text", nullable=true)
+     * @Assert\Length(
+     * min = "10",
+     * max = "400",
+     * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "Le description ne doit pas être vide")
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,15}/", message = "Votre description n'est pas valide")
      */
     private $composition;
 
@@ -60,6 +95,11 @@ class Product
      * @var float
      *
      * @ORM\Column(name="price", type="float", precision=10, scale=0, nullable=true)
+     * @Assert\Range(
+     * min = 5,
+     * max = 100000,
+     * minMessage = "Votre bijou doit faire au moins {{ limit }} €",
+     * maxMessage = "Votre bijou peut valoir au maximum {{ limit }} €")
      */
     private $price;
 
@@ -67,6 +107,7 @@ class Product
      * @var float
      *
      * @ORM\Column(name="taxe", type="float", precision=10, scale=0, nullable=true)
+     * @Assert\Choice(choices = {"5.5", "19.6", "20"}, message = "Choix non valide")
      */
     private $taxe;
 
@@ -74,6 +115,7 @@ class Product
      * @var integer
      *
      * @ORM\Column(name="quantity", type="integer", nullable=true)
+     * @Assert\Range(min = 1, max = 200, minMessage = "Au moins {{ limit }} produit", maxMessage = "Maximum produit autorisé : {{ limit }}")
      */
     private $quantity;
 
@@ -116,6 +158,14 @@ class Product
      * @var string
      *
      * @ORM\Column(name="slug", type="string", length=300, nullable=true)
+     * @Assert\Length(
+     * min = "4",
+     * max = "100",
+     * minMessage = "Votre slug doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre slug peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "Le slug ne doit pas être vide")
+     * @Assert\Regex( pattern = "/[\d\-\_]{4,100}/", message = "Votre slug n'est pas valide")
      */
     private $slug;
 

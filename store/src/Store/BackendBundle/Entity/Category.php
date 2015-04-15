@@ -3,6 +3,7 @@
 namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Validator\Constraints as Assert;
 
 /**
  * Category
@@ -25,6 +26,13 @@ class Category
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
+     * @Assert\Length(
+     * min = "5",
+     * max = "500",
+     * minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "Le titre ne doit pas être vide")
      */
     private $title;
 
@@ -32,6 +40,13 @@ class Category
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
+     * @Assert\Length(
+     * min = "5",
+     * max = "500",
+     * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
+     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
+     *
+     * @Assert\NotBlank( message = "La description ne doit pas être vide")
      */
     private $description;
 
@@ -39,6 +54,9 @@ class Category
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
+     *
+     * @Assert\NotBlank( message = "La position ne peut pas être vide")
      */
     private $position;
 
@@ -72,6 +90,12 @@ class Category
     public function __construct()
     {
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setDefaultValues();
+    }
+
+    private function setDefaultValues()
+    {
+        $this->active  = true;
     }
 
 

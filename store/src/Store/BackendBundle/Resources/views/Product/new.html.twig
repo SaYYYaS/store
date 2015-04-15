@@ -1,5 +1,17 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
 {% block classtitle %}bookmark{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            $('textarea').summernote({
+                        height: 200,
+                        tabsize: 2,
+                        codemirror : {theme : 'monokai'}
+                });
+        });
+    </script>
+{% endblock %}
 {% block titlepage %}
     Ajouter un Produit
 {% endblock %}
@@ -13,15 +25,20 @@
     {#{{ form_errors(form.ref) }} &#123;&#35; Permet de sortir les erreurs sur un champ du form&#35;&#125;#}
     {#{{ form_row(form.ref) }} &#123;&#35; Permet de sortir d'un coup les 3 actions précédentes (label + widget + errors)&#35;&#125;#}
 
-
+    {{ form_start(form) }}
     <div class="row">
-        <div class="col-md-6">{{ form_row(form.ref) }}</div>
-        <div class="col-md-6">{{ form_row(form.title) }}</div>
+        <div class="col-md-4">{{ form_row(form.ref) }}</div>
+        <div class="col-md-4">{{ form_row(form.title) }}</div>
+        <div class="col-md-4">{{ form_row(form.slug) }}</div>
     </div>
     <br/>
     <div class="row">
         <div class="col-md-6">{{ form_row(form.summary) }}</div>
         <div class="col-md-6">{{ form_row(form.description) }}</div>
+    </div>
+    <br/>
+    <div class="row">
+        <div class="col-md-12">{{ form_row(form.composition) }}</div>
     </div>
     <hr/>
     <div class="row">

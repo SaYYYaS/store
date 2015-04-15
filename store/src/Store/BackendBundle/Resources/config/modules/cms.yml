@@ -19,3 +19,11 @@ store_backend_cms_delete:
         id:      \d+
         _method: GET
     defaults:    {_controller: 'StoreBackendBundle:CMS:delete'}
+
+#Page add cms
+store_backend_cms_new:
+    path:        /new
+    requirements:
+        _method: GET|POST
+    defaults:    {_controller: 'StoreBackendBundle:CMS:new'}
+

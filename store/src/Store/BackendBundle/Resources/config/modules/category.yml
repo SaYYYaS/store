@@ -8,7 +8,7 @@ store_backend_category_view:
    path:     /view/{id}/{name}
    requirements:
      id: \d+
-     name: ([A-z]-?){3,50}
+     name: (.){1,100}
      _method: GET
    defaults: {_controller: 'StoreBackendBundle:Category:view'}
 
@@ -19,3 +19,10 @@ store_backend_category_delete:
         id:      \d+
         _method: GET
     defaults:    {_controller: 'StoreBackendBundle:Category:delete'}
+
+#Page new category
+store_backend_category_new:
+    path:        /new
+    requirements:
+        _method: GET|POST
+    defaults:    {_controller: 'StoreBackendBundle:Category:new'}

@@ -1,7 +1,7 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block javascripts %}
+{% block javascript %}
     {{ parent() }}
-    <script>
+    <script type="application/javascript">
         init.push(function () {
             $('#dashboard-recent .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
         })
@@ -263,7 +263,6 @@ Afficher les catégories avec nb de produits de la boutique#}
             </div> <!-- / .panel-heading -->
             <div class="panel-body tab-content-padding">
                 <!-- Panel padding, without vertical padding -->
-                <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for order in orders %}
                                 <div class="ticket">
                                     {% if order.state == 0 %}
@@ -280,7 +279,7 @@ Afficher les catégories avec nb de produits de la boutique#}
 								</span>
                             </div> <!-- / .ticket -->
                         {%  endfor %}
-                    </div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                    </div></div>
             </div> <!-- / .panel-body -->
         </div> <!-- / .panel -->
     </div>
@@ -321,7 +320,11 @@ Afficher les catégories avec nb de produits de la boutique#}
                                             <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
                                             <div class="comment-body">
                                                 <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a>
+                                                    commented on
+                                                    <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">
+                                                        {{ com.product.title }}
+                                                    </a>
                                                 </div>
                                                 <div class="comment-text">
                                                     {{ com.content }}
@@ -329,7 +332,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                                                 <div class="comment-actions">
                                                     <a href="#"><i class="fa fa-pencil"></i>Edit</a>
                                                     <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                    <span class="pull-right">2 hours ago</span>
+                                                    <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
                                                 </div>
                                             </div> <!-- / .comment-body -->
                                         </div> <!-- / .comment -->
@@ -349,7 +352,11 @@ Afficher les catégories avec nb de produits de la boutique#}
                                             <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
                                             <div class="comment-body">
                                                 <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a>
+                                                    commented on
+                                                    <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">
+                                                        {{ com.product.title }}
+                                                    </a>
                                                 </div>
                                                 <div class="comment-text">
                                                     {{ com.content }}
@@ -357,7 +364,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                                                 <div class="comment-actions">
                                                     <a href="#"><i class="fa fa-pencil"></i>Edit</a>
                                                     <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                    <span class="pull-right">2 hours ago</span>
+                                                    <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
                                                 </div>
                                             </div> <!-- / .comment-body -->
                                         </div> <!-- / .comment -->
@@ -376,7 +383,11 @@ Afficher les catégories avec nb de produits de la boutique#}
                                             <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
                                             <div class="comment-body">
                                                 <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="#" title="">Article Name</a>
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a>
+                                                    commented on
+                                                    <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">
+                                                        {{ com.product.title }}
+                                                    </a>
                                                 </div>
                                                 <div class="comment-text">
                                                     {{ com.content }}
@@ -384,7 +395,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                                                 <div class="comment-actions">
                                                     <a href="#"><i class="fa fa-pencil"></i>Edit</a>
                                                     <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                    <span class="pull-right">2 hours ago</span>
+                                                    <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
                                                 </div>
                                             </div> <!-- / .comment-body -->
                                         </div> <!-- / .comment -->
@@ -416,15 +427,15 @@ Afficher les catégories avec nb de produits de la boutique#}
                                 <img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
                                 <a href="#" class="message-subject">{{ msg.title }}</a>
                                 <div class="message-description">
-                                    from <a href="#">Robert Jang</a>
+                                    from <a href="#">{{ msg.user.firstname ~' '~ msg.user.lastname }}</a>
                                     <p>{{ msg.content }}</p>
                                     &nbsp;&nbsp;·&nbsp;&nbsp;
-                                    2h ago
+                                    {{ msg.dateCreated | date('d/m/Y h:i') }}
                                     &nbsp;&nbsp;·&nbsp;&nbsp;
                                     {% if msg.state == 0 %}
                                         <span class="label label-default pull-right">Désactivé</span>
                                     {% elseif msg.state == 1 %}
-                                        <span class="label label-primary pull-right">Lire</span>
+                                        <span class="btn btn-primary label label-primary pull-right">Lire</span>
                                     {% elseif msg.state == 2 %}
                                         <span class="label label-success pull-right">Lu</span>
                                     {% endif %}
