@@ -5,6 +5,13 @@
 {% endblock %}
 {% block content %}
     {#Creation du formulaire avec label, input et message d'erreur, la fonction form fait aussi le café #}
-    {{ form(form) }}
+    {#{{ form(form) }}#}
+    {#equivalent à form->create() sur cakephp#}
+    {{ form_start(form) }}
+    {{ form_label(form.ref) }} {# Permet de sortir un label d'un champ form #}
+    {{ form_widget(form.ref) }} {# Permet de sortir un input d'un champ form #}
+    {{ form_errors(form.ref) }} {# Permet de sortir les erreurs sur un champ du form#}
+    {{ form_end(form,{'render_rest' : false}) }} {# permet d'ajouter le button envoyer et 'render_rest' empèche l'affichage des autres fields#}
+
 {% endblock %}
 

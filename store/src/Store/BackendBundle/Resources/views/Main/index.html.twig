@@ -507,13 +507,13 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <tbody>
                         {% for category in categories %}
                         <tr>
-                            <td></td>
-                            <td></td>
-                            <td></td>
+                            <td>{{ category['category'].id }}</td>
+                            <td>{{ category['category'].title }}</td>
+                            <td>{{ category['count_product']}}</td>
                             <td>
-                                <div class="pull-right col-sm-auto">
-                                    <a href="#" class="btn btn-primary btn-labeled" style="width: 100%;">
-                                        <span class="btn-label icon fa fa-plus"></span>Voir categorie
+                                <div class="col-sm-auto">
+                                    <a href="{{ path('store_backend_category_view',{id: category['category'].id, name: category['category'].title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">
+                                        <span class="btn-label icon fa fa-search"></span>Voir categorie
                                     </a>
                                 </div>
                             </td>

@@ -14,15 +14,15 @@ class CategoryRepository extends EntityRepository{
 
     #TODO debuger la query
     public function getCategoryByUser($user = null){
-        $query = $this->getEntityManager()
-            ->createQuery("
-            SELECT cat
-            FROM StoreBackendBundle:Category AS cat
+        $query = $this->getEntityManager()->createQuery("
+            SELECT cat as category,count(p) as count_product
+            FROM StoreBackendBundle:Category
+            AS cat
             JOIN cat.product as p
             WHERE p.jeweler = :user
-            GROUP BY cat.id
-            ")
-            ->setParameter('user',1);
+            GROUP BY cat.title"
+        )
+            ->setParameter('user',$user);
         return $query->getResult();
     }
 
