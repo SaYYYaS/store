@@ -279,7 +279,7 @@ Afficher les catégories avec nb de produits de la boutique#}
 								</span>
                             </div> <!-- / .ticket -->
                         {%  endfor %}
-                    </div></div>
+                    </div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
             </div> <!-- / .panel-body -->
         </div> <!-- / .panel -->
     </div>
@@ -470,12 +470,12 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <tbody>
                         {% for category in categories %}
                         <tr>
-                            <td>{{ category['category'].id }}</td>
-                            <td>{{ category['category'].title }}</td>
-                            <td><span class="badge badge-info">{{ category['count_product']}}</span></td>
+                            <td>{{ category.id }}</td>
+                            <td>{{ category.title }}</td>
+                            <td><span class="badge badge-info">{{ category.product|length}}</span></td>
                             <td>
                                 <div class="col-sm-auto">
-                                    <a href="{{ path('store_backend_category_view',{id: category['category'].id, name: category['category'].title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">
+                                    <a href="{{ path('store_backend_category_view',{id: category.id, name: category.title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">
                                         <span class="btn-label icon fa fa-search"></span>Voir categorie
                                     </a>
                                 </div>

@@ -5,6 +5,7 @@ namespace Store\BackendBundle\Controller;
 use Store\BackendBundle\Entity\Cms;
 use Store\BackendBundle\Form\CmsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\Request;
 
 /**
  * Class CMSController
@@ -88,6 +89,6 @@ class CMSController extends Controller
             $em->flush();
             return $this->redirectToRoute('store_backend_cms_list');
         }
-        return $this->render('StoreBackendBundle:Cms:new.html.twig',['form' => $form->createView()]);
+        return $this->render('StoreBackendBundle:CMS:new.html.twig',['form' => $form->createView()]);
     }
 }

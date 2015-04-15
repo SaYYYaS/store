@@ -32,13 +32,20 @@ class CmsType extends AbstractType{
             ]
         ]);
 
+        $builder->add('dateActive','date',
+            [
+                'label' => 'Date d\'activation',
+                'input'  => 'datetime',
+                'widget' => 'choice'
+            ]);
+
         $builder->add('summary',null,
             [
                 'label' => 'Résumé',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'Description de la catégorie',
+                        'placeholder' => 'Résumé de la catégorie',
                     ]
             ]);
 
@@ -49,6 +56,38 @@ class CmsType extends AbstractType{
                     [
                         'class' => 'form-control',
                         'placeholder' => 'Description de la catégorie',
+                    ]
+            ]);
+
+        $builder->add('image','url',
+            [
+                'label' => 'Image',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'http://image.com/image.jpg',
+                    ]
+            ]);
+
+        $builder->add('video',null,
+            [
+                'label' => 'Vidéo',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Description de la catégorie',
+                    ]
+            ]);
+
+        $builder->add('state','choice',
+            [
+                'label' => 'Status',
+                'choices' => ['0' => 'Inactif', '1' => 'En cours', '2' => 'En ligne'], //Les choix disponibles
+                'preferred_choices' => ['1'], //Le choix par défaut
+                'required' => true, //liste déroulante
+                'attr' =>
+                    [
+                        'class' => 'form-control',
                     ]
             ]);
 
