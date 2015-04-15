@@ -1,9 +1,9 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block javascript %}
+{% block javascripts %}
     {{ parent() }}
     <script>
         init.push(function () {
-            $('#dashboard-support-tickets .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
+            $('#dashboard-recent .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
         })
     </script>
 {% endblock %}
@@ -78,30 +78,6 @@ Afficher les catégories avec nb de produits de la boutique#}
 
                         Easy Pie charts
         -->
-        <!-- Javascript -->
-        <script>
-            init.push(function () {
-                // Easy Pie Charts
-                var easyPieChartDefaults = {
-                    animate: 2000,
-                    scaleColor: false,
-                    lineWidth: 6,
-                    lineCap: 'square',
-                    size: 90,
-                    trackColor: '#e5e5e5'
-                }
-                $('#easy-pie-chart-1').easyPieChart($.extend({}, easyPieChartDefaults, {
-                    barColor: PixelAdmin.settings.consts.COLORS[1]
-                }));
-                $('#easy-pie-chart-2').easyPieChart($.extend({}, easyPieChartDefaults, {
-                    barColor: PixelAdmin.settings.consts.COLORS[1]
-                }));
-                $('#easy-pie-chart-3').easyPieChart($.extend({}, easyPieChartDefaults, {
-                    barColor: PixelAdmin.settings.consts.COLORS[1]
-                }));
-            });
-        </script>
-        <!-- / Javascript -->
 
         <div class="row">
             <div class="col-xs-4">
@@ -193,27 +169,6 @@ Afficher les catégories avec nb de produits de la boutique#}
                                 commentaires graph stat panel
             -->
             <div class="col-sm-4 col-md-12">
-                <!-- Javascript -->
-                <script>
-                    init.push(function () {
-                        $("#stats-sparklines-3").pixelSparkline([275,490,397,487,339,403,402,312,300], {
-                            type: 'line',
-                            width: '100%',
-                            height: '45px',
-                            fillColor: '',
-                            lineColor: '#fff',
-                            lineWidth: 2,
-                            spotColor: '#ffffff',
-                            minSpotColor: '#ffffff',
-                            maxSpotColor: '#ffffff',
-                            highlightSpotColor: '#ffffff',
-                            highlightLineColor: '#ffffff',
-                            spotRadius: 4,
-                            highlightLineColor: '#ffffff'
-                        });
-                    });
-                </script>
-                <!-- / Javascript -->
 
                 <div class="stat-panel">
                     <div class="stat-row">
@@ -259,9 +214,6 @@ Afficher les catégories avec nb de produits de la boutique#}
                                 Unique visitors stat panel
             -->
             <div class="col-sm-4 col-md-12">
-                <!-- Javascript -->
-
-                <!-- / Javascript -->
 
                 <div class="stat-panel">
                     <div class="stat-row">
@@ -509,7 +461,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <tr>
                             <td>{{ category['category'].id }}</td>
                             <td>{{ category['category'].title }}</td>
-                            <td>{{ category['count_product']}}</td>
+                            <td><span class="badge badge-info">{{ category['count_product']}}</span></td>
                             <td>
                                 <div class="col-sm-auto">
                                     <a href="{{ path('store_backend_category_view',{id: category['category'].id, name: category['category'].title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">

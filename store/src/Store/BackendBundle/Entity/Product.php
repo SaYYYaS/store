@@ -259,17 +259,31 @@ class Product
      */
     public function __construct()
     {
-        $this->user = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->order = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->business = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->category = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->cms = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->product2 = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->supplier = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->tag = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->image = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->user        = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->order       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->business    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->category    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->cms         = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->product2    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->supplier    = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->tag         = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->image       = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setDefaultValues();
     }
 
+    private function setDefaultValues()
+    {
+        $this->active      = true;
+        $this->cover       = false;
+        $this->shop        = true;
+        $this->taxe        = 20;
+        $this->price       = 0;
+        $this->quantity    = 1;
+        $this->dateActive  = new \DateTime('now');
+        $this->dateActive  = new \DateTime('now');
+        $this->dateUpdated = new \DateTime('now');
+
+    }
 
     /**
      * Get id

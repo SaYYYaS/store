@@ -2,6 +2,7 @@
 
 namespace Store\BackendBundle\Controller;
 
+use Store\BackendBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Store\BackendBundle\Form\ProductType;
 
@@ -61,8 +62,21 @@ class ProductController extends Controller
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
     public function newAction(){
-        //Je crée un forumaire de produit
-        $form = $this->createForm(new ProductType());
+        //Exiplication Controller::createform(FormTypeInterface $a,mixed $data,array $options )
+        //$a:       Un objet qui implémente directement ou non FormTypeInterface
+        //$data:    En général l'on envoit une instance de l'entité liée au controller
+        //$options: Différentes options pour la vue et autres filtres
+        //Je crée un forumaire lié à l'entité product grace à 'new ProductType()' (qui est le formulaire lié à l'entité product)
+        //'new Product()' associe mon formulaire avec une nouvelle instance de Entity/Product
+        $product = new Product();
+        $form = $this->createForm(new ProductType(), $product, [
+            'attr' =>
+            [
+                'method' => 'post',
+                'novalidate' => 'novalidate',
+                'action' => $this->generateUrl('store_backend_product_new')
+            ]
+        ]);
 
         return $this->render('StoreBackendBundle:Product:new.html.twig',['form' => $form->createView()]);
     }

@@ -112,7 +112,7 @@ class ProductType extends AbstractType{
                 'label' => 'Produit en ligne?',
                 'attr' =>
                     [
-                        'class' => 'checkbox',
+                        'class' => 'col-centered col-md-12 checkbox',
                     ]
             ]);
 
@@ -121,7 +121,7 @@ class ProductType extends AbstractType{
                 'label' => 'Image à la une?',
                 'attr' =>
                     [
-                        'class' => 'checkbox',
+                        'class' => 'col-centered col-md-12 checkbox',
                     ]
             ]);
 

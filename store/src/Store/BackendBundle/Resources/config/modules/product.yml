@@ -23,5 +23,6 @@ store_backend_product_delete:
 #Page creation product
 store_backend_product_new:
     path:        /new
-
+    requirements:
+        _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:Product:new'}

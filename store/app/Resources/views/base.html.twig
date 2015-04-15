@@ -18,6 +18,7 @@
     </head>
     <body class="{% block classname %}{% endblock %}">
         {% block body %}{% endblock %}
+
         {% block javascripts %}
             <!-- Get jQuery from Google CDN -->
             <!--[if !IE]> -->
@@ -26,7 +27,8 @@
             <!--[if lte IE 9]>
             <script type="text/javascript"> window.jQuery || document.write('<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js">'+"<"+"/script>"); </script>
             <![endif]-->
-            <!-- main's javascripts -->
+
+            <!-- Pixel Admin's javascripts -->
             <script src="{{ asset('assets/backend/javascripts/bootstrap.min.js') }}"></script>
         {% endblock %}
     </body>
