@@ -5,6 +5,7 @@ namespace Store\BackendBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Store\BackendBundle\Validator\Constraints as StoreAssert;
 
 /**
  * Product
@@ -53,7 +54,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="summary", type="text", nullable=true)
-     * @Assert\Length(
+     * @StoreAssert\StripTagsLength(
      * min = "4",
      * max = "200",
      * minMessage = "Votre résumé doit faire au moins {{ limit }} caractères",
@@ -68,14 +69,13 @@ class Product
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Assert\Length(
+     * @StoreAssert\StripTagsLength(
      * min = "4",
      * max = "500",
      * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
      * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
      *
      * @Assert\NotBlank( message = "Le description ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[\w\d\s]{4,15}/", message = "Votre description n'est pas valide")
      */
     private $description;
 
@@ -83,7 +83,7 @@ class Product
      * @var string
      *
      * @ORM\Column(name="composition", type="text", nullable=true)
-     * @Assert\Length(
+     * @StoreAssert\StripTagsLength(
      * min = "10",
      * max = "400",
      * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
@@ -237,6 +237,12 @@ class Product
      *     @ORM\JoinColumn(name="category_id", referencedColumnName="id")
      *   }
      * )
+     * @Assert\Count(
+     * min = "1",
+     * max = "10",
+     * minMessage = " Au moins {{ limit }} catégorie",
+     * maxMessage = " Pas plus de {{ limit }} catégories"
+     * )
      */
     private $category;
 
@@ -251,6 +257,12 @@ class Product
      *   inverseJoinColumns={
      *     @ORM\JoinColumn(name="cms_id", referencedColumnName="id")
      *   }
+     * )
+     * @Assert\Count(
+     * min = "1",
+     * max = "10",
+     * minMessage = " Au moins {{ limit }} page",
+     * maxMessage = " Pas plus de {{ limit }} pages"
      * )
      */
     private $cms;

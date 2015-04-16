@@ -13,10 +13,13 @@ use Doctrine\ORM\EntityRepository;
 class CmsRepository extends EntityRepository{
 
     public function getCmsByUser($user = null){
-        $query = $this->getEntityManager()
-            ->createQuery("SELECT cms FROM StoreBackendBundle:Cms AS cms WHERE cms.jeweler = :user")
-            ->setParameter('user',$user);
+        $query = $this->getCmsByUserBuilder($user)->getQuery();
         return $query->getResult();
+    }
+
+    public function getCmsByUserBuilder($user = null){
+        $queryBuilder = $this->createQueryBuilder('cms')->select('cms')->where('cms.jeweler = :user')->setParameter(':user', $user);
+        return $queryBuilder;
     }
 
     /**

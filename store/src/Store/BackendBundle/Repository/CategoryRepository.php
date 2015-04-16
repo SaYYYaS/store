@@ -12,10 +12,19 @@ use Doctrine\ORM\EntityRepository;
 
 class CategoryRepository extends EntityRepository{
 
+    /**
+     * @param null $user
+     * @return array
+     */
     public function getCategoryByUser($user = null){
-        $query = $this->getEntityManager()
-            ->createQuery("SELECT cat FROM StoreBackendBundle:Category AS cat WHERE cat.jeweler = :user")
-            ->setParameter('user',$user);
+//        $query = $this->getEntityManager()
+//            ->createQuery("SELECT cat FROM StoreBackendBundle:Category AS cat WHERE cat.jeweler = :user")
+//            ->setParameter('user',$user);
+
+
+        //J'appel la méthode getCategoryByUserBuilder() qui me retourne un objet QueryBuilder
+        //Je dois donc le reconvertir en query avec getQuery() car getResult est une méthode de l'objet Query
+        $query = $this->getCategoryByUserBuilder($user)->getQuery();
         return $query->getResult();
     }
     /**
@@ -33,5 +42,23 @@ class CategoryRepository extends EntityRepository{
             "
         )->setParameter(':user', $user);
         return $query->getSingleScalarResult();
+    }
+
+    /**
+     * @param $user
+     * @return \Doctrine\ORM\QueryBuilder
+     */
+    public function getCategoryByUserBuilder($user) {
+        /**
+         * Le formulaire ProductType attend un objet createQueryBuilder()
+         * ET NON PAS l'objet createQuery()
+         */
+        $queryBuild = $this->createQueryBuilder('c')
+            ->select('c')
+            ->where('c.jeweler = :user')
+            ->orderBy('c.title','ASC')
+            ->setParameter('user', $user);
+        dump(get_class_methods($queryBuild));
+        return $queryBuild;
     }
 } 

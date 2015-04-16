@@ -4,6 +4,7 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Store\BackendBundle\Validator\Constraints as StoreAssert;
 
 /**
  * Category
@@ -40,12 +41,8 @@ class Category
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Assert\Length(
-     * min = "5",
-     * max = "500",
-     * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
-     *
+     * @StoreAssert\StripTagsLength(maxMessage = "Votre chaine de caractère est supérieur à {{ limit }} .",
+     * max = "500")
      * @Assert\NotBlank( message = "La description ne doit pas être vide")
      */
     private $description;
@@ -55,7 +52,6 @@ class Category
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
      * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
-     *
      * @Assert\NotBlank( message = "La position ne peut pas être vide")
      */
     private $position;

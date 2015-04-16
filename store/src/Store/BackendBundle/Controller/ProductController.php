@@ -78,7 +78,7 @@ class ProductController extends Controller
         $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1);
         $product->setJeweler($jeweler);
 
-        $form = $this->createForm(new ProductType(), $product, [
+        $form = $this->createForm(new ProductType(1), $product, [
             'attr' =>
             [
                 'method' => 'post',
@@ -88,7 +88,6 @@ class ProductController extends Controller
         ]);
 
         //Envoie les donnés de la $request au formulaire, de tel sorte que le formulaire ai accès aux données
-        dump($request);
         $form->handleRequest($request);
 
         //Si la totalité de formulaire est valide

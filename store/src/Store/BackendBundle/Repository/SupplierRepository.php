@@ -13,14 +13,28 @@ use Doctrine\ORM\EntityRepository;
 class SupplierRepository extends EntityRepository{
 
     public function getSupplierByUser($user = null){
-        $query = $this->getEntityManager()
-            ->createQuery(" SELECT s
-                            FROM StoreBackendBundle:Supplier AS s
-                            JOIN s.product AS p
-                            WHERE p.jeweler = :user
-                            GROUP BY s.id")
-            ->setParameter('user',$user);
+//        $query = $this->getEntityManager()
+//            ->createQuery(" SELECT s
+//                            FROM StoreBackendBundle:Supplier AS s
+//                            JOIN s.product AS p
+//                            WHERE p.jeweler = :user
+//                            GROUP BY s.id")
+//            ->setParameter('user',$user);
+//        return $query->getResult();
+
+        $query = $this->getSupplierByUserBuilder($user)->getQuery();
         return $query->getResult();
+    }
+
+
+    public function getSupplierByUserBuilder($user = null){
+        $queryBuilder = $this->createQueryBuilder('s')
+            ->select('s')
+            ->join('s.product','p')
+            ->where('p.jeweler = :user')
+            ->groupBy('s.id')
+            ->setParameter(':user', $user);
+        return $queryBuilder;
     }
 
     /**

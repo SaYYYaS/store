@@ -1,6 +1,10 @@
 <?php
 namespace Store\BackendBundle\Form;
 
+use Doctrine\ORM\EntityRepository;
+use Store\BackendBundle\Repository\CategoryRepository;
+use Store\BackendBundle\Repository\CmsRepository;
+use Store\BackendBundle\Repository\SupplierRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -18,6 +22,15 @@ class ProductType extends AbstractType{
     * @param FormBuilderInterface $builder
     * @param array $options
     */
+
+    protected $user;
+
+    function __construct($user = null)
+    {
+        $this->user = $user;
+    }
+
+
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //Methode add permet d'ajouter des champs dans le formulaire
@@ -52,13 +65,50 @@ class ProductType extends AbstractType{
                     ]
             ]);
 
+        $builder->add('dateActive','date',
+            [
+                'label' => 'Date d\'activation',
+                'input'  => 'datetime',
+                'widget' => 'choice'
+            ]);
+
         $builder->add('category',null,
             [
+                //Definit l'entité à utiliser pour ce champ
+                'class' => 'StoreBackendBundle:Category',
+                //définit la propriété à afficher dans les choix
+                'property' => 'title',
+                //Permet d'avoir le choix multiple
+                'multiple' => true,
+                //methode de filtre select via query
+                'query_builder' => function(EntityRepository $er) {
+                        return $er->createQueryBuilder('c')
+                            ->where('c.jeweler = :user')
+                            ->orderBy('c.title','ASC')
+                            ->setParameter('user', $this->user);
+                    },
+                //Label html
+                'label' => 'Catégorie(s) associée(s)',
+                //Propriétés html
+                'attr' =>
+                    [
+                        'class' => 'form-control'
+                    ]
+            ]);
+
+        $builder->add('category',null,
+            [
+                'class' => 'StoreBackendBundle:Category',
+                'property' => 'title',
+                'expanded' => true,
+                //same methode mais plus propre
+                'query_builder' => function(CategoryRepository $er){
+                        return $er->getCategoryByUserBuilder($this->user);
+                    },
                 'label' => 'Catégorie(s) associée(s)',
                 'attr' =>
                     [
-                        'class' => 'form-control',
-                        'placeholder' => 'Mettre un titre soigné',
+                        'class' => 'form-control'
                     ]
             ]);
 
@@ -147,24 +197,32 @@ class ProductType extends AbstractType{
         $builder->add('cms',null,
             [
                 'label' => 'Associer aux pages suivante',
+                'class' => 'StoreBackendBundle:Cms',
+                'property' => 'title',
+                'expanded' => true,
+                'query_builder' => function(CmsRepository $er){
+                        return $er->getCmsByUserBuilder($this->user);
+                    },
                 'attr' =>
                     [
-                        'class' => 'form-control',
+                        'class' => 'form-control'
                     ]
             ]);
 
         $builder->add('supplier',null,
             [
                 'label' => 'Fournisseurs',
+                'expanded' => true,
                 'attr' =>
                     [
-                        'class' => 'form-control',
+                        'class' => 'form-control'
                     ]
             ]);
 
         $builder->add('tag',null,
             [
                 'label' => 'Liste des tags',
+                'expanded' => true,
                 'attr' =>
                     [
                         'class' => 'form-control',

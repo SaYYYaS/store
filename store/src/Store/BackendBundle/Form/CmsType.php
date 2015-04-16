@@ -75,7 +75,7 @@ class CmsType extends AbstractType{
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'Description de la catégorie',
+                        'placeholder' => 'Lien vers la vidéo',
                     ]
             ]);
 

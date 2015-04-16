@@ -63,12 +63,47 @@ Afficher les catégories avec nb de produits de la boutique#}
                         </li> <!-- / .list-group-item -->
                     </ul>
                 </div> <!-- /.stat-cell -->
+                <script>
+                    init.push(function () {
+                        var uploads_data = [
+                            { day: '2014-03-10', v: 20 },
+                            { day: '2014-03-11', v: 10 },
+                            { day: '2014-03-12', v: 15 },
+                            { day: '2014-03-13', v: 12 },
+                            { day: '2014-03-14', v: 5  },
+                            { day: '2014-03-15', v: 5  },
+                            { day: '2014-03-16', v: 20 }
+                        ];
+                        Morris.Line({
+                            element: 'hero-graph',
+                            data: uploads_data,
+                            xkey: 'day',
+                            ykeys: ['v'],
+                            labels: ['Value'],
+                            lineColors: ['#fff'],
+                            lineWidth: 2,
+                            pointSize: 4,
+                            gridLineColor: 'rgba(255,255,255,.5)',
+                            resize: true,
+                            gridTextColor: '#fff',
+                            xLabels: "day",
+                            xLabelFormat: function(d) {
+                                return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec'][d.getMonth()] + ' ' + d.getDate();
+                            },
+                        });
+                    });
+                </script>
                 <!-- Primary background, small padding, vertically centered text -->
                 <div class="stat-cell col-sm-8 bg-primary padding-sm valign-middle">
-                    <div id="hero-graph" class="graph" style="height: 230px;"><svg height="230" version="1.1" width="660" xmlns="http://www.w3.org/2000/svg" style="overflow: hidden; position: relative;"><desc style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Created with Raphaël 2.1.2</desc><defs style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></defs><text x="25.875" y="191" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">0</tspan></text><path fill="none" stroke="#ffffff" d="M38.375,191H635" stroke-opacity="0.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="25.875" y="149.5" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">5</tspan></text><path fill="none" stroke="#ffffff" d="M38.375,149.5H635" stroke-opacity="0.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="25.875" y="108" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">10</tspan></text><path fill="none" stroke="#ffffff" d="M38.375,108H635" stroke-opacity="0.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="25.875" y="66.49999999999999" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan dy="3.999999999999986" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">15</tspan></text><path fill="none" stroke="#ffffff" d="M38.375,66.49999999999999H635" stroke-opacity="0.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="25.875" y="25" text-anchor="end" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: end; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">20</tspan></text><path fill="none" stroke="#ffffff" d="M38.375,25H635" stroke-opacity="0.5" stroke-width="0.5" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><text x="635" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 16</tspan></text><text x="535.5625" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 15</tspan></text><text x="436.12499999999994" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 14</tspan></text><text x="336.6875" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 13</tspan></text><text x="237.24999999999997" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 12</tspan></text><text x="137.8125" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 11</tspan></text><text x="38.375" y="203.5" text-anchor="middle" font="10px &quot;Arial&quot;" stroke="none" fill="#ffffff" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0); text-anchor: middle; font-style: normal; font-variant: normal; font-weight: normal; font-stretch: normal; font-size: 12px; line-height: normal; font-family: sans-serif;" font-size="12px" font-family="sans-serif" font-weight="normal" transform="matrix(1,0,0,1,0,7)"><tspan dy="4" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);">Mar 10</tspan></text><path fill="none" stroke="#ffffff" d="M38.375,25C63.234375,45.75,112.953125,102.8125,137.8125,108C162.671875,113.1875,212.39062499999997,68.57499999999999,237.24999999999997,66.49999999999999C262.109375,64.42499999999998,311.828125,81.02499999999999,336.6875,91.39999999999999C361.546875,101.77499999999999,411.26562499999994,142.2375,436.12499999999994,149.5C460.98437499999994,156.76250000000002,510.703125,165.0625,535.5625,149.5C560.421875,133.9375,610.140625,56.125,635,25" stroke-width="2" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></path><circle cx="38.375" cy="25" r="7" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="137.8125" cy="108" r="4" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="237.24999999999997" cy="66.49999999999999" r="4" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="336.6875" cy="91.39999999999999" r="4" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="436.12499999999994" cy="149.5" r="4" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="535.5625" cy="149.5" r="4" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle><circle cx="635" cy="25" r="4" fill="#ffffff" stroke="#ffffff" stroke-width="1" style="-webkit-tap-highlight-color: rgba(0, 0, 0, 0);"></circle></svg><div class="morris-hover morris-default-style" style="left: 0px; top: 35px;"><div class="morris-hover-row-label">2014-03-10</div><div class="morris-hover-point" style="color: #fff">
+                    <div id="hero-graph" class="graph" style="height: 230px;">
+                        <div class="morris-hover morris-default-style" style="left: 0px; top: 35px;">
+                            <div class="morris-hover-row-label">2014-03-10</div>
+                            <div class="morris-hover-point" style="color: #fff">
                                 Value:
                                 20
-                            </div></div></div>
+                            </div>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div> <!-- /.stat-panel -->
@@ -87,7 +122,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     scaleColor: false,
                     lineWidth: 6,
                     lineCap: 'square',
-                    size: 90,
+                    size: 72,
                     trackColor: '#e5e5e5'
                 }
                 $('#easy-pie-chart-1').easyPieChart($.extend({}, easyPieChartDefaults, {
@@ -473,7 +508,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <span class="panel-title"><i class="panel-title-icon fa fa-star"></i>Categories</span>
                 </div>
                 <div class="panel-body">
-                    <table class="table table-striped">
+                    <table class="table table-striped text-center">
                         <thead>
                         <tr>
                             <th>Id</th>
@@ -489,7 +524,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                                 <td>{{ category.title }}</td>
                                 <td><span class="badge badge-info">{{ category.product|length}}</span></td>
                                 <td>
-                                    <div class="pull-right col-sm-auto">
+                                    <div class="pull-right col-md-12">
                                         <a href="{{ path('store_backend_category_view',{id: category.id, name: category.title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">
                                             <span class="btn-label icon fa fa-search"></span>Voir categorie
                                         </a>
