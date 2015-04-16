@@ -1,5 +1,8 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
 {% block classtitle %}bookmark{% endblock %}
+
+{#Cette fonction va me chercher un theme de formulaire depuis mon application dans le fichier partial#}
+{% form_theme form 'StoreBackendBundle:Partial:form.html.twig' %}
 {% block javascript %}
     {{ parent() }}
     <script>

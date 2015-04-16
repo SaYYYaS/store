@@ -1,9 +1,9 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
 {% block javascript %}
     {{ parent() }}
-    <script type="application/javascript">
+    <script>
         init.push(function () {
-            $('#dashboard-recent .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
+            $('#dashboard-support-tickets .panel-body > div').slimScroll({ height: 300, alwaysVisible: true, color: '#888',allowPageScroll: true });
         })
     </script>
 {% endblock %}
@@ -78,6 +78,30 @@ Afficher les catégories avec nb de produits de la boutique#}
 
                         Easy Pie charts
         -->
+        <!-- Javascript -->
+        <script>
+            init.push(function () {
+                // Easy Pie Charts
+                var easyPieChartDefaults = {
+                    animate: 2000,
+                    scaleColor: false,
+                    lineWidth: 6,
+                    lineCap: 'square',
+                    size: 90,
+                    trackColor: '#e5e5e5'
+                }
+                $('#easy-pie-chart-1').easyPieChart($.extend({}, easyPieChartDefaults, {
+                    barColor: PixelAdmin.settings.consts.COLORS[1]
+                }));
+                $('#easy-pie-chart-2').easyPieChart($.extend({}, easyPieChartDefaults, {
+                    barColor: PixelAdmin.settings.consts.COLORS[1]
+                }));
+                $('#easy-pie-chart-3').easyPieChart($.extend({}, easyPieChartDefaults, {
+                    barColor: PixelAdmin.settings.consts.COLORS[1]
+                }));
+            });
+        </script>
+        <!-- / Javascript -->
 
         <div class="row">
             <div class="col-xs-4">
@@ -214,6 +238,9 @@ Afficher les catégories avec nb de produits de la boutique#}
                                 Unique visitors stat panel
             -->
             <div class="col-sm-4 col-md-12">
+                <!-- Javascript -->
+
+                <!-- / Javascript -->
 
                 <div class="stat-panel">
                     <div class="stat-row">
@@ -242,36 +269,37 @@ Afficher les catégories avec nb de produits de la boutique#}
     <hr class="no-grid-gutter-h grid-gutter-margin-b no-margin-t">
     <div class="row">
 
-    <!-- 10. $SUPPORT_TICKETS ==========================================================================
+        <!-- 10. $SUPPORT_TICKETS ==========================================================================
 
-                Support tickets
-    -->
+                    Support tickets
+        -->
 
 
-    <div class="col-md-6">
-        <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
-            <div class="panel-heading">
-                <span class="panel-title"><i class="panel-title-icon fa fa-shopping-cart"></i>Dernières commandes</span>
-                <div class="panel-heading-controls">
-                    <div class="panel-heading-text"><a href="#">
-                            {%  set count_ord_p = 0 %}
-                            {% for order in orders %}
-                                {% if order.state == 1 %}
-                                    {% set count_ord_p = count_ord_p + 1 %}
-                                {% endif %}{% endfor %}{{ count_ord_p }} new orders</a></div>
-                </div>
-            </div> <!-- / .panel-heading -->
-            <div class="panel-body tab-content-padding">
-                <!-- Panel padding, without vertical padding -->
+        <div class="col-md-6">
+            <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="panel-title-icon fa fa-shopping-cart"></i>Dernières commandes</span>
+                    <div class="panel-heading-controls">
+                        <div class="panel-heading-text"><a href="#">
+                                {%  set count_ord_p = 0 %}
+                                {% for order in orders %}
+                                    {% if order.state == 1 %}
+                                        {% set count_ord_p = count_ord_p + 1 %}
+                                    {% endif %}{% endfor %}{{ count_ord_p }} new orders</a></div>
+                    </div>
+                </div> <!-- / .panel-heading -->
+                <div class="panel-body tab-content-padding">
+                    <!-- Panel padding, without vertical padding -->
+                    <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for order in orders %}
-                                <div class="ticket">
-                                    {% if order.state == 0 %}
-                                        <span class="label label-danger ticket-label">Rejected</span>
-                                    {% elseif order.state == 1 %}
-                                        <span class="label label-warning ticket-label">Pending</span>
-                                    {% elseif order.state == 2 %}
-                                        <span class="label label-success ticket-label">Completed</span>
-                                    {% endif %}
+                            <div class="ticket">
+                                {% if order.state == 0 %}
+                                    <span class="label label-danger ticket-label">Rejected</span>
+                                {% elseif order.state == 1 %}
+                                    <span class="label label-warning ticket-label">Pending</span>
+                                {% elseif order.state == 2 %}
+                                    <span class="label label-success ticket-label">Completed</span>
+                                {% endif %}
                                 <a href="#" title="" class="ticket-title">Mobile App Problem<span>[#{{ order.id }}]</span></a>
 								<span class="ticket-info">
 									Ordered by <a href="#">{{ order.user.firstname ~' '~ order.user.lastname }}</a> in {{ order.address }}
@@ -279,16 +307,16 @@ Afficher les catégories avec nb de produits de la boutique#}
 								</span>
                             </div> <!-- / .ticket -->
                         {%  endfor %}
-                    </div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
-            </div> <!-- / .panel-body -->
-        </div> <!-- / .panel -->
-    </div>
-    <!-- /10. $SUPPORT_TICKETS -->
+                    </div>
+                </div> <!-- / .panel-body -->
+            </div> <!-- / .panel -->
+        </div>
+        <!-- /10. $SUPPORT_TICKETS -->
 
-    <!-- 11. $RECENT_ACTIVITY ==========================================================================
+        <!-- 11. $RECENT_ACTIVITY ==========================================================================
 
-                Recent activity
-    -->
+                    Recent activity
+        -->
 
         <div class="col-md-6">
             <div class="panel panel-warning" id="dashboard-recent">
@@ -313,50 +341,14 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <!-- Without padding -->
                     <div class="widget-comments panel-body tab-pane no-padding fade active in" id="dashboard-active-comments">
                         <!-- Panel padding, without vertical padding -->
-                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                        <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                                 {% for com in coms %}
                                     {% if com.state == 1 %}
                                         <div class="comment">
                                             <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
                                             <div class="comment-body">
                                                 <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a>
-                                                    commented on
-                                                    <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">
-                                                        {{ com.product.title }}
-                                                    </a>
-                                                </div>
-                                                <div class="comment-text">
-                                                    {{ com.content }}
-                                                </div>
-                                                <div class="comment-actions">
-                                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                    <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
-                                                </div>
-                                            </div> <!-- / .comment-body -->
-                                        </div> <!-- / .comment -->
-                                    {% endif %}
-                                {% endfor %}
-                            </div></div>
-                    </div> <!-- / .widget-comments -->
-
-                    <!-- Threads widget -->
-
-                    <!-- Without padding -->
-                    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-pending-comments">
-                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                                {% for com in coms %}
-                                    {% if com.state == 0 %}
-                                        <div class="comment">
-                                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
-                                            <div class="comment-body">
-                                                <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a>
-                                                    commented on
-                                                    <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">
-                                                        {{ com.product.title }}
-                                                    </a>
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
                                                 </div>
                                                 <div class="comment-text">
                                                     {{ com.content }}
@@ -371,23 +363,20 @@ Afficher les catégories avec nb de produits de la boutique#}
                                     {% endif %}
                                 {% endfor %}
                             </div>
-                        </div>
-                    </div> <!-- / .panel-body -->
+                    </div> <!-- / .widget-comments -->
 
-                    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-disabled-comments">
-                        <!-- Panel padding, without vertical padding -->
-                        <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                    <!-- Threads widget -->
+
+                    <!-- Without padding -->
+                    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-pending-comments">
+                        <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                                 {% for com in coms %}
-                                    {% if com.state == 2 %}
+                                    {% if com.state == 0 %}
                                         <div class="comment">
                                             <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
                                             <div class="comment-body">
                                                 <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a>
-                                                    commented on
-                                                    <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">
-                                                        {{ com.product.title }}
-                                                    </a>
+                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
                                                 </div>
                                                 <div class="comment-text">
                                                     {{ com.content }}
@@ -401,7 +390,33 @@ Afficher les catégories avec nb de produits de la boutique#}
                                         </div> <!-- / .comment -->
                                     {% endif %}
                                 {% endfor %}
-                            </div></div>
+                        </div>
+                    </div> <!-- / .panel-body -->
+
+                    <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-disabled-comments">
+                        <!-- Panel padding, without vertical padding -->
+                        <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                            {% for com in coms %}
+                                {% if com.state == 2 %}
+                                    <div class="comment">
+                                        <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                        <div class="comment-body">
+                                            <div class="comment-by">
+                                                <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
+                                            </div>
+                                            <div class="comment-text">
+                                                {{ com.content }}
+                                            </div>
+                                            <div class="comment-actions">
+                                                <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                                <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                                <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
+                                            </div>
+                                        </div> <!-- / .comment-body -->
+                                    </div> <!-- / .comment -->
+                                {% endif %}
+                            {% endfor %}
+                        </div>
                     </div> <!-- / .widget-comments-inactifs -->
                 </div>
             </div> <!-- / .widget-threads -->
@@ -435,7 +450,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                                     {% if msg.state == 0 %}
                                         <span class="label label-default pull-right">Désactivé</span>
                                     {% elseif msg.state == 1 %}
-                                        <span class="btn btn-primary label label-primary pull-right">Lire</span>
+                                        <span class="label label-primary pull-right">Lire</span>
                                     {% elseif msg.state == 2 %}
                                         <span class="label label-success pull-right">Lu</span>
                                     {% endif %}
@@ -469,19 +484,19 @@ Afficher les catégories avec nb de produits de la boutique#}
                         </thead>
                         <tbody>
                         {% for category in categories %}
-                        <tr>
-                            <td>{{ category.id }}</td>
-                            <td>{{ category.title }}</td>
-                            <td><span class="badge badge-info">{{ category.product|length}}</span></td>
-                            <td>
-                                <div class="col-sm-auto">
-                                    <a href="{{ path('store_backend_category_view',{id: category.id, name: category.title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">
-                                        <span class="btn-label icon fa fa-search"></span>Voir categorie
-                                    </a>
-                                </div>
-                            </td>
-                        </tr>
-                            {% endfor %}
+                            <tr>
+                                <td>{{ category.id }}</td>
+                                <td>{{ category.title }}</td>
+                                <td><span class="badge badge-info">{{ category.product|length}}</span></td>
+                                <td>
+                                    <div class="pull-right col-sm-auto">
+                                        <a href="{{ path('store_backend_category_view',{id: category.id, name: category.title}) }}" class="btn btn-success btn-labeled" style="width: 100%;">
+                                            <span class="btn-label icon fa fa-search"></span>Voir categorie
+                                        </a>
+                                    </div>
+                                </td>
+                            </tr>
+                        {% endfor %}
                         </tbody>
                     </table>
                 </div>
@@ -502,7 +517,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                             {% for order in orders %}
                                 <div class="ticket">
-                                        <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
+                                    <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
                                     <a href="#" title="" class="ticket-title">Product name<span>[#{{ order.id }}]
                                             <span class="label">75€</span>
                                         </span></a>

@@ -1,0 +1,34 @@
+{% block form_errors %}
+    {% spaceless %}
+        {% if errors|length > 0 %}
+            <div class="alert alert-danger alert-dark fade in">
+            <button class="close" type="button" data-dismiss="alert"></button>
+                <strong>Attention! </strong>
+                {% for error in errors %}
+                    {{
+                        error.messagePluralization is null
+                        ? error.messageTemplate|trans(error.messageParameters, 'validators')
+                        : error.messageTemplate|transchoice(error.messagePluralization, error.messageParameters, 'validators')
+                    }}
+                {% endfor %}
+            </div>
+        {% endif %}
+    {% endspaceless %}
+{% endblock form_errors %}
+
+
+{% block money_widget %}
+    {% spaceless %}
+        {{ block('form_widget_simple') }}
+    {% endspaceless %}
+{% endblock money_widget %}
+
+{% block form_row %}
+    {% spaceless %}
+        <div>
+            {{ form_label(form) }}
+            {{ form_widget(form) }}
+            {{ form_errors(form) }}
+        </div>
+    {% endspaceless %}
+{% endblock form_row %}
