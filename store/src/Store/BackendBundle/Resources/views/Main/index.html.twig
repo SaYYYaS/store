@@ -216,7 +216,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <!-- Big text -->
                         <span class="text-bg">Chiffre d'affaire</span><br>
                         <!-- Small text -->
-                        <span class="text-sm"><a href="#">Depuis votre inscription </a></span>
+                        <span class="text-sm"><a href="#">Depuis votre inscription ({{ jeweler.dateCreated|date('d/m/Y') }}) </a></span>
                     </div> <!-- /.stat-cell -->
                 </div> <!-- /.stat-panel -->
             </div>
@@ -551,7 +551,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <!-- Panel padding, without vertical padding -->
                     <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for promo in business %}
-                            {{ dump(promo.product) }}
+                            {{ promo.product|length }}
                             <div class="ticket">
                                 <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
                                 <a href="#" title="" class="ticket-title">Product name<span>[#{{ promo.id }}]
@@ -583,21 +583,22 @@ Afficher les catégories avec nb de produits de la boutique#}
             -->
             <div class="panel panel-danger panel-dark panel-body-colorful widget-profile widget-profile-centered">
                 <div class="panel-heading">
-                    <img src="assets/demo/avatars/1.jpg" alt="" class="widget-profile-avatar">
+                    <img src="{{ jeweler.image }}" alt="" class="widget-profile-avatar">
                     <div class="widget-profile-header">
-                        <span>Boutique de username</span><br>
-                        <a href="https://twitter.com/test">https://twitter.com/test</a>
+                        <span>{{ jeweler.title }}</span><br>
                     </div>
                 </div> <!-- / .panel-heading -->
                 <div class="panel-body">
                     <div class="widget-profile-text" style="padding: 0;">
-                        phone icone : 06 02 10 12 12
-                        email icon : julien@email.com
-                        http://www.google.com
-                        26 rue des chips et cacahuètes grillés
-                        Lyon
-                        link icone : url 1
-                        link icone : url 2
+                        <p>
+                            <i><a HREF="mailto: {{ jeweler.email }}"></a></i>
+                        </p>
+                        <p>
+                        Pseudo : {{ jeweler.username }}
+                        </p>
+                        <p>
+                            {{ jeweler.description }}
+                        </p>
                     </div>
                 </div>
             </div> <!-- / .panel -->

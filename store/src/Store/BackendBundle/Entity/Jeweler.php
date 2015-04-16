@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * Jeweler
  *
  * @ORM\Table(name="jeweler", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\JewelerRepository")
  */
 class Jeweler
 {
