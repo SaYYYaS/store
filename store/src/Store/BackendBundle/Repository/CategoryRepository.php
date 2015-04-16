@@ -58,7 +58,6 @@ class CategoryRepository extends EntityRepository{
             ->where('c.jeweler = :user')
             ->orderBy('c.title','ASC')
             ->setParameter('user', $user);
-        dump(get_class_methods($queryBuild));
         return $queryBuild;
     }
 } 

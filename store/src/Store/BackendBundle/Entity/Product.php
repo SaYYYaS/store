@@ -168,7 +168,7 @@ class Product
      * maxMessage = "Votre slug peut faire au maximum {{ limit }} caractères")
      *
      * @Assert\NotBlank( message = "Le slug ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[\d\-\_]{4,100}/", message = "Votre slug n'est pas valide")
+     * @Assert\Regex( pattern = "/[\w\d\-\_]{4,100}/", message = "Votre slug n'est pas valide")
      */
     private $slug;
 

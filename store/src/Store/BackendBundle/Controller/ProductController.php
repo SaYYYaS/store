@@ -99,4 +99,37 @@ class ProductController extends Controller
         }
         return $this->render('StoreBackendBundle:Product:new.html.twig',['form' => $form->createView()]);
     }
+
+    /**
+     * Edit a product
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param null $id
+     * @return \Symfony\Component\HttpFoundation\RedirectResponse
+     */
+    public function editAction(Request $request,$id = null){
+
+        $em = $this->getDoctrine()->getManager();
+        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
+
+        $form = $this->createForm(new ProductType(1), $product, [
+            'attr' =>
+                [
+                    'method' => 'post',
+                    'novalidate' => 'novalidate', //Permet de zaper la validation required html5
+                    'action' => $this->generateUrl('store_backend_product_edit',['id' =>$id])
+                ]
+        ]);
+
+        //Envoie les donnés de la $request au formulaire, de tel sorte que le formulaire ai accès aux données
+        $form->handleRequest($request);
+
+        //Si la totalité de formulaire est valide
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($product);
+            $em->flush();
+            return $this->redirectToRoute('store_backend_product_list');
+        }
+        return $this->render('StoreBackendBundle:Product:edit.html.twig',['form' => $form->createView()]);
+    }
 }

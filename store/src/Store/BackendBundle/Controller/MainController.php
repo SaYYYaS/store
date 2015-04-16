@@ -36,25 +36,26 @@ class MainController extends Controller
         $orders = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser(1,10);
         $msgs = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser(1,10);
         $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
-        dump($coms);
+        $business = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser(1);
 
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
-                'nbrprods'     => $nbrprods,
-                'nbrcats'      => $nbrcats,
-                'nbrcoms'      => $nbrcoms,
-                'nbrorders'    => $nbrorders,
-                'nbrpages'     => $nbrpages,
-                'nbrsuppliers' => $nbrsuppliers,
-                'coms'         => $coms,
-                'coms_active'         => $coms_active,
-                'coms_inactive'         => $coms_inactive,
-                'coms_pending'         => $coms_pending,
-                'orders'       => $orders,
-                'msgs'         => $msgs,
-                'likes'        => $likes,
-                'categories' => $categories,
-                'totalmoney'   => $totalmoney
+                'nbrprods'      => $nbrprods,
+                'nbrcats'       => $nbrcats,
+                'nbrcoms'       => $nbrcoms,
+                'nbrorders'     => $nbrorders,
+                'nbrpages'      => $nbrpages,
+                'nbrsuppliers'  => $nbrsuppliers,
+                'coms'          => $coms,
+                'business'          => $business,
+                'coms_active'   => $coms_active,
+                'coms_inactive' => $coms_inactive,
+                'coms_pending'  => $coms_pending,
+                'orders'        => $orders,
+                'msgs'          => $msgs,
+                'likes'         => $likes,
+                'categories'    => $categories,
+                'totalmoney'    => $totalmoney
             ]
         );
     }

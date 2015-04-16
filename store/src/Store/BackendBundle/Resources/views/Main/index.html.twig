@@ -511,10 +511,10 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <table class="table table-striped text-center">
                         <thead>
                         <tr>
-                            <th>Id</th>
-                            <th>Nom</th>
-                            <th>Nombre de produits</th>
-                            <th>Actions</th>
+                            <th class="text-center">Id</th>
+                            <th class="text-center">Nom</th>
+                            <th class="text-center">Nombre de produits</th>
+                            <th class="text-center">Actions</th>
                         </tr>
                         </thead>
                         <tbody>
@@ -549,19 +549,29 @@ Afficher les catégories avec nb de produits de la boutique#}
                 </div> <!-- / .panel-heading -->
                 <div class="panel-body tab-content-padding">
                     <!-- Panel padding, without vertical padding -->
-                    <div class="slimScrollDiv" style="position: relative; overflow: hidden; width: auto; height: 300px;"><div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                            {% for order in orders %}
-                                <div class="ticket">
-                                    <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
-                                    <a href="#" title="" class="ticket-title">Product name<span>[#{{ order.id }}]
-                                            <span class="label">75€</span>
+                    <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
+                        {% for promo in business %}
+                            {{ dump(promo.product) }}
+                            <div class="ticket">
+                                <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
+                                <a href="#" title="" class="ticket-title">Product name<span>[#{{ promo.id }}]
+                                            <span class="label">
+                                                {% if(promo.type == 1) %}
+                                                    {#{{ promo.product.price - promo.amount }}#}
+                                                {% else %}
+                                                    {#{{ promo.product.price *(1 - promo.amount) }}#}
+                                                {% endif %}
+                                                €</span>
                                         </span></a>
 								<span class="ticket-info">
-                                    <span>promotion or reduction</span>
+                                    <span> -- {{ promo.type == 1 ? "promotion" : "reduction" }} -- </span>
 								</span>
-                                </div> <!-- / .ticket -->
-                            {%  endfor %}
-                        </div><div class="slimScrollRail" style="width: 7px; height: 100%; position: absolute; top: 0px; display: none; border-top-left-radius: 7px; border-top-right-radius: 7px; border-bottom-right-radius: 7px; border-bottom-left-radius: 7px; opacity: 0.2; z-index: 90; right: 1px; background: rgb(51, 51, 51);"></div></div>
+                                <span class="ticket-message">
+                                    {{ promo.message }}
+                                </span>
+                            </div> <!-- / .ticket -->
+                        {%  endfor %}
+                    </div>
                 </div> <!-- / .panel-body -->
             </div> <!-- / .panel -->
         </div>

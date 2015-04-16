@@ -26,3 +26,11 @@ store_backend_product_new:
     requirements:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:Product:new'}
+
+#Page creation product
+store_backend_product_edit:
+    path:        /edit/{id}
+    requirements:
+        id:      \d+
+        _method: GET|PUT|POST
+    defaults:    {_controller: 'StoreBackendBundle:Product:edit'}
