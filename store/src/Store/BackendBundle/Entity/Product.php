@@ -4,12 +4,15 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 
 /**
  * Product
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\ProductRepository")
+ * @UniqueEntity(fields = "ref", message = "Votre référence de bijoux éxiste déjà")
+ * @UniqueEntity(fields = "title", message = "Votre titre de bijoux existe déjà")
  */
 class Product
 {
@@ -25,7 +28,7 @@ class Product
     /**
      * @var string
      * @Assert\NotBlank( message = "La référence ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[A-Z]{4}-[0-9]{2}-[A-Z]{1}/" , message = "La référence ne doit être valide")
+     * @Assert\Regex( pattern = "/([A-Z]{4}-[0-9]{2}-[A-Z]{1}|[A-Z]{2}[0-9]{2})/" , message = "La référence doit être valide")
      *
      * @ORM\Column(name="ref", type="string", length=30, nullable=true)
      */

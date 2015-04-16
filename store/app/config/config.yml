@@ -29,6 +29,9 @@ framework:
 twig:
     debug:            "%kernel.debug%"
     strict_variables: "%kernel.debug%"
+    form:
+        resources:
+            - 'StoreBackendBundle:Partial:form.html.twig'
 
 # Assetic Configuration
 assetic:

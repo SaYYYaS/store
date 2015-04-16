@@ -94,10 +94,10 @@ Afficher les catégories avec nb de produits de la boutique#}
                     barColor: PixelAdmin.settings.consts.COLORS[1]
                 }));
                 $('#easy-pie-chart-2').easyPieChart($.extend({}, easyPieChartDefaults, {
-                    barColor: PixelAdmin.settings.consts.COLORS[1]
+                    barColor: PixelAdmin.settings.consts.COLORS[2]
                 }));
                 $('#easy-pie-chart-3').easyPieChart($.extend({}, easyPieChartDefaults, {
-                    barColor: PixelAdmin.settings.consts.COLORS[1]
+                    barColor: PixelAdmin.settings.consts.COLORS[3]
                 }));
             });
         </script>
@@ -117,8 +117,8 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
                             <div class="pie-chart" data-percent="43" id="easy-pie-chart-1">
-                                <div class="pie-chart-label">12.3TB</div>
-                                <canvas height="90" width="90"></canvas></div>
+                                <div class="pie-chart-label">20%</div>
+                                </div>
                         </div>
                     </div> <!-- /.stat-row -->
                 </div> <!-- /.stat-panel -->
@@ -136,7 +136,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <div class="stat-cell bordered no-border-t no-padding-hr">
                             <div class="pie-chart" data-percent="93" id="easy-pie-chart-2">
                                 <div class="pie-chart-label">93%</div>
-                                <canvas height="90" width="90"></canvas></div>
+                                </div>
                         </div>
                     </div> <!-- /.stat-row -->
                 </div> <!-- /.stat-panel -->
@@ -153,8 +153,8 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <!-- Bordered, without top border, without horizontal padding -->
                         <div class="stat-cell bordered no-border-t no-padding-hr">
                             <div class="pie-chart" data-percent="75" id="easy-pie-chart-3">
-                                <div class="pie-chart-label">12GB</div>
-                                <canvas height="90" width="90"></canvas></div>
+                                <div class="pie-chart-label">100%</div>
+                                </div>
                         </div>
                     </div> <!-- /.stat-row -->
                 </div> <!-- /.stat-panel -->
@@ -450,7 +450,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                                     {% if msg.state == 0 %}
                                         <span class="label label-default pull-right">Désactivé</span>
                                     {% elseif msg.state == 1 %}
-                                        <span class="label label-primary pull-right">Lire</span>
+                                        <span class="btn btn-primary label label-primary pull-right">Lire</span>
                                     {% elseif msg.state == 2 %}
                                         <span class="label label-success pull-right">Lu</span>
                                     {% endif %}
