@@ -12,7 +12,7 @@
     </div>
 <div class="table-primary table table-bordered">
     <div class="table-info">
-        <table class="table table-bordered">
+        <table class="table table-bordered" style="table-layout: fixed;">
             <thead>
             <tr>
                 <th>Id</th>
@@ -37,11 +37,11 @@
                     <td class="col-md-3">{{ product.summary | striptags }}</td>
                     <td><strong>{{ product.price }} € ~</strong> Taxe: {{ product.taxe }}</td>
                     <td>{{ product.quantity }}</td>
-                    <td>
+                    <td class="activate-product">
                         {% if product.active %}
-                            <i class="fa fa-check"></i>
+                            <a href="{{ path('store_backend_product_activate',{id : product.id,active: 0}) }}"><i class="fa fa-check"></i></a>
                         {% else %}
-                            <i class="fa fa-crosshairs"></i>
+                            <a href="{{ path('store_backend_product_activate',{id : product.id, active: 1}) }}"><i class="fa fa-times"></i></a>
                         {% endif %}
                     </td>
                     <td>{{ product.dateCreated|date('d/m/Y') }}</td>
@@ -70,4 +70,21 @@
     </div>
 </div>
 
+{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script type="application/javascript">
+    $('.activate-product').on('click', function(e){
+        e.preventDefault();
+        var $link = $(this).children('a');
+        $.ajax({
+            url : $link.attr('href') }).done(function(response){
+            var new_active = response.data == 1 ? 0 : 1;
+            console.log($link.attr('href', $link.attr('href').slice(0,-1) + new_active));
+                $link.children().toggleClass('fa fa-check');
+                $link.children().toggleClass('fa fa-times');
+
+        });
+    });
+    </script>
 {% endblock %}

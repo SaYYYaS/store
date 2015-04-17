@@ -1,7 +1,6 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block classtitle %}bookmark{% endblock %}
+{% block classtitle %}pencil{% endblock %}
 
-{#Cette fonction va me chercher un theme de formulaire depuis mon application dans le fichier partial#}
 {% block javascript %}
     {{ parent() }}
     <script>
@@ -19,57 +18,7 @@
 {% endblock %}
 {% block content %}
 
-    {{ form_start(form) }}
-    <div class="row">
-        <div class="col-md-3">{{ form_row(form.ref) }}</div>
-        <div class="col-md-3">{{ form_row(form.title) }}</div>
-        <div class="col-md-3">{{ form_row(form.slug) }}</div>
-        <div class="col-md-3">{{ form_row(form.dateActive) }}</div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-md-6">{{ form_row(form.summary) }}</div>
-        <div class="col-md-6">{{ form_row(form.description) }}</div>
-    </div>
-    <br/>
-    <div class="row">
-        <div class="col-md-12">{{ form_row(form.composition) }}</div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="form-group">
-            <div class="col-md-4">
-                {{ form_row(form.price) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_row(form.quantity) }}
-            </div>
-            <div class="col-md-4">
-                {{ form_row(form.taxe) }}
-            </div>
-        </div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="col-md-6 text-center">{{ form_row(form.active) }}</div>
-        <div class="col-md-6 text-center">{{ form_row(form.cover) }}</div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="form-group">
-            <div class="col-md-6">{{ form_row(form.category) }}</div>
-            <div class="col-md-6">{{ form_row(form.cms) }}</div>
-        </div>
-    </div>
-    <hr/>
-    <div class="row">
-        <div class="col-md-6">{{ form_row(form.supplier) }}</div>
-        <div class="col-md-6">{{ form_row(form.tag) }}</div>
-    </div>
-    <hr/>
-    {{ form_widget(form.envoyer,{'attr' : {'class' : 'pull-right btn btn-lg btn btn-primary'}}) }}
-    {{ form_widget(form._token) }}
-    {{ form_end(form,{'render_rest' : false}) }} {# permet d'ajouter le button envoyer et 'render_rest' empèche l'affichage des autres fields#}
+    {% include 'StoreBackendBundle:Product:_form.html.twig' %}
 
 {% endblock %}
 

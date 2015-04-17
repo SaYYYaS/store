@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Orders" table="orders">
+    <indexes>
+      <index name="user_id" columns="user_id"/>
+      <index name="jeweler_id" columns="jeweler_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="address" type="text" column="address" nullable="true"/>
+    <field name="date" type="date" column="date" nullable="true"/>
+    <field name="total" type="float" column="total" precision="10" scale="0" nullable="true"/>
+    <field name="state" type="integer" column="state" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="false"/>
+    <many-to-one field="user" target-entity="User">
+      <join-columns>
+        <join-column name="user_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-one field="jeweler" target-entity="Jeweler">
+      <join-columns>
+        <join-column name="jeweler_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="product" target-entity="Product" inversed-by="order">
+      <join-table name="order_detail">
+        <join-columns>
+          <join-column name="order_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

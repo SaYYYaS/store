@@ -34,3 +34,11 @@ store_backend_product_edit:
         id:      \d+
         _method: GET|PUT|POST
     defaults:    {_controller: 'StoreBackendBundle:Product:edit'}
+
+#Page creation product
+store_backend_product_activate:
+    path:        /activate/{id}/{active}
+    requirements:
+        id:      \d+
+        active: \d{1}
+    defaults:    {_controller: 'StoreBackendBundle:Product:activate'}

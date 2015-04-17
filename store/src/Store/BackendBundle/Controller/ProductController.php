@@ -5,8 +5,8 @@ namespace Store\BackendBundle\Controller;
 use Store\BackendBundle\Entity\Product;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Store\BackendBundle\Form\ProductType;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
-
 /**
  * Class ProductController
  * Module that handle product
@@ -30,14 +30,12 @@ class ProductController extends Controller
 
     /**
      * View a product
-     * @param $id
+     * @param Product $id (paramconverter permet de lier l'int vers le product)
      * @param $name
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($id,$name){
-        $em = $this->getDoctrine()->getManager();
-        //Récupère un produit de ma base de données
-        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
+    public function viewAction(Product $id,$name){
+        $product = $id;
         return $this->render('StoreBackendBundle:Product:view.html.twig',['product' => $product]);
     }
 
@@ -79,9 +77,11 @@ class ProductController extends Controller
         $product->setJeweler($jeweler);
 
         $form = $this->createForm(new ProductType(1), $product, [
+            'validation_groups' => 'new',
             'attr' =>
             [
                 'method' => 'post',
+                //Permet de définir un scope de validation
                 'novalidate' => 'novalidate', //Permet de zaper la validation required html5
                 'action' => $this->generateUrl('store_backend_product_new')
             ]
@@ -95,23 +95,36 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
+
+            //Je crée un message flash avec pour clé "sucess"
+            //Et u message de confirmation
+
+            $this->get('session')->getFlashbag()->add('success',
+                'Votre produit a bien été crée');
+
+            $quantity = $product->getQuantity();
+            $this->get('session')->getFlashbag()->add('warning',
+                $quantity == 1 ? 'produit unique' : 'Vous avez déjà des produits similaires' );
+
             return $this->redirectToRoute('store_backend_product_list');
         }
+
+
+
         return $this->render('StoreBackendBundle:Product:new.html.twig',['form' => $form->createView()]);
     }
 
     /**
      * Edit a product
      * @param \Symfony\Component\HttpFoundation\Request $request
-     * @param null $id
+     * @param null|\Store\BackendBundle\Entity\Product $id (utilisation paramConverter pour convertir in en Product et implicitement find)
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
-    public function editAction(Request $request,$id = null){
+    public function editAction(Request $request,Product $id = null){
 
-        $em = $this->getDoctrine()->getManager();
-        $product = $em->getRepository('StoreBackendBundle:Product')->find($id);
-
+        $product = $id;
         $form = $this->createForm(new ProductType(1), $product, [
+            'validation_groups' => 'edit',
             'attr' =>
                 [
                     'method' => 'post',
@@ -131,5 +144,18 @@ class ProductController extends Controller
             return $this->redirectToRoute('store_backend_product_list');
         }
         return $this->render('StoreBackendBundle:Product:edit.html.twig',['form' => $form->createView()]);
+    }
+
+    public function activateAction(Product $id, $active){
+
+        $product = $id;
+
+        $product->setActive($active);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+        //return $this->redirectToRoute('store_backend_product_list');
+        return new JsonResponse(['data' => $product->getActive()]);
     }
 }

@@ -74,6 +74,7 @@ class CategoryController extends Controller
         $category->setJeweler($jeweler);
 
         $form = $this->createForm(new CategoryType(), $category, [
+            'validation_groups' => 'new',
             'attr' =>
                 [
                     'method' => 'post',

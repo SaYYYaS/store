@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Business" table="business">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="type" type="integer" column="type" nullable="true"/>
+    <field name="amount" type="float" column="amount" precision="10" scale="0" nullable="true"/>
+    <field name="message" type="string" column="message" length="300" nullable="true"/>
+    <field name="dateExpired" type="datetime" column="date_expired" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <many-to-many field="product" target-entity="Product" mapped-by="business"/>
+  </entity>
+</doctrine-mapping>

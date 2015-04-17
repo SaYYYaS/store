@@ -71,6 +71,7 @@ class CMSController extends Controller
         $cms->setJeweler($jeweler);
 
         $form = $this->createForm(new CmsType(), $cms, [
+            'validation_groups' => 'new',
             'attr' =>
                 [
                     'method' => 'post',

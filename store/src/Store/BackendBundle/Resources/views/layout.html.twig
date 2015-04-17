@@ -20,6 +20,8 @@
 
         {{ include('StoreBackendBundle:Partial:main_menu.html.twig') }}
         <div id="content-wrapper" style="padding-bottom:6em">
+
+            {{ include('StoreBackendBundle:Partial:flashdatas.html.twig') }}
             <div class="page-header">
 
                 <div class="row">
@@ -67,7 +69,17 @@
 
     <script type="text/javascript">
         init.push(function () {
-            // Javascript code here
+            var dates = {
+                days: ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday"],
+                daysShort: ["Sun", "Mon", "Tue", "Wed", "Thu", "Fri", "Sat"],
+                daysMin: ["Su", "Mo", "Tu", "We", "Th", "Fr", "Sa"],
+                months: ["January", "February", "March", "April", "Mai", "June", "July", "August", "September", "October", "November", "December"],
+                monthsShort: ["Jan", "Feb", "Mar", "Apr", "Mai", "Jun", "Jul", "Aug", "Sep", "Oct", "Nov", "Dec"],
+                today: "Today",
+                clear: "Clear"
+            };
+            $("select[multiple]").select2();
+            $('.date').datepicker({dateFormat : "d/mm/y", language : "fr", dates : dates});
         })
         window.PixelAdmin.start(init);
     </script>

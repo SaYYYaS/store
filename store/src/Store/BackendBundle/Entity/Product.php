@@ -12,8 +12,9 @@ use Store\BackendBundle\Validator\Constraints as StoreAssert;
  *
  * @ORM\Table(name="product", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\ProductRepository")
- * @UniqueEntity(fields = "ref", message = "Votre référence de bijoux éxiste déjà")
- * @UniqueEntity(fields = "title", message = "Votre titre de bijoux existe déjà")
+ * @UniqueEntity(fields = "ref", message = "Votre existe déjà", groups = {"new"})
+ * @UniqueEntity(fields = "title", message = "Votre titre de bijoux existe déjà", groups = {"new"})
+ *
  */
 class Product
 {
@@ -28,8 +29,12 @@ class Product
 
     /**
      * @var string
-     * @Assert\NotBlank( message = "La référence ne doit pas être vide")
-     * @Assert\Regex( pattern = "/([A-Z]{4}-[0-9]{2}-[A-Z]{1}|[A-Z]{2}[0-9]{2})/" , message = "La référence doit être valide")
+     * @Assert\NotBlank( message = "La référence ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\Regex(
+     *               pattern = "/([A-Z]{4}-[0-9]{2}-[A-Z]{1}|[A-Z]{2}[0-9]{2})/" ,
+     *               message = "La référence doit être valide",
+     *               groups = {"new", "edit"}
+     * )
      *
      * @ORM\Column(name="ref", type="string", length=30, nullable=true)
      */
@@ -40,13 +45,15 @@ class Product
      *
      * @ORM\Column(name="title", type="string", length=150, nullable=true)
      * @Assert\Length(
-     * min = "4",
-     * max = "200",
-     * minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères")
+     *                min = "4",
+     *                max = "200",
+     *                minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
+     *                maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères",
+     *                groups = {"new", "edit"}
+     * )
      *
-     * @Assert\NotBlank( message = "Le titre ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[\w\d\s]{4,200}/", message = "Votre titre n'est pas valide")
+     * @Assert\NotBlank( message = "Le titre ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,200}/", message = "Votre titre n'est pas valide", groups = {"new", "edit"})
      */
     private $title;
 
@@ -58,10 +65,11 @@ class Product
      * min = "4",
      * max = "200",
      * minMessage = "Votre résumé doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre résumé peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre résumé peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "Le résumé ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[\w\d\s]{4,10}/", message = "Votre résumé n'est pas valide")
+     * @Assert\NotBlank( message = "Le résumé ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,10}/", message = "Votre résumé n'est pas valide", groups = {"new", "edit"})
      */
     private $summary;
 
@@ -73,9 +81,11 @@ class Product
      * min = "4",
      * max = "500",
      * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"}
+     * )
      *
-     * @Assert\NotBlank( message = "Le description ne doit pas être vide")
+     * @Assert\NotBlank( message = "Le description ne doit pas être vide", groups = {"new", "edit"})
      */
     private $description;
 
@@ -87,10 +97,13 @@ class Product
      * min = "10",
      * max = "400",
      * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"})
      *
      * @Assert\NotBlank( message = "Le description ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[\w\d\s]{4,15}/", message = "Votre description n'est pas valide")
+     * @Assert\Regex( pattern = "/[\w\d\s]{4,15}/", message = "Votre description n'est pas valide",
+     * groups = {"new", "edit"}
+     * )
      */
     private $composition;
 
@@ -102,7 +115,8 @@ class Product
      * min = 5,
      * max = 100000,
      * minMessage = "Votre bijou doit faire au moins {{ limit }} €",
-     * maxMessage = "Votre bijou peut valoir au maximum {{ limit }} €")
+     * maxMessage = "Votre bijou peut valoir au maximum {{ limit }} €",
+     * groups = {"new", "edit"})
      */
     private $price;
 
@@ -110,7 +124,8 @@ class Product
      * @var float
      *
      * @ORM\Column(name="taxe", type="float", precision=10, scale=0, nullable=true)
-     * @Assert\Choice(choices = {"5.5", "19.6", "20"}, message = "Choix non valide")
+     * @Assert\Choice(choices = {"5.5", "19.6", "20"}, message = "Choix non valide",
+     * groups = {"new", "edit"})
      */
     private $taxe;
 
@@ -118,7 +133,7 @@ class Product
      * @var integer
      *
      * @ORM\Column(name="quantity", type="integer", nullable=true)
-     * @Assert\Range(min = 1, max = 200, minMessage = "Au moins {{ limit }} produit", maxMessage = "Maximum produit autorisé : {{ limit }}")
+     * @Assert\Range(min = 1, max = 200, minMessage = "Au moins {{ limit }} produit", maxMessage = "Maximum produit autorisé : {{ limit }}", groups = {"new", "edit"})
      */
     private $quantity;
 
@@ -165,10 +180,11 @@ class Product
      * min = "4",
      * max = "100",
      * minMessage = "Votre slug doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre slug peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre slug peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "Le slug ne doit pas être vide")
-     * @Assert\Regex( pattern = "/[\w\d\-\_]{4,100}/", message = "Votre slug n'est pas valide")
+     * @Assert\NotBlank( message = "Le slug ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\Regex( pattern = "/[\w\d\-\_]{4,100}/", message = "Votre slug n'est pas valide", groups = {"new", "edit"})
      */
     private $slug;
 
@@ -241,7 +257,8 @@ class Product
      * min = "1",
      * max = "10",
      * minMessage = " Au moins {{ limit }} catégorie",
-     * maxMessage = " Pas plus de {{ limit }} catégories"
+     * maxMessage = " Pas plus de {{ limit }} catégories",
+     * groups = {"new", "edit"}
      * )
      */
     private $category;
@@ -262,7 +279,8 @@ class Product
      * min = "1",
      * max = "10",
      * minMessage = " Au moins {{ limit }} page",
-     * maxMessage = " Pas plus de {{ limit }} pages"
+     * maxMessage = " Pas plus de {{ limit }} pages",
+     * groups = {"new", "edit"}
      * )
      */
     private $cms;
@@ -273,6 +291,16 @@ class Product
      * @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      **/
     private $image;
+
+    /**
+     * @ORM\Column(name="imagetop", type="string", nullable=true)
+     **/
+    private $imagetop;
+
+    /**
+     * attribut qui représentera mon fichier uploadé
+     */
+    protected $file;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -315,6 +343,13 @@ class Product
      *   inverseJoinColumns={
      *     @ORM\JoinColumn(name="tag_id", referencedColumnName="id")
      *   }
+     * )
+     * @Assert\Count(
+     *               min = "1",
+     *               max = "10",
+     *               minMessage = "Vous devez au moins choisir {{ limit }} tag(s)",
+     *               maxMessage = "Vous ne pouvez pas excéder {{ limit }} tag(s)",
+     *               groups = {"edit"}
      * )
      */
     private $tag;
@@ -1039,5 +1074,67 @@ class Product
     function __toString()
     {
         return (string)$this->title;
+    }
+
+    /**
+     * Set imagetop
+     *
+     * @param string $imagetop
+     * @return Product
+     */
+    public function setImagetop($imagetop)
+    {
+        $this->imagetop = $imagetop;
+
+        return $this;
+    }
+
+    /**
+     * Get imagetop
+     *
+     * @return string 
+     */
+    public function getImagetop()
+    {
+        return $this->imagetop;
+    }
+
+    /**
+     * Retourne le chemin absolu de mon fichier uploadé
+     * @return null|string
+     */
+    public function getAbsolutePath()
+    {
+        return null === $this->imagetop ? null : $this->getUploadRootDir().'/'.$this->imagetop;
+    }
+
+    /**
+     * Retourne le chemin de l'image depuis le dossier web
+     * @return null|string
+     */
+    public function getWebPath()
+    {
+        return null === $this->imagetop ? null : $this->getUploadDir().'/'.$this->imagetop;
+    }
+
+    /**
+     * Retourne le chemin absolue de l'image
+     * @return string
+     */
+    protected function getUploadRootDir()
+    {
+        // le chemin absolu du répertoire où les documents uploadés doivent être sauvegardés
+        return __DIR__.'/../../../../web/'.$this->getUploadDir();
+    }
+
+    /**
+     * Retourne le nom du dossier upload
+     * @return string
+     */
+    protected function getUploadDir()
+    {
+        // on se débarrasse de « __DIR__ » afin de ne pas avoir de problème lorsqu'on affiche
+        // le document/image dans la vue.
+        return 'uploads/products';
     }
 }

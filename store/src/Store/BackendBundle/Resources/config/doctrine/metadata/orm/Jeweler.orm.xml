@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Jeweler" table="jeweler">
+    <unique-constraints>
+      <unique-constraint name="email" columns="email"/>
+    </unique-constraints>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="username" type="string" column="username" length="300" nullable="true"/>
+    <field name="email" type="string" column="email" length="150" nullable="true"/>
+    <field name="password" type="string" column="password" length="300" nullable="true"/>
+    <field name="title" type="string" column="title" length="300" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="image" type="string" column="image" length="300" nullable="true"/>
+    <field name="type" type="integer" column="type" nullable="true"/>
+    <field name="enabled" type="boolean" column="enabled" nullable="true"/>
+    <field name="locked" type="boolean" column="locked" nullable="true"/>
+    <field name="expired" type="boolean" column="expired" nullable="true"/>
+    <field name="salt" type="string" column="salt" length="300" nullable="true"/>
+    <field name="token" type="string" column="token" length="300" nullable="true"/>
+    <field name="usernameCanonical" type="string" column="username_canonical" length="300" nullable="true"/>
+    <field name="emailCanonical" type="string" column="email_canonical" length="300" nullable="true"/>
+    <field name="credentialsExpired" type="boolean" column="credentials_expired" nullable="true"/>
+    <field name="credentialsExpireAt" type="datetime" column="credentials_expire_at" nullable="true"/>
+    <field name="confirmationToken" type="string" column="confirmation_token" length="300" nullable="true"/>
+    <field name="passwordRequestedAt" type="string" column="password_requested_at" length="300" nullable="true"/>
+    <field name="fid" type="integer" column="fid" nullable="true"/>
+    <field name="slug" type="string" column="slug" length="30" nullable="true"/>
+    <field name="accountnonlocked" type="boolean" column="accountNonLocked" nullable="true"/>
+    <field name="accountnonexpired" type="boolean" column="accountNonExpired" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true"/>
+  </entity>
+</doctrine-mapping>

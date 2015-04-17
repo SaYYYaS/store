@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Supplier" table="supplier">
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="name" type="string" column="name" length="300" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="image" type="string" column="image" length="300" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true"/>
+    <field name="dateUpdated" type="datetime" column="date_updated" nullable="true"/>
+    <many-to-many field="product" target-entity="Product" mapped-by="supplier"/>
+  </entity>
+</doctrine-mapping>

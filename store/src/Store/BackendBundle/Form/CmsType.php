@@ -35,8 +35,9 @@ class CmsType extends AbstractType{
         $builder->add('dateActive','date',
             [
                 'label' => 'Date d\'activation',
-                'input'  => 'datetime',
-                'widget' => 'choice'
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'attr' => ['class' => 'date form-control']
             ]);
 
         $builder->add('summary',null,

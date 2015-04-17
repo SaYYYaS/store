@@ -1,0 +1,95 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Store\BackendBundle\Entity\Product" table="product">
+    <indexes>
+      <index name="jeweler_id" columns="jeweler_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="ref" type="string" column="ref" length="30" nullable="true"/>
+    <field name="title" type="string" column="title" length="150" nullable="true"/>
+    <field name="summary" type="text" column="summary" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="composition" type="text" column="composition" nullable="true"/>
+    <field name="imagetop" type="string" column="imagetop" length="300" nullable="true"/>
+    <field name="price" type="float" column="price" precision="10" scale="0" nullable="true"/>
+    <field name="taxe" type="float" column="taxe" precision="10" scale="0" nullable="true"/>
+    <field name="quantity" type="integer" column="quantity" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="dateActive" type="datetime" column="date_active" nullable="true"/>
+    <field name="cover" type="boolean" column="cover" nullable="true"/>
+    <field name="shop" type="boolean" column="shop" nullable="true"/>
+    <field name="position" type="integer" column="position" nullable="true"/>
+    <field name="slug" type="string" column="slug" length="300" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true"/>
+    <field name="dateUpdated" type="datetime" column="date_updated" nullable="true"/>
+    <many-to-one field="jeweler" target-entity="Jeweler">
+      <join-columns>
+        <join-column name="jeweler_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="product2" target-entity="Product" inversed-by="product">
+      <join-table name="product_featured">
+        <join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="product2_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="supplier" target-entity="Supplier" inversed-by="product">
+      <join-table name="product_supplier">
+        <join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="supplier_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="tag" target-entity="Tag" inversed-by="product">
+      <join-table name="product_tag">
+        <join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="tag_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="cms" target-entity="Cms" inversed-by="product">
+      <join-table name="product_cms">
+        <join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="cms_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="category" target-entity="Category" inversed-by="product">
+      <join-table name="product_category">
+        <join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="category_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+    <many-to-many field="user" target-entity="User" mapped-by="product"/>
+    <many-to-many field="order" target-entity="Orders" mapped-by="product"/>
+    <many-to-many field="business" target-entity="Business" inversed-by="product">
+      <join-table name="product_business">
+        <join-columns>
+          <join-column name="product_id" referenced-column-name="id"/>
+        </join-columns>
+        <inverse-join-columns>
+          <join-column name="business_id" referenced-column-name="id"/>
+        </inverse-join-columns>
+      </join-table>
+    </many-to-many>
+  </entity>
+</doctrine-mapping>

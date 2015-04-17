@@ -4,6 +4,7 @@ namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
+use Store\BackendBundle\Validator\Constraints as StoreAssert;
 
 /**
  * Cms
@@ -30,9 +31,10 @@ class Cms
      * min = "6",
      * max = "100",
      * minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "La titre ne doit pas être vide")
+     * @Assert\NotBlank( message = "La titre ne doit pas être vide", groups = {"new", "edit"})
      */
     private $title;
 
@@ -44,9 +46,11 @@ class Cms
      * min = "11",
      * max = "100",
      * minMessage = "Votre résumé doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre résumé peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre résumé peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"}
+     * )
      *
-     * @Assert\NotBlank( message = "La résumé ne doit pas être vide")
+     * @Assert\NotBlank( message = "La résumé ne doit pas être vide", groups = {"new", "edit"})
      */
     private $summary;
 
@@ -54,13 +58,10 @@ class Cms
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @Assert\Length(
-     * min = "16",
-     * max = "100",
-     * minMessage = "Votre description doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre description peut faire au maximum {{ limit }} caractères")
+     * @StoreAssert\StripTagsLength(maxMessage = "Votre chaine de caractère est supérieur à {{ limit }} ",
+     * max = "500", groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "La description ne doit pas être vide")
+     * @Assert\NotBlank( message = "La description ne doit pas être vide", groups = {"new", "edit"})
      */
     private $description;
 
@@ -68,13 +69,10 @@ class Cms
      * @var string
      *
      * @ORM\Column(name="image", type="string", length=300, nullable=true)
-     * @Assert\Length(
-     * min = "6",
-     * max = "100",
-     * minMessage = "Votre image doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre image peut faire au maximum {{ limit }} caractères")
+     * @StoreAssert\StripTagsLength(maxMessage = "Votre chaine de caractère est supérieur à {{ limit }} ",
+     * max = "500", groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "La image ne doit pas être vide")
+     * @Assert\NotBlank( message = "La image ne doit pas être vide", groups = {"new", "edit"})
      */
     private $image;
 
@@ -86,9 +84,11 @@ class Cms
      * min = "6",
      * max = "100",
      * minMessage = "Votre video doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre video peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre video peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "La vidéo ne doit pas être vide")
+     * @Assert\NotBlank( message = "La vidéo ne doit pas être vide",
+     * groups = {"new", "edit"})
      */
     private $video;
 
@@ -96,7 +96,7 @@ class Cms
      * @var integer
      *
      * @ORM\Column(name="state", type="integer", nullable=true)
-     * @Assert\Choice(choices = {"0", "1", "2"}, message = "Choix non valide")
+     * @Assert\Choice(choices = {"0", "1", "2"}, message = "Choix non valide", groups = {"new", "edit"})
      */
     private $state;
 

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Store\BackendBundle\Entity\ProductImage" table="product_image">
+    <indexes>
+      <index name="product_id" columns="product_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="image" type="string" column="image" length="300" nullable="true"/>
+    <field name="imageThumb" type="string" column="image_thumb" length="300" nullable="true"/>
+    <many-to-one field="product" target-entity="Product">
+      <join-columns>
+        <join-column name="product_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+  </entity>
+</doctrine-mapping>

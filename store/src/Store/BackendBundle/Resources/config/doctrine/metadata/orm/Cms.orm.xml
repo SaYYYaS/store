@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<doctrine-mapping xmlns="http://doctrine-project.org/schemas/orm/doctrine-mapping" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://doctrine-project.org/schemas/orm/doctrine-mapping http://doctrine-project.org/schemas/orm/doctrine-mapping.xsd">
+  <entity name="Cms" table="cms">
+    <indexes>
+      <index name="jeweler_id" columns="jeweler_id"/>
+    </indexes>
+    <id name="id" type="integer" column="id">
+      <generator strategy="IDENTITY"/>
+    </id>
+    <field name="title" type="string" column="title" length="300" nullable="true"/>
+    <field name="summary" type="text" column="summary" nullable="true"/>
+    <field name="description" type="text" column="description" nullable="true"/>
+    <field name="image" type="string" column="image" length="300" nullable="true"/>
+    <field name="video" type="string" column="video" length="300" nullable="true"/>
+    <field name="state" type="integer" column="state" nullable="true"/>
+    <field name="active" type="boolean" column="active" nullable="true"/>
+    <field name="view" type="integer" column="view" nullable="true"/>
+    <field name="dateActive" type="datetime" column="date_active" nullable="true"/>
+    <field name="dateUpdated" type="datetime" column="date_updated" nullable="true"/>
+    <field name="dateCreated" type="datetime" column="date_created" nullable="true"/>
+    <many-to-one field="jeweler" target-entity="Jeweler">
+      <join-columns>
+        <join-column name="jeweler_id" referenced-column-name="id"/>
+      </join-columns>
+    </many-to-one>
+    <many-to-many field="product" target-entity="Product" mapped-by="cms"/>
+  </entity>
+</doctrine-mapping>

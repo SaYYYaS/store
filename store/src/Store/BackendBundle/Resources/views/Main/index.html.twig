@@ -551,7 +551,10 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <!-- Panel padding, without vertical padding -->
                     <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for promo in business %}
-                            {{ promo.product|length }}
+                            {% for product in promo.product %}
+                                {{ product.title }}
+                                <br/>
+                            {% endfor %}
                             <div class="ticket">
                                 <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
                                 <a href="#" title="" class="ticket-title">Product name<span>[#{{ promo.id }}]

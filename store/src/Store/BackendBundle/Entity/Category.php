@@ -31,9 +31,10 @@ class Category
      * min = "5",
      * max = "500",
      * minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères")
+     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères",
+     * groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "Le titre ne doit pas être vide")
+     * @Assert\NotBlank( message = "Le titre ne doit pas être vide", groups = {"new", "edit"})
      */
     private $title;
 
@@ -41,9 +42,9 @@ class Category
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @StoreAssert\StripTagsLength(maxMessage = "Votre chaine de caractère est supérieur à {{ limit }} .",
-     * max = "500")
-     * @Assert\NotBlank( message = "La description ne doit pas être vide")
+     * @StoreAssert\StripTagsLength(maxMessage = "Votre chaine de caractère est supérieur à {{ limit }} ",
+     * max = "500", groups = {"new", "edit"})
+     * @Assert\NotBlank( message = "La description ne doit pas être vide", groups = {"new", "edit"})
      */
     private $description;
 
@@ -51,8 +52,8 @@ class Category
      * @var integer
      *
      * @ORM\Column(name="position", type="integer", nullable=true)
-     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.")
-     * @Assert\NotBlank( message = "La position ne peut pas être vide")
+     * @Assert\Type(type="integer", message="La valeur {{ value }} n'est pas un type {{ type }} valide.", groups = {"new", "edit"})
+     * @Assert\NotBlank( message = "La position ne peut pas être vide", groups = {"new", "edit"})
      */
     private $position;
 

@@ -68,8 +68,15 @@ class ProductType extends AbstractType{
         $builder->add('dateActive','date',
             [
                 'label' => 'Date d\'activation',
-                'input'  => 'datetime',
-                'widget' => 'choice'
+                'widget' => 'single_text',
+                'format' => 'dd/MM/yyyy',
+                'attr' => ['class' => 'date form-control']
+            ]);
+
+        $builder->add('file','file',
+            [
+                'label' => 'Image de présentation',
+                'attr' => ['class' => 'form-control']
             ]);
 
         $builder->add('category',null,
@@ -100,7 +107,6 @@ class ProductType extends AbstractType{
             [
                 'class' => 'StoreBackendBundle:Category',
                 'property' => 'title',
-                'expanded' => true,
                 //same methode mais plus propre
                 'query_builder' => function(CategoryRepository $er){
                         return $er->getCategoryByUserBuilder($this->user);
@@ -199,7 +205,6 @@ class ProductType extends AbstractType{
                 'label' => 'Associer aux pages suivante',
                 'class' => 'StoreBackendBundle:Cms',
                 'property' => 'title',
-                'expanded' => true,
                 'query_builder' => function(CmsRepository $er){
                         return $er->getCmsByUserBuilder($this->user);
                     },
@@ -212,7 +217,6 @@ class ProductType extends AbstractType{
         $builder->add('supplier',null,
             [
                 'label' => 'Fournisseurs',
-                'expanded' => true,
                 'attr' =>
                     [
                         'class' => 'form-control'
@@ -222,7 +226,6 @@ class ProductType extends AbstractType{
         $builder->add('tag',null,
             [
                 'label' => 'Liste des tags',
-                'expanded' => true,
                 'attr' =>
                     [
                         'class' => 'form-control',

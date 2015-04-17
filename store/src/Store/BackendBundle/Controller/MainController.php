@@ -36,8 +36,9 @@ class MainController extends Controller
         $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser(1,10);
         $msgs           = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser(1,10);
         $categories     = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
-        $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser(1);
+        $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser(1,10);
         $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser(1);
+        dump($business);
 
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
