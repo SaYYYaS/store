@@ -26,3 +26,11 @@ store_backend_category_new:
     requirements:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:Category:new'}
+
+#Route activate category
+store_backend_category_activate:
+    path: /activate/{id}/{active}
+    requirements:
+        id: \d+
+        active: \d{1}
+    defaults: {_controller: 'StoreBackendBundle:Category:activate'}

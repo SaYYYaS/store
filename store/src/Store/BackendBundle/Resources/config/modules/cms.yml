@@ -27,3 +27,11 @@ store_backend_cms_new:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:CMS:new'}
 
+#Url activation page
+store_backend_cms_activate:
+    path: /activate/{id}/{active}
+    requirements:
+        id: \d+
+        active: \d{1}
+    defaults: {_controller: 'StoreBackendBundle:CMS:activate'}
+
