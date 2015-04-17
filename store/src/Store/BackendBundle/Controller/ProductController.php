@@ -92,19 +92,26 @@ class ProductController extends Controller
 
         //Si la totalité de formulaire est valide
         if($form->isValid()){
+
+            //Upload de fichier si valide
+            $product->upload();
+
+            //Flush de l'entité en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
 
             //Je crée un message flash avec pour clé "sucess"
-            //Et u message de confirmation
+            //Et un message de confirmation
 
             $this->get('session')->getFlashbag()->add('success',
                 'Votre produit a bien été crée');
 
             $quantity = $product->getQuantity();
-            $this->get('session')->getFlashbag()->add('warning',
-                $quantity == 1 ? 'produit unique' : 'Vous avez déjà des produits similaires' );
+            if($quantity == 1)
+            {
+                $this->get('session')->getFlashbag()->add('warning', "Vous n'avez qu'un seul produit en stock");
+            }
 
             return $this->redirectToRoute('store_backend_product_list');
         }

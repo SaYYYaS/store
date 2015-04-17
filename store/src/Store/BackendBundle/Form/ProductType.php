@@ -41,6 +41,7 @@ class ProductType extends AbstractType{
             'attr' =>
             [
                 'class' => 'form-control',
+                'autocomplete' => 'off',
                 'placeholder' => 'Mettre un titre soigné',
             ]
         ]);
@@ -61,6 +62,7 @@ class ProductType extends AbstractType{
                 'attr' =>
                     [
                         'class' => 'form-control',
+                        'autocomplete' => 'off',
                         'placeholder' => 'AAAA-00-B',
                     ]
             ]);
@@ -76,7 +78,12 @@ class ProductType extends AbstractType{
         $builder->add('file','file',
             [
                 'label' => 'Image de présentation',
-                'attr' => ['class' => 'form-control']
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'accept' => 'image/*',
+                        'capture' => 'capture'
+                    ]
             ]);
 
         $builder->add('category',null,
