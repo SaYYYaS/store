@@ -136,7 +136,7 @@ class ProductController extends Controller
                 [
                     'method' => 'post',
                     'novalidate' => 'novalidate', //Permet de zaper la validation required html5
-                    'action' => $this->generateUrl('store_backend_product_edit',['id' =>$id])
+                    'action' => $this->generateUrl('store_backend_product_edit',['id' =>$id->getId()])
                 ]
         ]);
 
@@ -162,7 +162,12 @@ class ProductController extends Controller
         $em->persist($product);
         $em->flush();
 
+        //Flash message
+        $state = $active ?'activé' : 'désactivé';
+        $template = $active ?'success' : 'warning';
+        $this->get('session')->getFlashbag()->add($template,'Le produit : ' . $product . ' à été ' . $state  . '.' );
+
         //return $this->redirectToRoute('store_backend_product_list');
-        return new JsonResponse(['data' => $product->getActive()]);
+        return new JsonResponse(['template' => $template]);
     }
 }

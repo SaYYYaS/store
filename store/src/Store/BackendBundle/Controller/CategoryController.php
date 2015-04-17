@@ -5,6 +5,7 @@ namespace Store\BackendBundle\Controller;
 use Store\BackendBundle\Entity\Category;
 use Store\BackendBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -32,11 +33,10 @@ class CategoryController extends Controller
      * @param $name
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($id, $name)
+    public function viewAction(Category $id, $name)
     {
-        $em = $this->getDoctrine()->getManager();
-        //Récupère toutes les catégories de ma base de données
-        $category = $em->getRepository('StoreBackendBundle:Category')->find($id);
+        //Récupère selon l'id une catégorie
+        $category = $id;
         return $this->render('StoreBackendBundle:Category:view.html.twig',
             ['category' => $category]
         );
@@ -48,9 +48,9 @@ class CategoryController extends Controller
      * @internal param $name
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction($id){
-        $em = $this->getDoctrine()->getManager();
-        $category = $em->getRepository('StoreBackendBundle:Category')->find($id);
+    public function deleteAction(Category $id){
+        $em = $this->getDoctrine()->getEntityManager();
+        $category = $id;
         //remove supprime l'objet en cache
         $em->remove($category);
         //Flush permet d'envoyer la requette en bdd pour faire persister la modification
@@ -94,5 +94,23 @@ class CategoryController extends Controller
             return $this->redirectToRoute('store_backend_category_list');
         }
         return $this->render('StoreBackendBundle:Category:new.html.twig',['form' => $form->createView()]);
+    }
+
+    public function activateAction(Category $id, $active){
+
+        $category = $id;
+
+        $category->setActive($active);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($category);
+        $em->flush();
+
+        //Flash message
+        $state = $active ?'activée' : 'désactivée';
+        $template = $active ?'success' : 'warning';
+        $this->get('session')->getFlashbag()->add($template,'La catégorie : "' . $category . '" à été ' . $state  . '.' );
+
+        //return $this->redirectToRoute('store_backend_category_list');
+        return new JsonResponse(['template' => $template]);
     }
 }

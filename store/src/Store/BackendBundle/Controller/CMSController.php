@@ -5,6 +5,7 @@ namespace Store\BackendBundle\Controller;
 use Store\BackendBundle\Entity\Cms;
 use Store\BackendBundle\Form\CmsType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
+use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
 
 /**
@@ -21,7 +22,7 @@ class CMSController extends Controller
     public function listAction()
     {
         $em = $this->getDoctrine()->getManager();
-        //Récupère toutes les catégories de ma base de données
+        //Récupère toutes les pages cms de ma base de données
         $cmss = $em->getRepository('StoreBackendBundle:Cms')->getCmsByUser(1);
         return $this->render('StoreBackendBundle:CMS:list.html.twig', ['cmss' => $cmss]);
     }
@@ -32,10 +33,8 @@ class CMSController extends Controller
      * @param $name
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function viewAction($id,$name){
-        $em = $this->getDoctrine()->getManager();
-        //Récupère toutes les catégories de ma base de données
-        $cms = $em->getRepository('StoreBackendBundle:Cms')->find($id);
+    public function viewAction(Cms $id,$name){
+        $cms = $id;
         return $this->render('StoreBackendBundle:CMS:view.html.twig',['cms' => $cms]);
     }
 
@@ -45,9 +44,9 @@ class CMSController extends Controller
      * @internal param $name
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function deleteAction($id){
+    public function deleteAction(Cms $id){
         $em = $this->getDoctrine()->getManager();
-        $cms = $em->getRepository('StoreBackendBundle:Cms')->find($id);
+        $cms = $id;
         //remove supprime l'objet en cache
         $em->remove($cms);
         //Flush permet d'envoyer la requette en bdd pour faire persister la modification
@@ -65,7 +64,7 @@ class CMSController extends Controller
     public function newAction(Request $request){
         $cms = new Cms();
 
-        //J'associe mon jeweler à ma catégorie
+        //J'associe mon jeweler à ma page cms
         $em = $this->getDoctrine()->getManager();
         $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1);
         $cms->setJeweler($jeweler);
@@ -91,5 +90,29 @@ class CMSController extends Controller
             return $this->redirectToRoute('store_backend_cms_list');
         }
         return $this->render('StoreBackendBundle:CMS:new.html.twig',['form' => $form->createView()]);
+    }
+
+    /**
+     * Activate cms page
+     * @param Cms $id
+     * @param $active
+     * @return JsonResponse
+     */
+    public function activateAction(Cms $id, $active){
+
+        $cms = $id;
+
+        $cms->setActive($active);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($cms);
+        $em->flush();
+
+        //Flash message
+        $state = $active ?'activée' : 'désactivée';
+        $template = $active ?'success' : 'warning';
+        $this->get('session')->getFlashbag()->add($template,'La page : "' . $cms . '" à été ' . $state  . '.' );
+
+        //return $this->redirectToRoute('store_backend_cms_list');
+        return new JsonResponse(['template' => $template]);
     }
 }
