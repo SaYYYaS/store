@@ -4,9 +4,13 @@
     Fournisseurs
 {% endblock %}
 {% block content %}
-
+    <div class="row-fluid clearfix padding-sm no-padding-hr">
+        <a href="{{ path("store_backend_supplier_new") }}" class="btn btn-danger pull-right btn-labeled">
+            Ajouter un fournisseur
+        </a>
+    </div>
     <div class="table-info">
-        <table class="table table-bordered" style="table-layout: fixed; word-wrap: break-word;">
+        <table class="table table-bordered" style="word-wrap: break-word;">
             <thead>
             <tr>
                 <th>Id</th>
@@ -26,16 +30,22 @@
                     <td><a href="{{ path('store_backend_supplier_view',{'id' : supplier.id,'name' : supplier.name}) }}">{{ supplier.name }}</a></td>
                     <td>{{ supplier.description }}</td>
                     <td><img src="{{ supplier.image }}" alt=""/></td>
-                    <td>
+                    <td class="activable-element">
                         {% if supplier.active %}
-                            <i class="fa fa-check"></i>
+                            <a href="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 1}) }}">
+                                <i class="fa fa-check"></i>
+                            </a>
                         {% else %}
-                            <i class="fa fa-crosshairs"></i>
+                            <a href="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 1}) }}">
+                                <i class="fa fa-crosshairs"></i>
+                            </a>
                         {% endif %}
                     </td>
                     <td>{{ supplier.dateCreated|date('d/m/Y') }}</td>
                     <td>
-                        {{ supplier.product|length }}
+                        <span class="label label-info"> {{ supplier.product|length }} </span>
                     </td>
                     <td>
                         <div class="btn-group">

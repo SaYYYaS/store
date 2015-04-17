@@ -11,7 +11,7 @@
         </a>
     </div>
     <div class="table-info">
-        <table class="table table-bordered" style="table-layout: fixed; word-wrap: break-word;">
+        <table class="table table-bordered" style="word-break: break-word ;word-wrap: break-word;">
             <thead>
             <tr>
                 <th>id</th>
@@ -26,18 +26,24 @@
             <tbody>
             {% for cms in cmss %}
                 <tr>
-                    <td>{{ cms.id }}</td>
+                    <td><a href="{{ path('store_backend_cms_view',{'id' : cms.id,'name' : cms.title}) }}">{{ cms.id }}</a></td>
                     <td><a href="{{ path('store_backend_cms_view',{'id' : cms.id,'name' : cms.title}) }}">{{ cms.title }}</a></td>
                     <td class="col-md-3">{{ cms.summary }}</td>
-                    <td>
+                    <td class="activable-element">
                         {% if cms.state %}
-                            <i class="fa fa-check"></i>
+                            <a href="{{ path('store_backend_cms_activate',{id : cms.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_cms_activate',{id : cms.id,active: 1}) }}">
+                                <i class="fa fa-check"></i>
+                            </a>
                         {% else %}
-                            <i class="fa fa-crosshairs"></i>
+                            <a href="{{ path('store_backend_cms_activate',{id : cms.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_cms_activate',{id : cms.id,active: 1}) }}">
+                                <i class="fa fa-crosshairs"></i>
+                            </a>
                         {% endif %}
                     </td>
                     <td>
-                        <span class="label label-info">{{ cms.product|length }}</span>
+                        <span class="label label-info">{{ cms.product|length }} produit(s)</span>
                     </td>
                     <td>{{ cms.dateCreated|date('d/m/Y') }}</td>
                     <td>

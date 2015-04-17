@@ -66,7 +66,8 @@
 {% block javascript %}
     {{ parent() }}
     <script src="{{ asset('assets/backend/javascripts/pixel-admin.min.js') }}"></script>
-
+    <!-- Custom App's javascript -->
+    <script src="{{ asset('assets/backend/javascripts/app.js') }}"></script>
     <script type="text/javascript">
         init.push(function () {
             var dates = {

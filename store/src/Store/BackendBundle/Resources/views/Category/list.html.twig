@@ -1,5 +1,5 @@
 {% extends 'StoreBackendBundle::layout.html.twig' %}
-{% block classtitle %}plus{% endblock %}
+{% block classtitle %}th{% endblock %}
 {% block titlepage %}
     Categories
 {% endblock %}
@@ -11,7 +11,7 @@
         </a>
     </div>
     <div class="table-info">
-        <table class="table table-bordered" style="table-layout: fixed; word-wrap: break-word;">
+        <table class="table table-bordered" style="word-break: break-word; word-wrap: break-word;">
             <thead>
             <tr>
                 <th>id</th>
@@ -25,18 +25,25 @@
             <tbody>
             {% for category in categories %}
                 <tr>
-                    <td>{{ category.id }}</td>
-                    <td><a href="{{ path('store_backend_category_view',{'id' : category .id, 'name' : category.title}) }}">{{ category.title }}</a></td>
+                    <td><a href="{{ path('store_backend_category_view',{'id' : category.id, 'name' : category.title}) }}">{{ category.id }}</a></td>
+                    <td><a href="{{ path('store_backend_category_view',{'id' : category.id, 'name' : category.title}) }}">{{ category.title }}</a></td>
                     <td class="col-md-3">{{ category.description }}</td>
-                    <td>
+                    <td class="activable-element">
                         {% if category .active %}
-                            <i class="fa fa-check"></i>
+                            <a href="{{ path('store_backend_category_activate',{id : category.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_category_activate',{id : category.id,active: 1}) }}">
+                                <i class="fa fa-check">
+
+                                </i></a>
                         {% else %}
-                            <i class="fa fa-crosshairs"></i>
+                            <a href="{{ path('store_backend_category_activate',{id : category.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_category_activate',{id : category.id,active: 1}) }}">
+                                <i class="fa fa-times"></i>
+                            </a>
                         {% endif %}
                     </td>
                     <td>
-                        <span class="label label-info">{{ category.product|length }}</span>
+                        <span class="label label-info">{{ category.product|length }} produit(s)</span>
                     </td>
                     <td>
                         <div class="btn-group">
