@@ -1,4 +1,6 @@
 services:
-#    store_backend.example:
-#        class: Store\BackendBundle\Example
-#        arguments: [@service_id, "plain_value", %parameter%]
+    store_backendbundle.flash_messenger:
+        class: Store\BackendBundle\Messenger\Flash
+        arguments: ["@session"]
+        tags:
+            - { name: kernel.event_listener, event: kernel.response}
