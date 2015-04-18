@@ -54,9 +54,11 @@ class CategoryRepository extends EntityRepository{
          * ET NON PAS l'objet createQuery()
          */
         $queryBuild = $this->createQueryBuilder('c')
-            ->select('c')
+            ->select('c, COUNT(p) AS HIDDEN prod_count')
             ->where('c.jeweler = :user')
-            ->orderBy('c.title','ASC')
+            ->leftJoin('c.product','p')
+            ->groupBy('c.id')
+            ->orderBy('prod_count','DESC')
             ->setParameter('user', $user);
         return $queryBuild;
     }
