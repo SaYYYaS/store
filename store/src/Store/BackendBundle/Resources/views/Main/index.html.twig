@@ -7,25 +7,29 @@
         })
     </script>
 {% endblock %}
-{% block classtitle %}
-    dashboard
-{% endblock %}
+{% block classtitle %}dashboard{% endblock %}
 {% block titlepage %}
     Dashboard
 {% endblock %}
 
-{#
-Afficher les stats en nb.
-Afficher les catégories avec nb de produits de la boutique#}
-{#Message d'alert si la boutique a des produits avec 0 quantité en dasboard#}
-{#Afficher les 5 derniers commentaires des produits de la boutique#}
-{#Afficher les 3 derniers messages avec lightbox sur le message en entier#}
-{#Afficher les 5 dernières commandes avec adresse totale etat(0 = erreur, 1 = accepté et 2 = livré)#}
-{#afficher le chiffre total selon les commandes
-#}
+{#requete pour récuperer les promotions#}
+
+{#requete pour récuperer le taux de complétion des champs de tout les producs#}
 
 {% block content %}
     <div class="row">
+         {% if 1 ==1 %}
+
+        <div class="col-md-12">
+            <div class="alert alert-dark alert-warning">
+                <i class="fa fa-warning"></i>
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                Plus de 10 produits en stock.
+            </div>
+        </div>
+         {% endif %}
     <div class="col-md-8">
         <!-- 5. $UPLOADS_CHART =============================================================================
 
@@ -37,7 +41,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                 <!-- Small horizontal padding, bordered, without right border, top aligned text -->
                 <div class="stat-cell col-sm-4 padding-sm-hr bordered no-border-r valign-top">
                     <!-- Small padding, without top padding, extra small horizontal padding -->
-                    <h4 class="padding-sm no-padding-t padding-xs-hr"><i class="fa fa-cloud text-primary"></i>&nbsp;&nbsp;Statistiques</h4>
+                    <h4 class="padding-sm no-padding-t padding-xs-hr"><i class="fa fa-bar-chart-o text-primary"></i>&nbsp;&nbsp;Statistiques</h4>
                     <!-- Without margin -->
                     <ul class="list-group no-margin">
                         <!-- Without left and right borders, extra small horizontal padding, without background, no border radius -->
@@ -94,15 +98,8 @@ Afficher les catégories avec nb de produits de la boutique#}
                     });
                 </script>
                 <!-- Primary background, small padding, vertically centered text -->
-                <div class="stat-cell col-sm-8 bg-primary padding-sm valign-middle">
+                <div class="stat-cell col-sm-8 bg-success padding-sm valign-middle">
                     <div id="hero-graph" class="graph" style="height: 230px;">
-                        <div class="morris-hover morris-default-style" style="left: 0px; top: 35px;">
-                            <div class="morris-hover-row-label">2014-03-10</div>
-                            <div class="morris-hover-point" style="color: #fff">
-                                Value:
-                                20
-                            </div>
-                        </div>
                     </div>
                 </div>
             </div>
@@ -212,7 +209,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                         <!-- Stat panel bg icon -->
                         <i class="fa fa-trophy bg-icon"></i>
                         <!-- Extra large text -->
-                        <span class="text-xlg"><span class="text-lg text-slim">$</span><strong>{{ totalmoney|round(2) }}</strong></span><br>
+                        <span class="text-xlg"><span class="text-lg text-slim"></span><strong>{{ totalmoney|round(2) }} €</strong></span><br>
                         <!-- Big text -->
                         <span class="text-bg">Chiffre d'affaire</span><br>
                         <!-- Small text -->
@@ -233,6 +230,7 @@ Afficher les catégories avec nb de produits de la boutique#}
                     <div class="stat-row">
                         <!-- Purple background, small padding -->
                         <div class="stat-cell bg-pa-purple padding-sm">
+                            <i class="fa fa-comments bg-icon"></i>
                             <!-- Extra small text -->
                             <div class="text-lg" style="margin-bottom: 5px;">COMMENTAIRES</div>
                             <div class="stats-sparklines" id="stats-sparklines-3" style="width: 100%"><canvas width="476" height="45" style="display: inline-block; width: 476px; height: 45px; vertical-align: top;"></canvas></div>
@@ -279,7 +277,7 @@ Afficher les catégories avec nb de produits de la boutique#}
 
                 <div class="stat-panel">
                     <div class="stat-row">
-                        <div class="stat-cell bg-success valign-middle">
+                        <div class="stat-cell bg-primary valign-middle">
                             <!-- Stat panel bg icon -->
                             <i class="fa fa-star bg-icon"></i>
                             <!-- Extra large text -->
