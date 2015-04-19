@@ -1,0 +1,29 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}fa-picture-o{% endblock %}
+
+{% block titlepage %}
+    Slider / Carrousel
+{% endblock %}
+
+{% block content %}
+    <p>
+    <h3>{{ slider.product.title }}
+        {% if slider.active == 0 %}
+            <i class="fa fa-times"></i>
+        {% else %}
+            <i class="fa fa-check"></i>
+        {% endif %}
+    </h3>
+    </p>
+
+    <hr/>
+    <div class="text-center padding-sm">
+        <div class="img-rounded img-thumbnail">
+        {% if slider.image %}
+            <img src="{{ asset('uploads/slides/' ~ slider.image) }}" alt="">
+        {% endif %}
+        </div>
+    </div>
+    <h5>Légende :</h5>
+    <p class="jumbotron"><i>{{ slider.caption }}</i></p>
+{% endblock %}

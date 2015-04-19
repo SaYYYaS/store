@@ -1,0 +1,67 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}picture-o{% endblock %}
+{% block titlepage %}
+    Slider / Carrousel
+{% endblock %}
+
+{% block content %}
+    <div class="row-fluid clearfix padding-sm no-padding-hr">
+        <a href="{{ path("store_backend_slider_new") }}" class="btn btn-danger pull-right btn-labeled">
+            Ajouter un slider
+        </a>
+    </div>
+<div class="table-primary table table-bordered">
+    <div class="table-info">
+        <table class="table table-bordered" style="word-wrap: break-word;">
+            <thead>
+            <tr>
+                <th>id</th>
+                <th>Légende</th>
+                <th>État</th>
+                <th>Associé au produit</th>
+                <th>Actions</th>
+            </tr>
+            </thead>
+            <tbody>
+            {% for slider in sliders %}
+                <tr>
+                    <td><a href="{{ path('store_backend_slider_view',{'id' : slider.id }) }}">{{ slider.id }}</a></td>
+                    <td>{{ slider.caption }}</td>
+                    <td class="activable-element">
+                        {% if slider.active %}
+                            <a href="{{ path('store_backend_slider_activate',{id : slider.id,active: 0}) }}"
+                               data-url="{{ path('store_backend_slider_activate',{id : slider.id,active: 1}) }}">
+                                <i class="fa fa-check"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('store_backend_slider_activate',{id : slider.id,active: 1}) }}"
+                               data-url="{{ path('store_backend_slider_activate',{id : slider.id,active: 0}) }}">
+                                <i class="fa fa-times"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td>
+                        <a href="{{ path('store_backend_product_view', {id: slider.product.id, name: slider.product.title}) }}">
+                            <span class="label label-info">{{ slider.product }}</span>
+                        </a>
+                    </td>
+                    <td>
+                        <div class="btn-group">
+                            <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i>&nbsp;Actions&nbsp;<i class="fa fa-caret-down"></i></button>
+                            <ul class="dropdown-menu">
+                                <li><a href="{{ path('store_backend_slider_view',{id: slider.id}) }}"><i class="fa fa-search"></i>Voir</a></li>
+                                <li><a href="{{ path('store_backend_slider_edit',{id: slider.id}) }}"><i class="fa fa-pencil"></i>Editer</a></li>
+                                <li><a href="{{ path('store_backend_slider_delete',{id: slider.id}) }}"><i class="fa fa-times"></i>Supprimer</a></li>
+                            </ul>
+                        </div>
+                    </td>
+                </tr>
+            {% else %}
+                <div class="alert alert-dark">Aucunes pages slider.</div>
+            {% endfor %}
+            </tbody>
+        </table>
+    </div>
+</div>
+{% endblock %}
+

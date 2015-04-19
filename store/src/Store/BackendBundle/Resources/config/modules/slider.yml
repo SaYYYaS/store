@@ -1,0 +1,44 @@
+#Page list of slider
+store_backend_slider_list:
+   path:     /list
+   defaults: {_controller: 'StoreBackendBundle:Slider:list'}
+
+#Page view for slider
+store_backend_slider_view:
+   path:     /view/{id}
+   requirements:
+     id: \d+
+     _method: GET
+   defaults: {_controller: 'StoreBackendBundle:Slider:view'}
+
+#Page delete slider
+store_backend_slider_delete:
+    path:        /delete/{id}
+    requirements:
+        id:      \d+
+        _method: GET
+    defaults:    {_controller: 'StoreBackendBundle:Slider:delete'}
+
+#Page add slider
+store_backend_slider_new:
+    path:        /new
+    requirements:
+        _method: GET|POST
+    defaults:    {_controller: 'StoreBackendBundle:Slider:new'}
+
+#Page add slider
+store_backend_slider_edit:
+    path:        /edit/{id}
+    requirements:
+        id: \d+
+        _method: GET|PUT|POST
+    defaults:    {_controller: 'StoreBackendBundle:Slider:edit'}
+
+#Url activation page
+store_backend_slider_activate:
+    path: /activate/{id}/{active}
+    requirements:
+        id: \d+
+        active: \d{1}
+    defaults: {_controller: 'StoreBackendBundle:Slider:activate'}
+

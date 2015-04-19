@@ -1,0 +1,23 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}plus{% endblock %}
+{% block javascript %}
+    {{ parent() }}
+    <script>
+        init.push(function () {
+            $('textarea').summernote({
+                height: 100,
+                tabsize: 2,
+                codemirror : {theme : 'monokai'}
+            });
+        });
+    </script>
+{% endblock %}
+{% block titlepage %}
+    Ajouter un slider / carrousel
+{% endblock %}
+{% block content %}
+
+    {% include 'StoreBackendBundle:Slider:_form.html.twig' %}
+
+{% endblock %}
+
