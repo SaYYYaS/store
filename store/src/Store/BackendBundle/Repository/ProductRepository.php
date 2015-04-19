@@ -13,14 +13,15 @@ use Doctrine\ORM\EntityRepository;
 class ProductRepository extends EntityRepository{
 
     public function getProductByUser($user = null){
-        $query = $this->getEntityManager()
-            ->createQuery("
-            SELECT p
-            FROM StoreBackendBundle:Product AS p
-            WHERE p.jeweler = ?1
-            ")
-            ->setParameter(1,$user);
+        $query = $this->getProductByUserBuilder($user);
         return $query->getResult();
+    }
+
+    public function getProductByUserBuilder($user){
+        $queryBuilder = $this->createQueryBuilder('p')
+            ->where('p.jeweler = ?1')
+            ->setParameter(1, $user);
+        return $queryBuilder;
     }
 
 
