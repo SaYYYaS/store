@@ -14,9 +14,9 @@ function updateActive($link, response){
                         <span aria-hidden="true">&times;</span>\
                         </button>' + msg + '</div>")'
             );
-            var $content = $('#content-wrapper');
-            $content.find('.alert.alert-dark').remove();
-            $content.prepend($flash).hide.fadeIn();
+            var $content = $('#content-wrapper .table-primary.table.table-bordered');
+            $content.parent().find('.alert.alert-dark').remove();
+            $content.before($flash);
         });
         return true;
     }

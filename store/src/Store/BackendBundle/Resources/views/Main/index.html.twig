@@ -547,7 +547,7 @@
                             {% for product in promo.product %}
                                 <div class="ticket">
                                     <span class="label label-success ticket-label">
-                                        <i class="fa fa-check"></i>
+                                        <i class="{{ promo.active ?'fa fa-check' : 'fa fa-times' }}"></i>
                                         - {{ promo.type == 1 ? promo.amount ~ ' €' : promo.amount ~ ' %'  }}
                                     </span>
                                     <a href="#" title="" class="ticket-title">
@@ -566,6 +566,7 @@
                                         </span>
                                     </p>
                                     <p>
+                                        Description :
                                         <span class="ticket-message">
                                             {{ promo.message }}
                                         </span>

@@ -4,7 +4,6 @@ namespace Store\BackendBundle\Form;
 use Doctrine\ORM\EntityRepository;
 use Store\BackendBundle\Repository\CategoryRepository;
 use Store\BackendBundle\Repository\CmsRepository;
-use Store\BackendBundle\Repository\SupplierRepository;
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
@@ -17,20 +16,19 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class ProductType extends AbstractType{
 
-    /**
-    * Methode qui va construire le formulaire
-    * @param FormBuilderInterface $builder
-    * @param array $options
-    */
-
     protected $user;
 
     function __construct($user = null)
     {
         $this->user = $user;
+
     }
 
-
+    /**
+     * Methode qui va construire le formulaire
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //Methode add permet d'ajouter des champs dans le formulaire

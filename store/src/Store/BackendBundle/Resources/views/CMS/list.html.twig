@@ -10,8 +10,9 @@
             Ajouter une page
         </a>
     </div>
+<div class="table-primary table table-bordered">
     <div class="table-info">
-        <table class="table table-bordered" style="word-break: break-word ;word-wrap: break-word;">
+        <table class="table table-bordered" style="word-wrap: break-word;">
             <thead>
             <tr>
                 <th>id</th>
@@ -19,7 +20,7 @@
                 <th>Resumé</th>
                 <th>État</th>
                 <th>Nombre de produits affectés</th>
-                <th>Crée le</th>
+                <th>Date création</th>
                 <th>Actions</th>
             </tr>
             </thead>
@@ -36,8 +37,8 @@
                                 <i class="fa fa-check"></i>
                             </a>
                         {% else %}
-                            <a href="{{ path('store_backend_cms_activate',{id : cms.id,active: 0}) }}"
-                               data-url="{{ path('store_backend_cms_activate',{id : cms.id,active: 1}) }}">
+                            <a href="{{ path('store_backend_cms_activate',{id : cms.id,active: 1}) }}"
+                               data-url="{{ path('store_backend_cms_activate',{id : cms.id,active: 0}) }}">
                                 <i class="fa fa-crosshairs"></i>
                             </a>
                         {% endif %}
@@ -63,6 +64,6 @@
             </tbody>
         </table>
     </div>
-
+</div>
 {% endblock %}
 

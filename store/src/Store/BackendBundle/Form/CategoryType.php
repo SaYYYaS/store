@@ -35,7 +35,7 @@ class CategoryType extends AbstractType{
         $builder->add('position',null,
             [
                 'label' => 'Position',
-                'required' => true, //liste déroulante
+                'required' => true,
                 'attr' =>
                     [
                         'class' => 'form-control',
