@@ -52,7 +52,7 @@
                             <button type="button" class="btn btn-primary dropdown-toggle" data-toggle="dropdown"><i class="fa fa-cogs"></i>&nbsp;Actions&nbsp;<i class="fa fa-caret-down"></i></button>
                             <ul class="dropdown-menu">
                                 <li><a href="{{ path('store_backend_cms_view',{id: cms.id, name: cms.title}) }}"><i class="fa fa-search"></i>Voir</a></li>
-                                <li><a href="#"><i class="fa fa-pencil"></i>Editer</a></li>
+                                <li><a href="{{ path('store_backend_cms_edit',{id: cms.id}) }}"><i class="fa fa-pencil"></i>Editer</a></li>
                                 <li><a href="{{ path('store_backend_cms_delete',{id: cms.id}) }}"><i class="fa fa-times"></i>Supprimer</a></li>
                             </ul>
                         </div>
