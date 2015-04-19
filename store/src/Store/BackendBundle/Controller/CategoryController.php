@@ -96,6 +96,35 @@ class CategoryController extends Controller
         return $this->render('StoreBackendBundle:Category:new.html.twig',['form' => $form->createView()]);
     }
 
+    /**
+     * Create a category
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @internal param $id
+     * @internal param $name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request, Category $id){
+        $category = $id;
+
+        $form = $this->createForm(new CategoryType(), $category, [
+            'validation_groups' => 'edit',
+            'attr' =>
+                [
+                    'method' => 'post',
+                    'novalidate' => 'novalidate',
+                    'action' => $this->generateUrl('store_backend_category_edit',['id' => $category->getId()])
+                ]
+        ]);
+        $form->handleRequest($request);
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($category);
+            $em->flush();
+            return $this->redirectToRoute('store_backend_category_list');
+        }
+        return $this->render('StoreBackendBundle:Category:edit.html.twig',['form' => $form->createView()]);
+    }
+
     public function activateAction(Category $id, $active){
 
         $category = $id;

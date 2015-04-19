@@ -93,6 +93,39 @@ class CMSController extends Controller
     }
 
     /**
+     * Edit a cms
+     * @param \Store\BackendBundle\Controller\Request|\Symfony\Component\HttpFoundation\Request $request
+     * @internal param $id
+     * @internal param $name
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function editAction(Request $request,Cms $id){
+        $cms = $id;
+
+        $form = $this->createForm(new CmsType(), $cms, [
+            'validation_groups' => 'edit',
+            'attr' =>
+                [
+                    'method' => 'post',
+                    'novalidate' => 'novalidate', //Permet de zaper la validation required html5
+                    'action' => $this->generateUrl('store_backend_cms_edit',['id' => $cms->getId()])
+                ]
+        ]);
+
+        //Envoie les donnés de la $request au formulaire, de tel sorte que le formulaire ai accès aux données
+        $form->handleRequest($request);
+
+        //Si la totalité de formulaire est valide
+        if($form->isValid()){
+            $em = $this->getDoctrine()->getManager();
+            $em->persist($cms);
+            $em->flush();
+            return $this->redirectToRoute('store_backend_cms_list');
+        }
+        return $this->render('StoreBackendBundle:CMS:edit.html.twig',['form' => $form->createView()]);
+    }
+
+    /**
      * Activate cms page
      * @param Cms $id
      * @param $active

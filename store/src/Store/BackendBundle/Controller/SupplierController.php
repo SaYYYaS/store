@@ -71,6 +71,29 @@ class SupplierController extends Controller
         return $this->render('StoreBackendBundle:Supplier:new.html.twig',['form' => $form->createView()]);
     }
 
+    public function editAction(Request $request, Supplier $id){
+        $supplier = $id;
+        $form = $this->createForm(new SupplierType(),$supplier,[
+            'validation_groups' => 'edit',
+            'attr' =>
+                [
+                    'method' => 'post',
+                    'novalidate' => 'novalidate', //Permet de zaper la validation required html5
+                    'action' => $this->generateUrl('store_backend_supplier_edit',['id' => $supplier->getId()])
+                ]
+        ]);
+
+        if($form->isValid()){
+            $form->handleRequest($request);
+            $em = $this->getDoctrine()->getEntityManager();
+            $em->persist($supplier);
+            $em->flush();
+
+            return $this->redirectToRoute('store_backend_supplier_list');
+        }
+        return $this->render('StoreBackendBundle:Supplier:edit.html.twig',['form' => $form->createView()]);
+    }
+
     public function activateAction(Supplier $id, $active){
 
         $supplier = $id;
