@@ -1128,7 +1128,6 @@ class Product
     }
 
 
-
     //TOUT CE QUI SUIT SERT A L'UPLOAD DE FICHIER
     /**
      * Retourne le chemin absolu de mon fichier uploadé

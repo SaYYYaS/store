@@ -13,7 +13,7 @@ use Doctrine\ORM\EntityRepository;
 class ProductRepository extends EntityRepository{
 
     public function getProductByUser($user = null){
-        $query = $this->getProductByUserBuilder($user);
+        $query = $this->getProductByUserBuilder($user)->getQuery();
         return $query->getResult();
     }
 
