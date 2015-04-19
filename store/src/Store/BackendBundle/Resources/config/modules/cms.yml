@@ -27,6 +27,14 @@ store_backend_cms_new:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:CMS:new'}
 
+#Page edit cms
+store_backend_cms_edit:
+    path:        /edit/{id}
+    requirements:
+        id: \d+
+        _method: GET|POST|PUT
+    defaults:    {_controller: 'StoreBackendBundle:CMS:edit'}
+
 #Url activation page
 store_backend_cms_activate:
     path: /activate/{id}/{active}

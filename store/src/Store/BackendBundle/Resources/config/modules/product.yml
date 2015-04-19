@@ -27,7 +27,7 @@ store_backend_product_new:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:Product:new'}
 
-#Page creation product
+#Page edition product
 store_backend_product_edit:
     path:        /edit/{id}
     requirements:
@@ -35,7 +35,7 @@ store_backend_product_edit:
         _method: GET|PUT|POST
     defaults:    {_controller: 'StoreBackendBundle:Product:edit'}
 
-#Page creation product
+#Route activation product
 store_backend_product_activate:
     path:        /activate/{id}/{active}
     requirements:

@@ -27,6 +27,14 @@ store_backend_category_new:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:Category:new'}
 
+#Page edit category
+store_backend_category_edit:
+    path:        /edit/{id}
+    requirements:
+        id: \d+
+        _method: GET|POST|PUT
+    defaults:    {_controller: 'StoreBackendBundle:Category:edit'}
+
 #Route activate category
 store_backend_category_activate:
     path: /activate/{id}/{active}

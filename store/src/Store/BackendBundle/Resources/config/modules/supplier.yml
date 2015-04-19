@@ -20,13 +20,22 @@ store_backend_supplier_delete:
         _method: GET
     defaults:    {_controller: 'StoreBackendBundle:Supplier:delete'}
 
-#Page delete supplier
+#Page add supplier
 store_backend_supplier_new:
     path:        /new
     requirements:
         _method: GET|POST
     defaults:    {_controller: 'StoreBackendBundle:Supplier:new'}
 
+#Page edit supplier
+store_backend_supplier_edit:
+    path:        /edit/{id}
+    requirements:
+        id: \d+
+        _method: GET|POST|PUT
+    defaults:    {_controller: 'StoreBackendBundle:Supplier:edit'}
+
+#Page activation supplier
 store_backend_supplier_activate:
     path: /activate/{id}/{active}
     requirements:
