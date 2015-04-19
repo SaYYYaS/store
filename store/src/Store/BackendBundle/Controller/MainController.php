@@ -28,6 +28,7 @@ class MainController extends Controller
 
 
         //meta-informations
+        $qteprods       = $em->getRepository('StoreBackendBundle:Product')->getQuantitiesByUser(1);
         $coms           = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,5);
         $coms_pending   = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 0);
         $coms_active    = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 1);
@@ -38,11 +39,11 @@ class MainController extends Controller
         $categories     = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
         $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser(1,10);
         $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser(1);
-        dump($business);
 
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
                 'nbrprods'      => $nbrprods,
+                'qteprods'      => $qteprods,
                 'jeweler'       => $jeweler,
                 'nbrcats'       => $nbrcats,
                 'nbrcoms'       => $nbrcoms,

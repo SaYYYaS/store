@@ -41,7 +41,25 @@ class ProductRepository extends EntityRepository{
         return $query->getSingleScalarResult();
     }
 
-    public function getLikesByUser($user){
+    /**
+     * Return product quantity by user filtered by min qte
+     * @param null $user
+     * @param int $min_qte default = 10
+     * @return array
+     */
+    public function getQuantitiesByUser($user = null, $min_qte = 10){
+        $query = $this->getEntityManager()->createQuery(
+            "
+            SELECT p.quantity as quantity, p.title, p.id
+            FROM StoreBackendBundle:Product AS p
+            WHERE p.jeweler = :user
+            AND p.quantity < :min_qte
+            "
+        )->setParameters([':user' => $user, ':min_qte' => $min_qte]);
+        return $query->getResult();
+    }
+
+    public function getLikesByUser($user = null){
         $query = $this->getEntityManager()
             ->createQuery("
             SELECT count(p)

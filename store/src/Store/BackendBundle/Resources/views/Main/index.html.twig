@@ -18,15 +18,21 @@
 
 {% block content %}
     <div class="row">
-         {% if 1 ==1 %}
+         {% if qteprods %}
 
         <div class="col-md-12">
-            <div class="alert alert-dark alert-warning">
-                <i class="fa fa-warning"></i>
-                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <div class="alert alert-dark alert-warning text-center">
+                <button type="button" class="close" data-dismiss="fade" aria-label="Close" onclick="$(this).parent().fadeOut();">
                     <span aria-hidden="true">&times;</span>
                 </button>
-                Plus de 10 produits en stock.
+                {% for p in qteprods %}
+                    <p>
+                        <a href="{{ path('store_backend_product_edit', {id: p.id}) }}">
+                            {{ p.title }}
+                        </a>
+                        : plus que {{ p.quantity }} en stock !
+                    </p>
+                {% endfor %}
             </div>
         </div>
          {% endif %}
@@ -46,24 +52,24 @@
                     <ul class="list-group no-margin">
                         <!-- Without left and right borders, extra small horizontal padding, without background, no border radius -->
                         <li class="list-group-item no-border-hr padding-xs-hr no-bg no-border-radius">
-                            Bijoux <span class="label label-pa-purple pull-right">{{ nbrprods |default('0') }} bijou(x)</span>
+                            Bijoux <span class="label label-pa-purple pull-right">{{ nbrprods }} crée(s)</span>
                         </li> <!-- / .list-group-item -->
                         <!-- Without left and right borders, extra small horizontal padding, without background -->
                         <li class="list-group-item no-border-hr padding-xs-hr no-bg">
-                            Fournisseurs <span class="label label-danger pull-right">{{ nbrsuppliers }} fournisseur(s)</span>
+                            Fournisseurs <span class="label label-danger pull-right">{{ nbrsuppliers }} ajouté(s)</span>
                         </li> <!-- / .list-group-item -->
                         <!-- Without left and right borders, without bottom border, extra small horizontal padding, without background -->
                         <li class="list-group-item no-border-hr no-border-b padding-xs-hr no-bg">
-                            Categories <span class="label label-success pull-right">{{ nbrcats }} catégorie(s)</span>
+                            Categories <span class="label label-success pull-right">{{ nbrcats }} crée(s)</span>
                         </li> <!-- / .list-group-item -->
                         <li class="list-group-item no-border-hr no-border-b padding-xs-hr no-bg">
-                            Pages cms <span class="label label-info pull-right">{{ nbrpages }} page(s)</span>
+                            Pages cms <span class="label label-info pull-right">{{ nbrpages }} crée(s)</span>
                         </li> <!-- / .list-group-item -->
                         <li class="list-group-item no-border-hr no-border-b padding-xs-hr no-bg">
-                            Commentaires <span class="label label-warning pull-right">{{ nbrcoms }} commentaire(s)</span>
+                            Commentaires <span class="label label-warning pull-right">{{ nbrcoms }} ajouté(s)</span>
                         </li> <!-- / .list-group-item -->
                         <li class="list-group-item no-border-hr no-border-b padding-xs-hr no-bg">
-                            Commandes <span class="label label-primary pull-right">{{ nbrorders }} commande(s)</span>
+                            Commandes <span class="label label-primary pull-right">{{ nbrorders }} passée(s)</span>
                         </li> <!-- / .list-group-item -->
                     </ul>
                 </div> <!-- /.stat-cell -->
@@ -93,7 +99,7 @@
                             xLabels: "day",
                             xLabelFormat: function(d) {
                                 return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec'][d.getMonth()] + ' ' + d.getDate();
-                            },
+                            }
                         });
                     });
                 </script>
@@ -283,7 +289,7 @@
                             <!-- Extra large text -->
                             <span class="text-xlg"><span class="text-lg text-slim"></span><strong>{{ likes }}</strong></span><br>
                             <!-- Big text -->
-                            <span class="text-bg">Likes</span><br>
+                            <span class="text-bg">Like(s)</span><br>
                             <!-- Small text -->
                             <span class="text-sm"><a href="#">Sur tout les produits</a></span>
                         </div> <!-- /.stat-cell -->
@@ -305,14 +311,13 @@
         <div class="col-md-6">
             <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
                 <div class="panel-heading">
-                    <span class="panel-title"><i class="panel-title-icon fa fa-shopping-cart"></i>Dernières commandes</span>
+                    <span class="panel-title"><i class="panel-title-icon fa fa-shopping-cart text-warning"></i>Dernières commandes</span>
                     <div class="panel-heading-controls">
                         <div class="panel-heading-text"><a href="#">
                                 {%  set count_ord_p = 0 %}
-                                {% for order in orders %}
-                                    {% if order.state == 1 %}
+                                {% for order in orders if order.state == 1 %}
                                         {% set count_ord_p = count_ord_p + 1 %}
-                                    {% endif %}{% endfor %}{{ count_ord_p }} new orders</a></div>
+                                {% endfor %}{{ count_ord_p }} new orders</a></div>
                     </div>
                 </div> <!-- / .panel-heading -->
                 <div class="panel-body tab-content-padding">
@@ -327,7 +332,9 @@
                                 {% elseif order.state == 2 %}
                                     <span class="label label-success ticket-label">Completed</span>
                                 {% endif %}
-                                <a href="#" title="" class="ticket-title">Mobile App Problem<span>[#{{ order.id }}]</span></a>
+                                {% for product in order.product %}
+                                    <a href="{{ path('store_backend_product_view', {id: product.id, name: product.title}) }}{% if not loop.last %},{% endif %} " title="" class="ticket-title">{{ product.title }}<span>[#{{ order.id }}]</span></a>
+                                {% endfor %}
 								<span class="ticket-info">
 									Ordered by <a href="#">{{ order.user.firstname ~' '~ order.user.lastname }}</a> in {{ order.address }}
                                     for {{ order.total }}€
@@ -346,7 +353,7 @@
         -->
 
         <div class="col-md-6">
-            <div class="panel panel-warning" id="dashboard-recent">
+            <div class="panel panel-success" id="dashboard-recent">
                 <div class="panel-heading">
                     <span class="panel-title"><i class="panel-title-icon fa fa-comments text-danger"></i>Latest Comments</span>
                     <ul class="nav nav-tabs nav-tabs-xs">
@@ -369,26 +376,24 @@
                     <div class="widget-comments panel-body tab-pane no-padding fade active in" id="dashboard-active-comments">
                         <!-- Panel padding, without vertical padding -->
                         <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                                {% for com in coms %}
-                                    {% if com.state == 1 %}
-                                        <div class="comment">
-                                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
-                                            <div class="comment-body">
-                                                <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
-                                                </div>
-                                                <div class="comment-text">
-                                                    {{ com.content }}
-                                                </div>
-                                                <div class="comment-actions">
-                                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                    <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
-                                                </div>
-                                            </div> <!-- / .comment-body -->
-                                        </div> <!-- / .comment -->
-                                    {% endif %}
-                                {% endfor %}
+                            {% for com in coms if com.state == 1 %}
+                                <div class="comment">
+                                    <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                    <div class="comment-body">
+                                        <div class="comment-by">
+                                            <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
+                                        </div>
+                                        <div class="comment-text">
+                                            {{ com.content }}
+                                        </div>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                            <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                            <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
+                                        </div>
+                                    </div> <!-- / .comment-body -->
+                                </div> <!-- / .comment -->
+                            {% endfor %}
                             </div>
                     </div> <!-- / .widget-comments -->
 
@@ -397,51 +402,47 @@
                     <!-- Without padding -->
                     <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-pending-comments">
                         <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                                {% for com in coms %}
-                                    {% if com.state == 0 %}
-                                        <div class="comment">
-                                            <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
-                                            <div class="comment-body">
-                                                <div class="comment-by">
-                                                    <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
-                                                </div>
-                                                <div class="comment-text">
-                                                    {{ com.content }}
-                                                </div>
-                                                <div class="comment-actions">
-                                                    <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                                                    <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                    <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
-                                                </div>
-                                            </div> <!-- / .comment-body -->
-                                        </div> <!-- / .comment -->
-                                    {% endif %}
-                                {% endfor %}
+                            {% for com in coms if com.state == 0 %}
+                                <div class="comment">
+                                    <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                    <div class="comment-body">
+                                        <div class="comment-by">
+                                            <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
+                                        </div>
+                                        <div class="comment-text">
+                                            {{ com.content }}
+                                        </div>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                            <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                            <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
+                                        </div>
+                                    </div> <!-- / .comment-body -->
+                                </div> <!-- / .comment -->
+                            {% endfor %}
                         </div>
                     </div> <!-- / .panel-body -->
 
                     <div class="widget-comments panel-body tab-pane no-padding fade" id="dashboard-disabled-comments">
                         <!-- Panel padding, without vertical padding -->
                         <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
-                            {% for com in coms %}
-                                {% if com.state == 2 %}
-                                    <div class="comment">
-                                        <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
-                                        <div class="comment-body">
-                                            <div class="comment-by">
-                                                <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
-                                            </div>
-                                            <div class="comment-text">
-                                                {{ com.content }}
-                                            </div>
-                                            <div class="comment-actions">
-                                                <a href="#"><i class="fa fa-pencil"></i>Edit</a>
-                                                <a href="#"><i class="fa fa-times"></i>Remove</a>
-                                                <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
-                                            </div>
-                                        </div> <!-- / .comment-body -->
-                                    </div> <!-- / .comment -->
-                                {% endif %}
+                            {% for com in coms if com.state == 2 %}
+                                <div class="comment">
+                                    <img src="assets/demo/avatars/5.jpg" alt="" class="comment-avatar">
+                                    <div class="comment-body">
+                                        <div class="comment-by">
+                                            <a href="#" title="">{{ com.user.firstname ~' '~ com.user.lastname }}</a> commented on <a href="{{ path('store_backend_product_view',{id: com.product.id, name: com.product.title}) }}" title="">{{ com.product.title }}</a>
+                                        </div>
+                                        <div class="comment-text">
+                                            {{ com.content }}
+                                        </div>
+                                        <div class="comment-actions">
+                                            <a href="#"><i class="fa fa-pencil"></i>Edit</a>
+                                            <a href="#"><i class="fa fa-times"></i>Remove</a>
+                                            <span class="pull-right">{{ com.dateCreated|date('d/m/Y h:i') }}</span>
+                                        </div>
+                                    </div> <!-- / .comment-body -->
+                                </div> <!-- / .comment -->
                             {% endfor %}
                         </div>
                     </div> <!-- / .widget-comments-inactifs -->
@@ -458,9 +459,9 @@
                         Alt messages list
         -->
         <div class="widget-messages-alt col-md-6">
-            <div class="panel panel-danger">
+            <div class="panel panel-success">
                 <div class="panel-heading">
-                    <span class="panel-title"><i class="panel-title-icon fa fa-envelope"></i>Messages</span>
+                    <span class="panel-title"><i class="panel-title-icon fa fa-envelope text-primary"></i>Messages</span>
                 </div> <!-- / .panel-heading -->
                 <div class="panel-body padding-sm">
                     <div class="messages-list">
@@ -495,9 +496,9 @@
                         Striped tables
         -->
         <div class="col-md-6">
-            <div class="panel panel-warning">
+            <div class="panel panel-success">
                 <div class="panel-heading">
-                    <span class="panel-title"><i class="panel-title-icon fa fa-star"></i>Categories</span>
+                    <span class="panel-title"><i class="panel-title-icon fa fa-star text-success"></i>Categories</span>
                 </div>
                 <div class="panel-body">
                     <table class="table table-striped text-center">
@@ -537,34 +538,40 @@
         <div class="col-md-6">
             <div class="panel panel-success widget-support-tickets" id="dashboard-support-tickets">
                 <div class="panel-heading">
-                    <span class="panel-title"><i class="panel-title-icon fa fa-dollar"></i>Promotions et Réduction</span>
+                    <span class="panel-title"><i class="panel-title-icon fa fa-dollar text-info"></i>Promotions et Réduction</span>
                 </div> <!-- / .panel-heading -->
                 <div class="panel-body tab-content-padding">
                     <!-- Panel padding, without vertical padding -->
                     <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for promo in business %}
                             {% for product in promo.product %}
-                                {{ product.title }}
-                                <br/>
+                                <div class="ticket">
+                                    <span class="label label-success ticket-label">
+                                        <i class="fa fa-check"></i>
+                                        - {{ promo.type == 1 ? promo.amount ~ ' €' : promo.amount ~ ' %'  }}
+                                    </span>
+                                    <a href="#" title="" class="ticket-title">
+                                        {{ product.title }}<span>[#{{ promo.id }}]</span>
+                                    </a>
+                                    <p>
+                                        Valeur HT :
+                                        <strong>{{ promo.type == 1 ? product.price - promo.amount :   product.price *(1 - promo.amount/100) }}€ </strong>
+                                    </p>
+                                    <p>
+                                        Type :
+                                        <span class="ticket-info">
+                                            <strong>
+                                                <span>{{ promo.type == 1 ? "promotion" : "reduction" }} </span>
+                                            </strong>
+                                        </span>
+                                    </p>
+                                    <p>
+                                        <span class="ticket-message">
+                                            {{ promo.message }}
+                                        </span>
+                                    </p>
+                                </div> <!-- / .ticket -->
                             {% endfor %}
-                            <div class="ticket">
-                                <span class="label label-success ticket-label"><i class="fa fa-check"></i>-10%</span>
-                                <a href="#" title="" class="ticket-title">Product name<span>[#{{ promo.id }}]
-                                            <span class="label">
-                                                {% if(promo.type == 1) %}
-                                                    {#{{ promo.product.price - promo.amount }}#}
-                                                {% else %}
-                                                    {#{{ promo.product.price *(1 - promo.amount) }}#}
-                                                {% endif %}
-                                                €</span>
-                                        </span></a>
-								<span class="ticket-info">
-                                    <span> -- {{ promo.type == 1 ? "promotion" : "reduction" }} -- </span>
-								</span>
-                                <span class="ticket-message">
-                                    {{ promo.message }}
-                                </span>
-                            </div> <!-- / .ticket -->
                         {%  endfor %}
                     </div>
                 </div> <!-- / .panel-body -->
@@ -576,7 +583,7 @@
 
                             Profile widget - Centered example
             -->
-            <div class="panel panel-danger panel-dark panel-body-colorful widget-profile widget-profile-centered">
+            <div class="panel panel-success panel-dark panel-body-colorful widget-profile widget-profile-centered">
                 <div class="panel-heading">
                     <img src="{{ jeweler.image }}" alt="" class="widget-profile-avatar">
                     <div class="widget-profile-header">
