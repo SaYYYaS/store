@@ -1,0 +1,38 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}power-off{% endblock %}
+
+{% block titlepage %}
+    Se connecter
+{% endblock %}
+{% block content %}
+
+    <class class="row">
+        <div class="col-md-5">
+            <form class="panel form-horizontal" action="" method="POST">
+                <div class="panel-heading">
+                    <span class="pannel-title">
+                        <i class="fa fa-power-off"></i> Connectez-vous à votre compte
+                    </span>
+                </div>
+                <div class="panel-body">
+                    <div class="row form-group">
+                        <label class="col-sm-4 control-label" for="_username">Email | Username</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" autocomplete="off" required="required" name="_username" id="_username" type="text"/>
+                        </div>
+                    </div>
+                    <div class="row form-group">
+                        <label class="col-sm-4 control-label" for="_password">Password</label>
+                        <div class="col-sm-8">
+                            <input class="form-control" name="_password" id="_password" autocomplete="off" required="required type="password"/>
+                        </div>
+                    </div>
+                </div>
+                <div class="panel-footer text-right">
+                    <button type="submit" class="btn btn-primary"><i class="fa fa-power-off"></i> Se connecter</button>
+                </div>
+            </form>
+        </div>
+    </class>
+
+{% endblock %}

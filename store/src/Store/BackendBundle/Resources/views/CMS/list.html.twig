@@ -19,6 +19,7 @@
                 <th>titre</th>
                 <th>Resumé</th>
                 <th>État</th>
+                <th>Active</th>
                 <th>Nombre de produits affectés</th>
                 <th>Date création</th>
                 <th>Actions</th>
@@ -30,8 +31,15 @@
                     <td><a href="{{ path('store_backend_cms_view',{'id' : cms.id,'name' : cms.title}) }}">{{ cms.id }}</a></td>
                     <td><a href="{{ path('store_backend_cms_view',{'id' : cms.id,'name' : cms.title}) }}">{{ cms.title }}</a></td>
                     <td class="col-md-3">{{ cms.summary }}</td>
+                    <td class="switchable-element">
+                        <div class="btn-group-vertical" data-toggle="buttons">
+                            <a class="btn btn-danger {{ cms.state == 0 ? 'disabled': '' }}" href="{{ path('store_backend_cms_state',{id: cms.id , state: 0}) }}"> Non lu</a>
+                            <a class="btn btn-primary {{ cms.state == 1 ? 'disabled': '' }}" href="{{ path('store_backend_cms_state',{id: cms.id , state: 1}) }}"> En cours</a>
+                            <a class="btn btn-success {{ cms.state == 2 ? 'disabled': '' }}" href="{{ path('store_backend_cms_state',{id: cms.id , state: 2}) }}"> Lu</a>
+                        </div>
+                    </td>
                     <td class="activable-element">
-                        {% if cms.state %}
+                        {% if cms.active %}
                             <a href="{{ path('store_backend_cms_activate',{id : cms.id,active: 0}) }}"
                                data-url="{{ path('store_backend_cms_activate',{id : cms.id,active: 1}) }}">
                                 <i class="fa fa-check"></i>
@@ -39,7 +47,7 @@
                         {% else %}
                             <a href="{{ path('store_backend_cms_activate',{id : cms.id,active: 1}) }}"
                                data-url="{{ path('store_backend_cms_activate',{id : cms.id,active: 0}) }}">
-                                <i class="fa fa-crosshairs"></i>
+                                <i class="fa fa-times"></i>
                             </a>
                         {% endif %}
                     </td>

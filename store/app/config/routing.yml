@@ -1,3 +1,22 @@
 store_backend:
     resource: "@StoreBackendBundle/Resources/config/routing.yml"
-    prefix:   /
+    prefix:   /admin
+
+##
+# Auth backend & frontend
+##
+
+#Login backend
+store_backend_security_login:
+    path: /login
+    defaults: { _controller: StoreBackendBundle:Security:login}
+
+#Login backend check
+store_backend_security_login_check:
+    path: /administration/login_check
+    defaults: { _controller: StoreBackendBundle:Security:login_check}
+
+#Logout backend
+store_backend_security_logout:
+    path: /logout
+    defaults: { _controller: StoreBackendBundle:Security:logout}

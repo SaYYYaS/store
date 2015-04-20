@@ -43,3 +43,10 @@ store_backend_cms_activate:
         active: \d{1}
     defaults: {_controller: 'StoreBackendBundle:CMS:activate'}
 
+#Url state page
+store_backend_cms_state:
+    path: /state/{id}/{state}
+    requirements:
+        id: \d+
+        state: \d{1}
+    defaults: {_controller: 'StoreBackendBundle:CMS:state'}

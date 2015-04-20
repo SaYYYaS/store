@@ -166,7 +166,7 @@ class CMSController extends Controller
 
         $cms = $id;
 
-        $cms->setActive($state);
+        $cms->setState($state);
         $em = $this->getDoctrine()->getManager();
         $em->persist($cms);
         $em->flush();

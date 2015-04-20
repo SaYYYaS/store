@@ -32,6 +32,27 @@ function updateActive($link, response){
     }
 }
 
+function updateState($link,response){
+    if($link instanceof $){
+        //Parcourt les message de la response et les affiche
+        $.each(response.messages[response.template],function(key,msg){
+            var $flash = $('\
+                        <div class="alert alert-dark alert-'+ response.template + '">\
+                        <button type="button" class="close" data-dismiss="alert" aria-label="Close">\
+                        <span aria-hidden="true">&times;</span>\
+                        </button>' + msg + '</div>")'
+            );
+            var $content = $('#content-wrapper .table-primary.table.table-bordered');
+            $content.parent().find('.alert.alert-dark').remove();
+            $content.before($flash);
+        });
+        return true;
+    }
+    else{
+        return false;
+    }
+}
+
 //Adding event listener to activate-element
 $('.activable-element a').on('click', function(e) {
     e.preventDefault();
@@ -40,5 +61,15 @@ $('.activable-element a').on('click', function(e) {
         url: $link.attr('href')
     }).done(function (response) {
         updateActive($link,response);
+    })
+});
+
+//Update this function
+$('.switchable-element a').on('click', function(e) {
+    var $link = $(this);
+    $.ajax({
+        url: $link.attr('href')
+    }).done(function (response) {
+        updateState($link,response);
     })
 });
