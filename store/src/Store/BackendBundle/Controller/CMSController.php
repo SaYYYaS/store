@@ -127,6 +127,7 @@ class CMSController extends Controller
 
     /**
      * Activate cms page
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param Cms $id
      * @param $active
      * @return JsonResponse
@@ -143,6 +144,36 @@ class CMSController extends Controller
         //Flash message
         $state = $active ?'activée' : 'désactivée';
         $template = $active ?'success' : 'warning';
+        $this->get('session')->getFlashbag()->add($template,'La page : "' . $cms . '" à été ' . $state  . '.' );
+
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+        return $this->redirectToRoute('store_backend_cms_list');
+
+    }
+
+    /**
+     * Change cms page state
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Cms $id
+     * @param $state
+     * @internal param $state (lu, en cours, non lu)
+     * @return JsonResponse
+     */
+    public function stateAction(Request $request, Cms $id, $state){
+
+        $cms = $id;
+
+        $cms->setActive($state);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($cms);
+        $em->flush();
+
+        //Flash message
+        $state = $state ?'activée' : 'désactivée';
+        $template = $state ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'La page : "' . $cms . '" à été ' . $state  . '.' );
 
         if ($request->isXmlHttpRequest())

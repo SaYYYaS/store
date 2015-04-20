@@ -8,7 +8,7 @@ store_backend_cms_view:
    path:     /view/{id}/{name}
    requirements:
      id: \d+
-     name: (.){1,50}
+     name: (.)*
      _method: GET
    defaults: {_controller: 'StoreBackendBundle:CMS:view'}
 
