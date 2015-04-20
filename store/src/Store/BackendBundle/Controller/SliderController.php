@@ -79,6 +79,7 @@ class SliderController extends Controller
 
         //Si la totalité de formulaire est valide
         if($form->isValid()){
+            $slider->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($slider);
             $em->flush();
@@ -111,6 +112,7 @@ class SliderController extends Controller
 
         //Si la totalité de formulaire est valide
         if($form->isValid()){
+            $slider->upload();
             $em = $this->getDoctrine()->getManager();
             $em->persist($slider);
             $em->flush();

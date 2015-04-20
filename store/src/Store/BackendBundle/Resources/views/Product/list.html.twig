@@ -22,6 +22,7 @@
                 <th>Prix</th>
                 <th>Quantité</th>
                 <th>Actif</th>
+                <th>Page d'Accuel</th>
                 <th>Date actif</th>
                 <th>Categories </th>
                 <th>Fournisseurs</th>
@@ -47,7 +48,7 @@
                         <strong>{{ product.taxe }}</strong> %
                     </td>
                     <td>{{ product.quantity }}</td>
-                    <td class="activatable-element">
+                    <td class="activable-element">
                         {% if product.active %}
                             <a href="{{ path('store_backend_product_activate',{id : product.id,active: 0}) }}"
                                data-url="{{ path('store_backend_product_activate',{id : product.id,active: 1}) }}">
@@ -57,6 +58,19 @@
                             <a href="{{ path('store_backend_product_activate',{id : product.id, active: 1}) }}"
                                data-url="{{ path('store_backend_product_activate',{id : product.id,active: 0}) }}" >
                                 <i class="fa fa-times"></i>
+                            </a>
+                        {% endif %}
+                    </td>
+                    <td class="activable-element">
+                        {% if product.cover %}
+                            <a href="{{ path('store_backend_product_cover',{id : product.id,cover: 0}) }}"
+                               data-url="{{ path('store_backend_product_cover',{id : product.id,cover: 1}) }}">
+                                <i class="fa fa-star"></i>
+                            </a>
+                        {% else %}
+                            <a href="{{ path('store_backend_product_cover',{id : product.id, cover: 1}) }}"
+                               data-url="{{ path('store_backend_product_cover',{id : product.id,cover: 0}) }}" >
+                                <i class="fa fa-star-o"></i>
                             </a>
                         {% endif %}
                     </td>

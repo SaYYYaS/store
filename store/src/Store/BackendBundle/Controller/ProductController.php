@@ -167,6 +167,25 @@ class ProductController extends Controller
         $template = $active ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'Le produit : ' . $product . ' à été ' . $state  . '.' );
 
+        #TODO detect ajax then switch response
+        //return $this->redirectToRoute('store_backend_product_list');
+        return new JsonResponse(['template' => $template]);
+    }
+
+    public function coverAction(Product $id, $cover){
+
+        $product = $id;
+
+        $product->setCover($cover);
+        $em = $this->getDoctrine()->getManager();
+        $em->persist($product);
+        $em->flush();
+
+        //Flash message
+        $state = $cover ?'en page d\'accueil' : 'retiré de la page d\'accueil';
+        $template = $cover ?'success' : 'warning';
+        $this->get('session')->getFlashbag()->add($template,'Le produit : ' . $product . ' est ' . $state  . '.' );
+
         //return $this->redirectToRoute('store_backend_product_list');
         return new JsonResponse(['template' => $template]);
     }

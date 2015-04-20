@@ -9,6 +9,4 @@
 /build/
 /vendor/
 /bin/
-/web/uploads
-.idea/*
 /composer.phar

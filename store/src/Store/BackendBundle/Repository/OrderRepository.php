@@ -51,12 +51,11 @@ class OrderRepository extends EntityRepository{
      * @return array
      */
     public function getOrdersByUser($user = null, $nbr = 5){
-        //$query = $this->createQueryBuilder('c');
         $query = $this->getEntityManager()
             ->createQuery("
             SELECT ord
             FROM StoreBackendBundle:Orders AS ord
-            JOIN ord.product as p
+            LEFT JOIN ord.product as p
             WHERE ord.jeweler = :user
             ORDER BY ord.dateCreated DESC")
             ->setMaxResults($nbr)

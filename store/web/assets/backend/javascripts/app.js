@@ -2,10 +2,17 @@ function updateActive($link, response){
     if($link instanceof $){
         var original_url = $link.attr('href');
         var switch_url = $link.attr('data-url');
+        var $icon = $link.children('i');
         $link.attr('href',switch_url);
         $link.attr('data-url',original_url);
-        $link.children('i').toggleClass('fa fa-check');
-        $link.children('i').toggleClass('fa fa-times');
+        if($icon.hasClass('fa-times') || $icon.hasClass('fa-check')){
+            $icon.toggleClass('fa fa-check');
+            $icon.toggleClass('fa fa-times');
+        }
+        else{
+            $icon.toggleClass('fa fa-star');
+            $icon.toggleClass('fa fa-star-o');
+        }
         //Parcourt les message de la response et les affiche
         $.each(response.messages[response.template],function(key,msg){
             var $flash = $('\

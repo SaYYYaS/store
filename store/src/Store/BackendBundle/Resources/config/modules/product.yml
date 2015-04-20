@@ -42,3 +42,11 @@ store_backend_product_activate:
         id:      \d+
         active: \d{1}
     defaults:    {_controller: 'StoreBackendBundle:Product:activate'}
+
+#Route cover product
+store_backend_product_cover:
+    path:        /cover/{id}/{cover}
+    requirements:
+        id:      \d+
+        cover: \d{1}
+    defaults:    {_controller: 'StoreBackendBundle:Product:cover'}

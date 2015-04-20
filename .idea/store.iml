@@ -7,12 +7,15 @@
     <orderEntry type="module-library">
       <library name="PHARS">
         <CLASSES>
+          <root url="phar://$MODULE_DIR$/store/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
         </CLASSES>
         <SOURCES>
+          <root url="phar://$MODULE_DIR$/store/composer.phar" />
           <root url="phar://$MODULE_DIR$/store/vendor/symfony/symfony/src/Symfony/Component/DependencyInjection/Tests/Fixtures/includes/ProjectWithXsdExtensionInPhar.phar" />
         </SOURCES>
       </library>
     </orderEntry>
   </component>
 </module>
+
