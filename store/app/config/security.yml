@@ -23,7 +23,7 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         store_backend:
-            entity: { class: StoreBackendBundle:Jeweler }
+            entity: { class: StoreBackendBundle:Jeweler, property: username }
 #        in_memory:
 #            memory:
 #                users:

@@ -4,6 +4,7 @@
 namespace Store\BackendBundle\Controller;
 
 
+use Store\BackendBundle\Entity\Jeweler;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
