@@ -5,6 +5,7 @@ function updateActive($link, response){
         var $icon = $link.children('i');
         $link.attr('href',switch_url);
         $link.attr('data-url',original_url);
+        //switching icon
         if($icon.hasClass('fa-times') || $icon.hasClass('fa-check')){
             $icon.toggleClass('fa fa-check');
             $icon.toggleClass('fa fa-times');
@@ -35,6 +36,7 @@ function updateActive($link, response){
 function updateState($link,response){
     if($link instanceof $){
         //Parcourt les message de la response et les affiche
+        //Disable this and search closest to remove disable
         $.each(response.messages[response.template],function(key,msg){
             var $flash = $('\
                         <div class="alert alert-dark alert-'+ response.template + '">\
@@ -56,7 +58,7 @@ function updateState($link,response){
 //Adding event listener to activate-element
 $('.activable-element a').on('click', function(e) {
     e.preventDefault();
-    var $link = $(this);
+    $link = $(this);
     $.ajax({
         url: $link.attr('href')
     }).done(function (response) {
@@ -70,6 +72,8 @@ $('.switchable-element a').on('click', function(e) {
     $.ajax({
         url: $link.attr('href')
     }).done(function (response) {
+        $link.parent().children('.btn').removeClass('disabled');
+        $link.addClass('disabled');
         updateState($link,response);
     })
 });

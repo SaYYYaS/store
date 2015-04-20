@@ -3,6 +3,8 @@
 namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Symfony\Component\Security\Core\Role\Role;
+use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 
 /**
  * Jeweler
@@ -10,7 +12,7 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="jeweler", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\JewelerRepository")
  */
-class Jeweler
+class Jeweler implements AdvancedUserInterface, \Serializable
 {
     /**
      * @var integer
@@ -379,6 +381,29 @@ class Jeweler
     }
 
     /**
+     * Set dateCreated
+     *
+     * @param \DateTime $dateCreated
+     * @return Jeweler
+     */
+    public function setDateCreated($dateCreated)
+    {
+        $this->dateCreated = $dateCreated;
+
+        return $this;
+    }
+
+    /**
+     * Get dateCreated
+     *
+     * @return \DateTime
+     */
+    public function getDateCreated()
+    {
+        return $this->dateCreated;
+    }
+
+    /**
      * Set locked
      *
      * @param boolean $locked
@@ -509,19 +534,15 @@ class Jeweler
     /**
      * Get emailCanonical
      *
-     * @return string 
+     * @return string
      */
     public function getEmailCanonical()
     {
         return $this->emailCanonical;
     }
 
-    /**
-     * Set credentialsExpired
-     *
-     * @param boolean $credentialsExpired
-     * @return Jeweler
-     */
+    #METHODS IMPLEMENTED BY AdvancedUserInterface
+
     public function setCredentialsExpired($credentialsExpired)
     {
         $this->credentialsExpired = $credentialsExpired;
@@ -529,22 +550,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get credentialsExpired
-     *
-     * @return boolean 
-     */
     public function getCredentialsExpired()
     {
         return $this->credentialsExpired;
     }
 
-    /**
-     * Set credentialsExpireAt
-     *
-     * @param \DateTime $credentialsExpireAt
-     * @return Jeweler
-     */
     public function setCredentialsExpireAt($credentialsExpireAt)
     {
         $this->credentialsExpireAt = $credentialsExpireAt;
@@ -552,22 +562,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get credentialsExpireAt
-     *
-     * @return \DateTime 
-     */
     public function getCredentialsExpireAt()
     {
         return $this->credentialsExpireAt;
     }
 
-    /**
-     * Set confirmationToken
-     *
-     * @param string $confirmationToken
-     * @return Jeweler
-     */
     public function setConfirmationToken($confirmationToken)
     {
         $this->confirmationToken = $confirmationToken;
@@ -575,22 +574,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get confirmationToken
-     *
-     * @return string 
-     */
     public function getConfirmationToken()
     {
         return $this->confirmationToken;
     }
 
-    /**
-     * Set passwordRequestedAt
-     *
-     * @param string $passwordRequestedAt
-     * @return Jeweler
-     */
     public function setPasswordRequestedAt($passwordRequestedAt)
     {
         $this->passwordRequestedAt = $passwordRequestedAt;
@@ -598,22 +586,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get passwordRequestedAt
-     *
-     * @return string 
-     */
     public function getPasswordRequestedAt()
     {
         return $this->passwordRequestedAt;
     }
 
-    /**
-     * Set fid
-     *
-     * @param integer $fid
-     * @return Jeweler
-     */
     public function setFid($fid)
     {
         $this->fid = $fid;
@@ -621,22 +598,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get fid
-     *
-     * @return integer 
-     */
     public function getFid()
     {
         return $this->fid;
     }
 
-    /**
-     * Set slug
-     *
-     * @param string $slug
-     * @return Jeweler
-     */
     public function setSlug($slug)
     {
         $this->slug = $slug;
@@ -644,22 +610,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get slug
-     *
-     * @return string 
-     */
     public function getSlug()
     {
         return $this->slug;
     }
 
-    /**
-     * Set accountnonlocked
-     *
-     * @param boolean $accountnonlocked
-     * @return Jeweler
-     */
     public function setAccountnonlocked($accountnonlocked)
     {
         $this->accountnonlocked = $accountnonlocked;
@@ -667,22 +622,11 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get accountnonlocked
-     *
-     * @return boolean 
-     */
     public function getAccountnonlocked()
     {
         return $this->accountnonlocked;
     }
 
-    /**
-     * Set accountnonexpired
-     *
-     * @param boolean $accountnonexpired
-     * @return Jeweler
-     */
     public function setAccountnonexpired($accountnonexpired)
     {
         $this->accountnonexpired = $accountnonexpired;
@@ -690,37 +634,56 @@ class Jeweler
         return $this;
     }
 
-    /**
-     * Get accountnonexpired
-     *
-     * @return boolean 
-     */
     public function getAccountnonexpired()
     {
         return $this->accountnonexpired;
     }
 
-    /**
-     * Set dateCreated
-     *
-     * @param \DateTime $dateCreated
-     * @return Jeweler
-     */
-    public function setDateCreated($dateCreated)
+    public function isAccountNonExpired()
     {
-        $this->dateCreated = $dateCreated;
+        // TODO: Implement isAccountNonExpired() method.
+    }
 
-        return $this;
+    public function isAccountNonLocked()
+    {
+        // TODO: Implement isAccountNonLocked() method.
+    }
+
+    public function isCredentialsNonExpired()
+    {
+        // TODO: Implement isCredentialsNonExpired() method.
+    }
+
+    public function isEnabled()
+    {
+        // TODO: Implement isEnabled() method.
+    }
+
+    public function getRoles()
+    {
+        return ['ROLE_JEWELER'];
     }
 
     /**
-     * Get dateCreated
+     * Removes sensitive data from the user.
      *
-     * @return \DateTime 
+     * This is important if, at any given point, sensitive information like
+     * the plain-text password is stored on this object.
      */
-    public function getDateCreated()
+    public function eraseCredentials()
     {
-        return $this->dateCreated;
+        return null;
+    }
+
+    #METHODS IMPLEMENTED BY \Serializable
+    public function serialize()
+    {
+        return serialize([$this->id]);
+    }
+
+    public function unserialize($serialized)
+    {
+        list($this->id) = unserialize($serialized);
     }
 
     /**
@@ -731,5 +694,4 @@ class Jeweler
     {
         return (string)$this->title;
     }
-
 }

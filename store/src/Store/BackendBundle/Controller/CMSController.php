@@ -95,6 +95,7 @@ class CMSController extends Controller
     /**
      * Edit a cms
      * @param \Store\BackendBundle\Controller\Request|\Symfony\Component\HttpFoundation\Request $request
+     * @param \Store\BackendBundle\Entity\Cms $id
      * @internal param $id
      * @internal param $name
      * @return \Symfony\Component\HttpFoundation\Response
@@ -172,8 +173,20 @@ class CMSController extends Controller
         $em->flush();
 
         //Flash message
-        $state = $state ?'activée' : 'désactivée';
-        $template = $state ?'success' : 'warning';
+        switch($state){
+            case 0 :
+                $state    = 'non lu';
+                $template = 'danger';
+                break;
+            case 1 :
+                $state = 'en cours de lecture';
+                $template = 'info';
+                break;
+            case 2 :
+                $state = 'lu';
+                $template = 'success';
+                break;
+        }
         $this->get('session')->getFlashbag()->add($template,'La page : "' . $cms . '" à été ' . $state  . '.' );
 
         if ($request->isXmlHttpRequest())

@@ -13,10 +13,12 @@ store_backend_security_login:
 
 #Login backend check
 store_backend_security_login_check:
-    path: /administration/login_check
-    defaults: { _controller: StoreBackendBundle:Security:login_check}
+    path: /admin/login_check
+    requirements:
+        method: POST
+    defaults: { _controller: StoreBackendBundle:Security:login}
 
 #Logout backend
 store_backend_security_logout:
-    path: /logout
+    path: /admin/logout
     defaults: { _controller: StoreBackendBundle:Security:logout}
