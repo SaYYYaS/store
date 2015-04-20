@@ -99,6 +99,7 @@ class CategoryController extends Controller
     /**
      * Create a category
      * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param \Store\BackendBundle\Entity\Category $id
      * @internal param $id
      * @internal param $name
      * @return \Symfony\Component\HttpFoundation\Response
@@ -125,7 +126,14 @@ class CategoryController extends Controller
         return $this->render('StoreBackendBundle:Category:edit.html.twig',['form' => $form->createView()]);
     }
 
-    public function activateAction(Category $id, $active){
+    /**
+     * To activate a category
+     * @param \Symfony\Component\HttpFoundation\Request $request
+     * @param Category $id
+     * @param $active
+     * @return JsonResponse
+     */
+    public function activateAction(Request $request,Category $id, $active){
 
         $category = $id;
 
@@ -139,7 +147,12 @@ class CategoryController extends Controller
         $template = $active ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'La catégorie : "' . $category . '" à été ' . $state  . '.' );
 
-        //return $this->redirectToRoute('store_backend_category_list');
-        return new JsonResponse(['template' => $template]);
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+
+        return $this->redirectToRoute('store_backend_category_list');
+
     }
 }

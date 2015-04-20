@@ -10,5 +10,5 @@
 /vendor/
 /bin/
 /web/uploads
-.idea/*
+/.idea/*
 /composer.phar

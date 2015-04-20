@@ -153,7 +153,7 @@ class ProductController extends Controller
         return $this->render('StoreBackendBundle:Product:edit.html.twig',['form' => $form->createView()]);
     }
 
-    public function activateAction(Product $id, $active){
+    public function activateAction(Request $request, Product $id, $active){
 
         $product = $id;
 
@@ -167,12 +167,14 @@ class ProductController extends Controller
         $template = $active ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'Le produit : ' . $product . ' à été ' . $state  . '.' );
 
-        #TODO detect ajax then switch response
-        //return $this->redirectToRoute('store_backend_product_list');
-        return new JsonResponse(['template' => $template]);
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+        return $this->redirectToRoute('store_backend_product_list');
     }
 
-    public function coverAction(Product $id, $cover){
+    public function coverAction(Request $request, Product $id, $cover){
 
         $product = $id;
 
@@ -186,7 +188,10 @@ class ProductController extends Controller
         $template = $cover ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'Le produit : ' . $product . ' est ' . $state  . '.' );
 
-        //return $this->redirectToRoute('store_backend_product_list');
-        return new JsonResponse(['template' => $template]);
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+        return $this->redirectToRoute('store_backend_product_list');
     }
 }

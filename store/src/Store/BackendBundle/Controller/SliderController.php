@@ -127,7 +127,7 @@ class SliderController extends Controller
      * @param $active
      * @return JsonResponse
      */
-    public function activateAction(slider $id, $active){
+    public function activateAction(Request $request, Slider $id, $active){
 
         $slider = $id;
 
@@ -141,7 +141,10 @@ class SliderController extends Controller
         $template = $active ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'Le slide lié au produit "' . $slider->getProduct() . '" à été ' . $state  . '.' );
 
-        //return $this->redirectToRoute('store_backend_slider_list');
-        return new JsonResponse(['template' => $template]);
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+        return $this->redirectToRoute('store_backend_slider_list');
     }
 }

@@ -23,7 +23,7 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody style="word-break: break-all;word-break: break-word;">
                 {% for category in categories %}
                     <tr>
                         <td><a href="{{ path('store_backend_category_view',{'id' : category.id, 'name' : category.title}) }}">{{ category.id }}</a></td>

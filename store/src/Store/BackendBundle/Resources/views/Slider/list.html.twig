@@ -22,7 +22,7 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody>
+            <tbody style="word-break: break-all;word-break: break-word;">
             {% for slider in sliders %}
                 <tr>
                     <td><a href="{{ path('store_backend_slider_view',{'id' : slider.id }) }}">{{ slider.id }}</a></td>

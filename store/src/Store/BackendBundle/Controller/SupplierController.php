@@ -94,7 +94,7 @@ class SupplierController extends Controller
         return $this->render('StoreBackendBundle:Supplier:edit.html.twig',['form' => $form->createView()]);
     }
 
-    public function activateAction(Supplier $id, $active){
+    public function activateAction(Request $request, Supplier $id, $active){
 
         $supplier = $id;
 
@@ -108,7 +108,11 @@ class SupplierController extends Controller
         $template = $active ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'Le fournisseur : ' . $supplier . ' à été ' . $state  . '.' );
 
-        //return $this->redirectToRoute('store_backend_supplier_list');
-        return new JsonResponse(['template' => $template]);
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+
+        return $this->redirectToRoute('store_backend_supplier_list');;
     }
 }

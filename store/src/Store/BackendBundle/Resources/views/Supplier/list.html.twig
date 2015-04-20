@@ -24,7 +24,7 @@
                     <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody>
+                <tbody style="word-break: break-all;word-break: break-word;">
                 {% for supplier in suppliers %}
                     <tr>
                         <td><a href="{{ path('store_backend_supplier_view',{'id' : supplier.id,'name' : supplier.name}) }}">{{ supplier.id }}</a></td>

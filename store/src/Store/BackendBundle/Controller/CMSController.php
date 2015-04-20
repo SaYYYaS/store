@@ -131,7 +131,7 @@ class CMSController extends Controller
      * @param $active
      * @return JsonResponse
      */
-    public function activateAction(Cms $id, $active){
+    public function activateAction(Request $request, Cms $id, $active){
 
         $cms = $id;
 
@@ -145,7 +145,11 @@ class CMSController extends Controller
         $template = $active ?'success' : 'warning';
         $this->get('session')->getFlashbag()->add($template,'La page : "' . $cms . '" à été ' . $state  . '.' );
 
-        //return $this->redirectToRoute('store_backend_cms_list');
-        return new JsonResponse(['template' => $template]);
+        if ($request->isXmlHttpRequest())
+        {
+            return new JsonResponse(['template' => $template]);
+        }
+        return $this->redirectToRoute('store_backend_cms_list');
+
     }
 }
