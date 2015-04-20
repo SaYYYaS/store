@@ -5,6 +5,7 @@ namespace Store\BackendBundle\Entity;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
+use Symfony\Component\Security\Core\User\UserInterface;
 
 /**
  * Jeweler
@@ -541,6 +542,8 @@ class Jeweler implements AdvancedUserInterface, \Serializable
         return $this->emailCanonical;
     }
 
+
+
     #METHODS IMPLEMENTED BY AdvancedUserInterface
 
     public function setCredentialsExpired($credentialsExpired)
@@ -641,22 +644,22 @@ class Jeweler implements AdvancedUserInterface, \Serializable
 
     public function isAccountNonExpired()
     {
-        // TODO: Implement isAccountNonExpired() method.
+        return true;
     }
 
     public function isAccountNonLocked()
     {
-        // TODO: Implement isAccountNonLocked() method.
+        return true;
     }
 
     public function isCredentialsNonExpired()
     {
-        // TODO: Implement isCredentialsNonExpired() method.
+        return true;
     }
 
     public function isEnabled()
     {
-        // TODO: Implement isEnabled() method.
+        return $this->enabled;
     }
 
     public function getRoles()
@@ -673,6 +676,10 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     public function eraseCredentials()
     {
         return null;
+    }
+
+    public function isEqualTo(UserInterface $user){
+        return $this->username === $user->getUsername();
     }
 
     #METHODS IMPLEMENTED BY \Serializable
