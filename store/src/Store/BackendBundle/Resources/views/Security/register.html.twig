@@ -5,21 +5,36 @@
     S'enregister
 {% endblock %}
 {% block content %}
-    {{ form_start(form) }}
-    <div class="row-fluid">
-            {{ form_row(form.title) }}
+    <div class="row">
+        <div class="col-xs-12 col-sm-8 col-md-6 col-sm-offset-3 col-md-offset-3">
+            <div class="panel panel-default">
+                <div class="panel-heading">
+                    <h3 class="panel-title"><i class="fa fa-users"></i>&nbsp;Inscription de bijoutier</h3>
+                </div>
+                <div class="panel-body">
+                    {{ form_start(form) }}
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            {{ form_row(form.title) }}
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            {{ form_row(form.username) }}
+                        </div>
+                    </div>
+                    {{ form_row(form.email) }}
+                    <div class="row">
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            {{ form_row(form.password.mdp) }}
+                        </div>
+                        <div class="col-xs-6 col-sm-6 col-md-6">
+                            {{ form_row(form.password.mdp_conf) }}
+                        </div>
+                    </div>
+                    {{ form_row(form.envoyer) }}
+                    {{ form_widget(form._token) }}
+                    {{ form_end(form,{'render_rest' : false}) }}
+                </div>
+            </div>
         </div>
     </div>
-    <hr/>
-    <div class="col-md-offset-3 row col-md-offset-3">
-        <div class="col-md-3">
-            {{ form_row(form.username) }}
-            {{ form_row(form.email) }}
-        </div>
-        <div class="col-md-3">
-            {{ form_row(form.password) }}
-            {{ form_row(form.envoyer) }}
-        </div>
-    </div>
-    {{ form_end(form,{'render_rest' : false}) }}
 {% endblock %}
