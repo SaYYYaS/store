@@ -23,7 +23,7 @@ class SliderController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère toutes les pages slider de ma base de données
-        $sliders = $em->getRepository('StoreBackendBundle:Slider')->getSlidersByUser(1);
+        $sliders = $em->getRepository('StoreBackendBundle:Slider')->getSlidersByUser($this->getUser());
         return $this->render('StoreBackendBundle:Slider:list.html.twig', ['sliders' => $sliders]);
     }
 
@@ -64,7 +64,7 @@ class SliderController extends Controller
     public function newAction(Request $request){
         $slider = new Slider();
 
-        $form = $this->createForm(new SliderType(1), $slider, [
+        $form = $this->createForm(new SliderType($this->getUser()), $slider, [
             'validation_groups' => 'new',
             'attr' =>
                 [
@@ -97,7 +97,7 @@ class SliderController extends Controller
     public function editAction(Request $request,Slider $id = null){
 
         $slider = $id;
-        $form = $this->createForm(new SliderType(1), $slider, [
+        $form = $this->createForm(new SliderType($this->getUser()), $slider, [
             'validation_groups' => 'edit',
             'attr' =>
                 [
