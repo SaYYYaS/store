@@ -24,3 +24,21 @@
         {{ flashMsg }}
     </div>
 {% endfor %}
+
+{% for flashMsg in app.session.flashbag.get('danger') %}
+    <div class="alert alert-dark alert-danger">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ flashMsg }}
+    </div>
+{% endfor %}
+
+{% for flashMsg in app.session.flashbag.get('info') %}
+    <div class="alert alert-dark alert-info">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        {{ flashMsg }}
+    </div>
+{% endfor %}

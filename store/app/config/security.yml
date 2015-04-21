@@ -24,6 +24,7 @@ security:
     providers:
         store_backend:
             entity: { class: StoreBackendBundle:Jeweler, property: username }
+#        Pour definir des logins en dur
 #        in_memory:
 #            memory:
 #                users:

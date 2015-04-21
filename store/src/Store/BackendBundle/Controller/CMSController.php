@@ -173,6 +173,7 @@ class CMSController extends Controller
         $em->flush();
 
         //Flash message
+
         switch($state){
             case 0 :
                 $state    = 'non lu';
