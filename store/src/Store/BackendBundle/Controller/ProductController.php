@@ -24,7 +24,7 @@ class ProductController extends Controller
         //Conteneur d'objet de doctrine
         $em = $this->getDoctrine()->getManager();
         //Récupère tous les produits de ma base de données
-        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser(1);
+        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser($this->getUser());
         return $this->render('StoreBackendBundle:Product:list.html.twig', ['products' => $products]);
     }
 
@@ -70,13 +70,12 @@ class ProductController extends Controller
         //Je crée un forumaire lié à l'entité product grace à 'new ProductType()' (qui est le formulaire lié à l'entité product)
         //'new Product()' associe mon formulaire avec une nouvelle instance de Entity/Product
         $product = new Product();
+        $user = $this->getUser();
 
         //J'associe mon jeweler à mon produit
-        $em = $this->getDoctrine()->getManager();
-        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1);
-        $product->setJeweler($jeweler);
+        $product->setJeweler($user);
 
-        $form = $this->createForm(new ProductType(1), $product, [
+        $form = $this->createForm(new ProductType($user), $product, [
             'validation_groups' => 'new',
             'attr' =>
             [
@@ -130,7 +129,7 @@ class ProductController extends Controller
     public function editAction(Request $request,Product $id = null){
 
         $product = $id;
-        $form = $this->createForm(new ProductType(1), $product, [
+        $form = $this->createForm(new ProductType($this->getUser()), $product, [
             'validation_groups' => 'edit',
             'attr' =>
                 [

@@ -23,7 +23,7 @@ class CategoryController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère toutes les catégories de ma base de données
-        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
+        $categories = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser($this->getUser());
         return $this->render('StoreBackendBundle:Category:list.html.twig',['categories' => $categories]);
     }
 
@@ -67,11 +67,9 @@ class CategoryController extends Controller
      */
     public function newAction(Request $request){
         $category = new Category();
-
+        $user = $this->getUser();
         //J'associe mon jeweler à ma catégorie
-        $em = $this->getDoctrine()->getManager();
-        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1);
-        $category->setJeweler($jeweler);
+        $category->setJeweler($user);
 
         $form = $this->createForm(new CategoryType(), $category, [
             'validation_groups' => 'new',

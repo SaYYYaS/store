@@ -17,28 +17,29 @@ class MainController extends Controller
     public function indexAction()
     {
         //stats bloc
+        $user = $this->getUser();
         $em             = $this->getDoctrine()->getManager();
-        $nbrprods       = $em->getRepository('StoreBackendBundle:Product')->getCountByUser(1);
-        $likes          = $em->getRepository('StoreBackendBundle:Product')->getLikesByUser(1);
-        $nbrcats        = $em->getRepository('StoreBackendBundle:Category')->getCountByUser(1);
-        $nbrsuppliers   = $em->getRepository('StoreBackendBundle:Supplier')->getCountByUser(1);
-        $nbrorders      = $em->getRepository('StoreBackendBundle:Orders')->getCountByUser(1);
-        $nbrcoms        = $em->getRepository('StoreBackendBundle:Comment')->getCountByUser(1);
-        $nbrpages       = $em->getRepository('StoreBackendBundle:Cms')->getCountByUser(1);
+        $nbrprods       = $em->getRepository('StoreBackendBundle:Product')->getCountByUser($user);
+        $likes          = $em->getRepository('StoreBackendBundle:Product')->getLikesByUser($user);
+        $nbrcats        = $em->getRepository('StoreBackendBundle:Category')->getCountByUser($user);
+        $nbrsuppliers   = $em->getRepository('StoreBackendBundle:Supplier')->getCountByUser($user);
+        $nbrorders      = $em->getRepository('StoreBackendBundle:Orders')->getCountByUser($user);
+        $nbrcoms        = $em->getRepository('StoreBackendBundle:Comment')->getCountByUser($user);
+        $nbrpages       = $em->getRepository('StoreBackendBundle:Cms')->getCountByUser($user);
 
 
         //meta-informations
-        $qteprods       = $em->getRepository('StoreBackendBundle:Product')->getQuantitiesByUser(1,2);
-        $coms           = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,5);
-        $coms_pending   = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 0);
-        $coms_active    = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 1);
-        $coms_inactive  = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser(1,null, $state = 2);
-        $totalmoney     = $em->getRepository('StoreBackendBundle:Orders')->getSumOrdersByUser(1);
-        $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser(1,10);
-        $msgs           = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser(1,10);
-        $categories     = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser(1);
-        $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser(1,10);
-        $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser(1);
+        $qteprods       = $em->getRepository('StoreBackendBundle:Product')->getQuantitiesByUser($user,2);
+        $coms           = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($user,5);
+        $coms_pending   = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($user,null, $state = 0);
+        $coms_active    = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($user,null, $state = 1);
+        $coms_inactive  = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($user,null, $state = 2);
+        $totalmoney     = $em->getRepository('StoreBackendBundle:Orders')->getSumOrdersByUser($user);
+        $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser($user,10);
+        $msgs           = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser($user,10);
+        $categories     = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser($user);
+        $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser($user,10);
+        $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser($user);
         dump($orders);
 
         return $this->render('StoreBackendBundle:Main:index.html.twig',

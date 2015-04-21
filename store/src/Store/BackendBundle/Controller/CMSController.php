@@ -23,7 +23,7 @@ class CMSController extends Controller
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère toutes les pages cms de ma base de données
-        $cmss = $em->getRepository('StoreBackendBundle:Cms')->getCmsByUser(1);
+        $cmss = $em->getRepository('StoreBackendBundle:Cms')->getCmsByUser($this->getUser());
         return $this->render('StoreBackendBundle:CMS:list.html.twig', ['cmss' => $cmss]);
     }
 
@@ -63,13 +63,12 @@ class CMSController extends Controller
      */
     public function newAction(Request $request){
         $cms = new Cms();
+        $user = $this->getUser();
 
         //J'associe mon jeweler à ma page cms
-        $em = $this->getDoctrine()->getManager();
-        $jeweler = $em->getRepository('StoreBackendBundle:Jeweler')->find(1);
-        $cms->setJeweler($jeweler);
+        $cms->setJeweler($user);
 
-        $form = $this->createForm(new CmsType(), $cms, [
+        $form = $this->createForm(new CmsType($user), $cms, [
             'validation_groups' => 'new',
             'attr' =>
                 [
