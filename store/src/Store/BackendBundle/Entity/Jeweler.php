@@ -203,6 +203,16 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     public function __construct()
     {
         $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->setDefaultValues();
+    }
+
+    public function setDefaultValues(){
+        $this->dateCreated        = new \DateTime('now');
+        $this->locked             = 0;
+        $this->enabled            = 1;
+        $this->accountnonlocked   = 1;
+        $this->accountnonexpired  = 1;
+        $this->credentialsExpired = 1;
     }
 
 

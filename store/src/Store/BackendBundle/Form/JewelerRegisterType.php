@@ -75,19 +75,19 @@ class JewelerRegisterType extends AbstractType{
                             [
                                 'class'          => 'form-control',
                                 'placeholder'  => ' Au moins 6 charactères',
-                                'pattern'      => '.{6}',
+                                'pattern'      => '.{6,}',
                                 'autocomplete' => 'off'
                             ]
                     ]
                 ,
                 'second_options' =>
                     [
-                        'label' => 'Confirmation mot de passe',
+                        'label' => 'Mot de passe(confirmer)',
                         'attr'  =>
                             [
                                 'class'          => 'form-control',
                                 'placeholder'  => 'Ressaisir mot de passe',
-                                'pattern'      => '.{6}',
+                                'pattern'      => '.{6,}',
                                 'autocomplete' => 'off'
                             ]
                     ]

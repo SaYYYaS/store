@@ -39,14 +39,29 @@ class SecurityController extends Controller
      * Action d'enregistrement d'un nouvel utilisateur
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function registerAction(){
-        $factory = $this->get('security.encoder_factory');
-        //$user = new \Entity\Jeweler();
+    public function registerAction(Request $request){
 
-//        $encoder = $factory->getEncoder($user);
-//        $password = $encoder->encodePassword('ryanpass', $user->getSalt());
-//        $user->setPassword($password);
         $form = $this->createForm(new JewelerRegisterType());
+        $em = $this->getDoctrine()->getEntityManager();
+        $user = new Jeweler;
+        $form = $this->createForm(new JewelerRegisterType(), $user);
+
+        $form->handleRequest($request);
+
+        if ($form->isValid()) {
+            $factory = $this->get('security.encoder_factory');
+            $group = $this->getDoctrine()->getEntityManager()->getRepository('StoreBackendBundle:Groups')->find(1);
+            $user->addGroup($group);
+            $encoder = $factory->getEncoder($user);
+            $user->setSalt(uniqid(mt_rand(), true));
+            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
+            $user->setPassword($password);
+            $em->persist($user);
+            $em->flush();
+            return $this->redirectToRoute('store_backend_security_login');
+        }
+
         return $this->render('StoreBackendBundle:Security:register.html.twig',['form' => $form->createView()]);
     }
+
 } 
