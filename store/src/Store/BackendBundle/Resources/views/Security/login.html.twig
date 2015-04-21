@@ -7,14 +7,20 @@
 {% block content %}
 
     <class class="row">
-        <div class="col-md-5">
+
+        <div class="col-md-5 col-md-offset-3">
             {% if error is not empty %}
-                <i class="fa fa-warning"></i> <span class="text-danger">Mauvais login</span>
+                <div class="alert alert-dark alert-danger">
+                    <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <i class="fa fa-warning"></i> &nbsp; {{ error.message }}
+                </div>
             {% endif %}
             <form class="panel form-horizontal" action="{{ path('store_backend_security_login_check') }}" method="POST">
                 <div class="panel-heading">
                     <span class="pannel-title">
-                        <i class="fa fa-power-off"></i> Connectez-vous à votre compte
+                        <i class="fa fa-user"></i> Connectez-vous à votre compte
                     </span>
                 </div>
                 <div class="panel-body">

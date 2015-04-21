@@ -15,6 +15,8 @@ security:
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
         ROLE_JEWELER:       ROLE_JEWELER #Role des bijoutiers quand il se connecteront
+        ROLE_USER:          [ROLE_USER, ROLE_JEWELER]
+        ROLE_ADMIN:         [ROLE_ADMIN, ROLE_USER]
 
     # Les fournisseurs d'authentification (origine de l'auth, la source)
     # Par default en mémoire ici : définit en dur
@@ -23,7 +25,7 @@ security:
     # http://symfony.com/doc/current/book/security.html#where-do-users-come-from-user-providers
     providers:
         store_backend:
-            entity: { class: StoreBackendBundle:Jeweler, property: username }
+            entity: { class: StoreBackendBundle:Jeweler }
 #        Pour definir des logins en dur
 #        in_memory:
 #            memory:
@@ -60,8 +62,9 @@ security:
             #    realm: "Secured Demo Area"
 
     # La liaison entre le firewall et le/les roles définis dessus
+    # Ici les autorisation selon le/les chemin défini dans le firewall
     # Le role ROLE_JEWELER sera lié à notre firewall store_backend
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
     access_control:
-        - { path: ^/admin, roles: ROLE_JEWELER}
+        - { path: ^/admin, roles: [ROLE_JEWELER, ROLE_USER]}

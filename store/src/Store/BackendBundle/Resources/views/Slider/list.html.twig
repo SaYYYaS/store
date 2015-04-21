@@ -12,7 +12,7 @@
     </div>
 <div class="table-primary table table-bordered">
     <div class="table-info">
-        <table class="table table-bordered" style="word-wrap: break-word;">
+        <table class="table table-bordered text-center" style="word-wrap: break-word;">
             <thead>
             <tr>
                 <th>id</th>
@@ -22,7 +22,7 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody style="word-break: break-all;word-break: break-word;">
+            <tbody style="word-break: break-all; word-break: break-word;">
             {% for slider in sliders %}
                 <tr>
                     <td><a href="{{ path('store_backend_slider_view',{'id' : slider.id }) }}">{{ slider.id }}</a></td>

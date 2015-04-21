@@ -9,6 +9,7 @@
 /build/
 /vendor/
 /bin/
+*.php~
 /web/uploads
 /.idea/*
 /composer.phar

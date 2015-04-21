@@ -185,6 +185,25 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      */
     private $dateCreated;
 
+    /**
+     * @ORM\ManyToMany(targetEntity="Groups", inversedBy="jeweler")
+     * @ORM\JoinTable(name="jeweler_groups" ,
+     *   joinColumns = {
+     *     @ORM\JoinColumn(name="jeweler_id", referencedColumnName = "id")
+     *   },
+     *   inverseJoinColumns = {
+     *     @ORM\JoinColumn(name="groups_id", referencedColumnName = "id")
+     *   }
+     * )
+     *
+     */
+    private $groups;
+
+
+    public function __construct()
+    {
+        $this->groups = new \Doctrine\Common\Collections\ArrayCollection();
+    }
 
 
     /**
@@ -644,17 +663,17 @@ class Jeweler implements AdvancedUserInterface, \Serializable
 
     public function isAccountNonExpired()
     {
-        return true;
+        return $this->accountnonexpired;
     }
 
     public function isAccountNonLocked()
     {
-        return true;
+        return $this->accountnonlocked;
     }
 
     public function isCredentialsNonExpired()
     {
-        return true;
+        return $this->credentialsExpired;
     }
 
     public function isEnabled()
@@ -664,15 +683,10 @@ class Jeweler implements AdvancedUserInterface, \Serializable
 
     public function getRoles()
     {
-        return ['ROLE_JEWELER'];
+        // return ['ROLE_JEWELER'];
+        return $this->groups->toArray();
     }
 
-    /**
-     * Removes sensitive data from the user.
-     *
-     * This is important if, at any given point, sensitive information like
-     * the plain-text password is stored on this object.
-     */
     public function eraseCredentials()
     {
         return null;
@@ -700,5 +714,41 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     function __toString()
     {
         return (string)$this->title;
+    }
+    /**
+     * Constructor
+     */
+
+    /**
+     * Add groups
+     *
+     * @param \Store\BackendBundle\Entity\Groups $groups
+     * @return Jeweler
+     */
+    public function addGroup(\Store\BackendBundle\Entity\Groups $groups)
+    {
+        $this->groups[] = $groups;
+
+        return $this;
+    }
+
+    /**
+     * Remove groups
+     *
+     * @param \Store\BackendBundle\Entity\Groups $groups
+     */
+    public function removeGroup(\Store\BackendBundle\Entity\Groups $groups)
+    {
+        $this->groups->removeElement($groups);
+    }
+
+    /**
+     * Get groups
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getGroups()
+    {
+        return $this->groups;
     }
 }
