@@ -75,7 +75,6 @@ class ProductController extends Controller
         //J'associe mon jeweler à mon produit
         $product->setJeweler($user);
 
-
         $form = $this->createForm(new ProductType($user), $product, [
             'validation_groups' => 'new',
             'attr' =>
