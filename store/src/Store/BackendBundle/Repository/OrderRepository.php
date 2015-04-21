@@ -56,7 +56,7 @@ class OrderRepository extends EntityRepository{
             SELECT ord
             FROM StoreBackendBundle:Orders AS ord
             LEFT JOIN ord.product as p
-            WHERE ord.jeweler = :user
+            WHERE p.jeweler = :user
             ORDER BY ord.dateCreated DESC")
             ->setMaxResults($nbr)
             ->setParameter(':user', $user);

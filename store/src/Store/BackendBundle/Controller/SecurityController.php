@@ -5,6 +5,7 @@ namespace Store\BackendBundle\Controller;
 
 
 use Store\BackendBundle\Entity\Jeweler;
+use Store\BackendBundle\Form\JewelerRegisterType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\Security\Core\SecurityContext;
@@ -32,5 +33,20 @@ class SecurityController extends Controller
             'last_username' => $session->get(SecurityContext::LAST_USERNAME),
             'error'         => $error,
         ));
+    }
+
+    /**
+     * Action d'enregistrement d'un nouvel utilisateur
+     * @return \Symfony\Component\HttpFoundation\Response
+     */
+    public function registerAction(){
+        $factory = $this->get('security.encoder_factory');
+        //$user = new \Entity\Jeweler();
+
+//        $encoder = $factory->getEncoder($user);
+//        $password = $encoder->encodePassword('ryanpass', $user->getSalt());
+//        $user->setPassword($password);
+        $form = $this->createForm(new JewelerRegisterType());
+        return $this->render('StoreBackendBundle:Security:register.html.twig',['form' => $form->createView()]);
     }
 } 

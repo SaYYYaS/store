@@ -1,0 +1,25 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}power-off{% endblock %}
+
+{% block titlepage %}
+    S'enregister
+{% endblock %}
+{% block content %}
+    {{ form_start(form) }}
+    <div class="row-fluid">
+            {{ form_row(form.title) }}
+        </div>
+    </div>
+    <hr/>
+    <div class="col-md-offset-3 row col-md-offset-3">
+        <div class="col-md-3">
+            {{ form_row(form.username) }}
+            {{ form_row(form.email) }}
+        </div>
+        <div class="col-md-3">
+            {{ form_row(form.password) }}
+            {{ form_row(form.envoyer) }}
+        </div>
+    </div>
+    {{ form_end(form,{'render_rest' : false}) }}
+{% endblock %}

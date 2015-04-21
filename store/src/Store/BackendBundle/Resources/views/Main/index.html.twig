@@ -550,7 +550,7 @@
                                         <i class="{{ promo.active ?'fa fa-check' : 'fa fa-times' }}"></i>
                                         - {{ promo.type == 1 ? promo.amount ~ ' €' : promo.amount ~ ' %'  }}
                                     </span>
-                                    <a href="#" title="" class="ticket-title">
+                                    <a href="{{ path('store_backend_product_view',{id: product.id, name: product.title}) }}" title="" class="ticket-title">
                                         {{ product.title }}<span>[#{{ promo.id }}]</span>
                                     </a>
                                     <p>
