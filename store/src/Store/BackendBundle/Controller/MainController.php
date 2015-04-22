@@ -41,8 +41,8 @@ class MainController extends Controller
         $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser($user,10);
         $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser($user);
         $last_sales     = $em->getRepository('StoreBackendBundle:Orders')->getLastSalesByUser($user, new \DateTime('now - 6 month'));
-        dump($last_sales);
 
+        dump($last_sales);
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
                 'nbrprods'      => $nbrprods,
@@ -62,7 +62,8 @@ class MainController extends Controller
                 'msgs'          => $msgs,
                 'likes'         => $likes,
                 'categories'    => $categories,
-                'totalmoney'    => $totalmoney
+                'totalmoney'    => $totalmoney,
+                'last_sales'    => $last_sales
             ]
         );
     }

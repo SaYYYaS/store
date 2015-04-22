@@ -66,23 +66,26 @@ class OrderRepository extends EntityRepository{
     /**
      * @param null $user
      * @param \DateTime $date
+     * @param \DateTime $now
      * @return mixed
-     *  SELECT count(od.quantity) AS ventes , DATE_FORMAT(o.date_created, \'%Y-%m\') AS filter_date FROM order_detail as od
-     *  LEFT JOIN orders as o ON (od.order_id = o.id) INNER JOIN product AS p ON (od.product_id = p.id)
-     *   INNER JOIN jeweler AS j ON (p.jeweler_id = j.id)
-     *   WHERE j.id = 1 GROUP BY filter_date HAVING filter_date < "2014-05"
      */
-    public function getLastSalesByUser($user = null,\DateTime $date){
+    public function getLastSalesByUser($user = null,\DateTime $date, \DateTime $now = null){
+        if(is_null($now)){
+            $now = new \DateTime('now');
+        }
         $query = $this->getEntityManager()
             ->createQuery("
-            SELECT SUM(o.quantity) AS sales, DATE_FORMAT(o.dateCreated,'%Y-%m') AS month_year
+            SELECT COUNT(o) AS sales, DATE_FORMAT(o.date,'%Y-%m') AS month_year
             FROM StoreBackendBundle:Orders AS o
-            LEFT JOIN o.product as p
-            WHERE p.jeweler = :user
+            WHERE o.jeweler = :user
             GROUP BY month_year
-            HAVING month_year < :date")
-            ->setParameters([':user' => $user, ':date' => $date->format('Y-m')]);
-        dump($query->getSQL());
+            HAVING month_year BETWEEN :date AND :now")
+            ->setParameters([
+                ':user' => $user,
+                ':date' => $date->format('Y-m'),
+                ':now' => $now->format('Y-m')
+            ]);
+        dump($date->format('Y-m'));
         return $query->getResult();
 
     }

@@ -77,29 +77,27 @@
                     //Change date using database
                     init.push(function () {
                         var uploads_data = [
-                            { day: '2014-03-10', v: 200 },
-                            { day: '2014-03-11', v: 10 },
-                            { day: '2014-03-12', v: 15 },
-                            { day: '2014-03-13', v: 12 },
-                            { day: '2014-03-14', v: 5  },
-                            { day: '2014-03-15', v: 5  },
-                            { day: '2014-03-16', v: 20 }
+                            {% for stats in last_sales %}
+                            { date: "{{ stats['month_year']  }}", v: {{ stats['sales'] }} }
+                            {% if not loop.last %},{% endif %}
+                            {% endfor %}
                         ];
                         Morris.Line({
                             element: 'hero-graph',
                             data: uploads_data,
-                            xkey: 'day',
+                            xkey: 'date',
                             ykeys: ['v'],
-                            labels: ['Value'],
+                            labels: ['Nombre de commandes'],
                             lineColors: ['#fff'],
                             lineWidth: 2,
                             pointSize: 4,
                             gridLineColor: 'rgba(255,255,255,.5)',
                             resize: true,
                             gridTextColor: '#fff',
-                            xLabels: "day",
+                            xLabels: "date",
                             xLabelFormat: function(d) {
-                                return ['Jan','Feb','Mar','Apr','May','Jun','Jul','Aug','Sep','Oct','Nov', 'Dec'][d.getMonth()] + ' ' + d.getDate();
+                                f = d;
+                                return ['Jan','Fev','Mar','Avr','Mai','Ju','Jul','Auo','Sep','Oct','Nov', 'Dec'][d.getMonth()] + '' + d.getFullYear().toString().substr(2,2);
                             }
                         });
                     });
