@@ -16,9 +16,12 @@
     <script>var init = [];</script>
 
     <div id="main-wrapper">
+        {% if app.user.id is defined %}
         {{ include('StoreBackendBundle:Partial:main_navigation.html.twig') }}
-
+        {% endif %}
+        {% if app.user.id is defined %}
         {{ include('StoreBackendBundle:Partial:main_menu.html.twig') }}
+        {% endif %}
         <div id="content-wrapper" style="padding-bottom:6em">
 
             {{ include('StoreBackendBundle:Partial:flashdatas.html.twig') }}

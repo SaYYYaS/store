@@ -5,6 +5,8 @@
     {{ parent() }}
     <script>
         init.push(function () {
+            $('input[type=file]').pixelFileInput({ placeholder: 'Choisissez une image' });
+            $('#store_backend_product_ref').mask("aaaa-99-a");
             $('textarea').summernote({
                         height: 200,
                         tabsize: 2,

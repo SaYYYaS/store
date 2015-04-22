@@ -7,6 +7,9 @@ use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use \Store\BackendBundle\Form\ProductType;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Symfony\Component\Security\Core\Exception\AccessDeniedException;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
+
 /**
  * Class ProductController
  * Module that handle product
@@ -16,10 +19,15 @@ class ProductController extends Controller
 {
     /**
      * View list of products
+     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function listAction()
     {
+//        Methode numero 1 restreindre l'accès au niveau de mon action de controlleur
+//        if (false === $this->get('security.context')->isGranted('ROLE_COMMERCIAL')) {
+//            throw new AccessDeniedException('Accès interdit pour ce type de contenu');
+//        }
         //Récupere le manager de doctrine : Le conteneur d'objets (em = entity manager)
         //Conteneur d'objet de doctrine
         $em = $this->getDoctrine()->getManager();

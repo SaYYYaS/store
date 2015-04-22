@@ -12,11 +12,14 @@ security:
 
     # Il s'agit des roles des utilisateurs qui vont se connecter à l'authentification
     # Les utilisateurs seront de role "ROLE_JEWELER"
+    # Role des bijoutiers quand il se connecteront
     # http://symfony.com/doc/current/book/security.html#hierarchical-roles
     role_hierarchy:
-        ROLE_JEWELER:       ROLE_JEWELER #Role des bijoutiers quand il se connecteront
-        ROLE_USER:          [ROLE_USER, ROLE_JEWELER]
-        ROLE_ADMIN:         [ROLE_ADMIN, ROLE_USER]
+        ROLE_JEWELER:       [ROLE_JEWELER, ROLE_EDITOR, ROLE_COMMERCIAL]
+        ROLE_ADMIN:         [ROLE_ADMIN, ROLE_JEWELER]
+        ROLE_USER:           ROLE_USER
+        ROLE_EDITOR:         ROLE_EDITOR
+        ROLE_COMMERCIAL:     ROLE_COMMERCIAL
 
     # Les fournisseurs d'authentification (origine de l'auth, la source)
     # Par default en mémoire ici : définit en dur
@@ -62,9 +65,10 @@ security:
             #    realm: "Secured Demo Area"
 
     # La liaison entre le firewall et le/les roles définis dessus
-    # Ici les autorisation selon le/les chemin défini dans le firewall
+    # Ici les autorisation selon le/les chemins défini dans le firewall
     # Le role ROLE_JEWELER sera lié à notre firewall store_backend
     # with these settings you can restrict or allow access for different parts
     # of your application based on roles, ip, host or methods
     access_control:
-        - { path: ^/admin, roles: [ROLE_JEWELER, ROLE_USER]}
+        - { path: ^/admin/products, roles: [ROLE_COMMERCIAL]}
+        - { path: ^/admin, roles: [ROLE_JEWELER, ROLE_EDITOR, ROLE_COMMERCIAL]}

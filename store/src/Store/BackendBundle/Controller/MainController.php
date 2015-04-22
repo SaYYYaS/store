@@ -40,7 +40,8 @@ class MainController extends Controller
         $categories     = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser($user);
         $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser($user,10);
         $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser($user);
-        dump($orders);
+        $last_sales     = $em->getRepository('StoreBackendBundle:Orders')->getLastSalesByUser($user, new \DateTime('now - 6 month'));
+        dump($last_sales);
 
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [

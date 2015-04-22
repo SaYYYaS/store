@@ -40,11 +40,11 @@ class Slider
      * @Assert\Image(
      *               minWidth  = 100,
      *               minWidthMessage   = "Votre image est trop petite",
-     *               maxWidth  = 300,
+     *               maxWidth  = 3000,
      *               maxWidthMessage   = "Votre image est trop grande",
      *               minHeight = 100,
      *               minHeightMessage  = "Votre image est trop petite",
-     *               maxHeight = 2500,
+     *               maxHeight = 500000,
      *               maxHeightMessage  = "Votre image est trop grande",
      *               groups    = {"new", "edit"}
      * )

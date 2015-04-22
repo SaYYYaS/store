@@ -18,15 +18,17 @@
                 <th>id</th>
                 <th>Légende</th>
                 <th>État</th>
+                <th>Position</th>
+                <th>image</th>
                 <th>Associé au produit</th>
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody style="word-break: break-all; word-break: break-word;">
+            <tbody style="word-break: break-all;">
             {% for slider in sliders %}
                 <tr>
                     <td><a href="{{ path('store_backend_slider_view',{'id' : slider.id }) }}">{{ slider.id }}</a></td>
-                    <td>{{ slider.caption }}</td>
+                    <td>{{ slider.caption|raw }}</td>
                     <td class="activable-element">
                         {% if slider.active %}
                             <a href="{{ path('store_backend_slider_activate',{id : slider.id,active: 0}) }}"
@@ -40,6 +42,8 @@
                             </a>
                         {% endif %}
                     </td>
+                    <td>{{ slider.position }}</td>
+                    <td>{{ slider.image|default('PAS D\'IMAGE') }}</td>
                     <td>
                         <a href="{{ path('store_backend_product_view', {id: slider.product.id, name: slider.product.title}) }}">
                             <span class="label label-info">{{ slider.product }}</span>
