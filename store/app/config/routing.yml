@@ -6,24 +6,24 @@ store_backend:
 # Auth backend & frontend
 ##
 
-#Login backend
+#Register backend outside admin
 store_backend_security_register:
     path: /register
     defaults: { _controller: StoreBackendBundle:Security:register }
 
-#Login backend
+#Login backend outside admin
 store_backend_security_login:
     path: /login
     defaults: { _controller: StoreBackendBundle:Security:login }
 
-#Login backend check
+#Login backend check inside admin
 store_backend_security_login_check:
     path: /admin/login_check
     requirements:
         method: POST
     defaults: { _controller: StoreBackendBundle:Security:login }
 
-#Logout backend
+#Logout backend inside admin
 store_backend_security_logout:
     path: /admin/logout
     defaults: { _controller: StoreBackendBundle:Security:logout }

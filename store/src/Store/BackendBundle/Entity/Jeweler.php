@@ -6,12 +6,17 @@ use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Security\Core\Role\Role;
 use Symfony\Component\Security\Core\User\AdvancedUserInterface;
 use Symfony\Component\Security\Core\User\UserInterface;
+use Symfony\Component\Validator\Constraints as Assert;
+use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
+use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 /**
  * Jeweler
  *
  * @ORM\Table(name="jeweler", uniqueConstraints={@ORM\UniqueConstraint(name="email", columns={"email"})})
  * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\JewelerRepository")
+ * @UniqueEntity(fields = "username", message = "Votre pseudo existe déjà", groups = {"register"})
+ * @UniqueEntity(fields = "email", message = "Votre email existe déjà", groups = {"register"})
  */
 class Jeweler implements AdvancedUserInterface, \Serializable
 {
@@ -28,6 +33,14 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="username", type="string", length=300, nullable=true)
+     * @Assert\NotBlank(message = "Le login ne doit pas être vide", groups = {"register"})
+     * @Assert\Length(
+     *         min= "6",
+     *         max = "50",
+     *         minMessage = "Le login doit contenir au moins {{ limit }} caractères",
+     *         maxMessage = "Le login peut contenir au plus {{ limit }} caractères",
+     *         groups ={"register"}
+     * )
      */
     private $username;
 
@@ -35,6 +48,8 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="email", type="string", length=150, nullable=true)
+     * @Assert\NotBlank(message = "L'e-mail ne doit pas être vide", groups = {"register"})
+     * @Assert\Email(message ="'{{ value }}' n'est pas un email valide", checkMX = true, groups = {"register"})
      */
     private $email;
 
@@ -42,6 +57,14 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="password", type="string", length=300, nullable=true)
+     * @Assert\NotBlank(message = "Le password ne doit pas être vide", groups = {"register"})
+     * @Assert\Length(
+     *         min= "6",
+     *         max = "50",
+     *         minMessage = "Le password doit contenir au moins {{ limit }} caractères",
+     *         maxMessage = "Le password peut contenir au plus {{ limit }} caractères",
+     *         groups ={"register"}
+     * )
      */
     private $password;
 
@@ -49,6 +72,14 @@ class Jeweler implements AdvancedUserInterface, \Serializable
      * @var string
      *
      * @ORM\Column(name="title", type="string", length=300, nullable=true)
+     * @Assert\NotBlank(message = "Le titre ne doit pas être vide", groups = {"register"})
+     * @Assert\Length(
+     *         min= "6",
+     *         max = "300",
+     *         minMessage = "Le titre doit contenir au moins {{ limit }} caractères",
+     *         maxMessage = "Le titre peut contenir au plus {{ limit }} caractères",
+     *         groups ={"register"}
+     * )
      */
     private $title;
 
@@ -206,13 +237,17 @@ class Jeweler implements AdvancedUserInterface, \Serializable
         $this->setDefaultValues();
     }
 
-    public function setDefaultValues(){
+    public function setDefaultValues()
+    {
         $this->dateCreated        = new \DateTime('now');
-        $this->locked             = 0;
+        $this->type               = 1;
         $this->enabled            = 1;
         $this->accountnonlocked   = 1;
         $this->accountnonexpired  = 1;
         $this->credentialsExpired = 1;
+        $this->expired            = 0;
+        $this->locked             = 0;
+        $this->salt               = md5(uniqid(mt_rand(),true));
     }
 
 
@@ -760,5 +795,18 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     public function getGroups()
     {
         return $this->groups;
+    }
+
+    /**
+     * @Assert\Callback(groups = {"register"})
+     * @param ExecutionContextInterface $context
+     */
+    public function validate(ExecutionContextInterface $context){
+        if($this->getUsername() == $this->getPassword()) {
+            $context->addViolationAt('email', 'Votre email ne doit pas être identique à votre mot de passe',[],null);
+        }
+        if($this->getUsername() == $this->getEmail()) {
+            $context->addViolationAt('email', 'Votre email ne doit pas être identique à votre login',[],null);
+        }
     }
 }

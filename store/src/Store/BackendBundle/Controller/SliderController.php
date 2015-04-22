@@ -123,6 +123,7 @@ class SliderController extends Controller
 
     /**
      * Activate Slider page
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @param Slider $id
      * @param $active
      * @return JsonResponse

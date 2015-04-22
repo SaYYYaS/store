@@ -37,30 +37,58 @@ class SecurityController extends Controller
 
     /**
      * Action d'enregistrement d'un nouvel utilisateur
+     * Le new Jeweler n'est pas hydraté par le formulaire, tout ses champs sont à nul
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
     public function registerAction(Request $request){
 
+        //creation du formulaire via le type
         $form = $this->createForm(new JewelerRegisterType());
         $em = $this->getDoctrine()->getEntityManager();
-        $user = new Jeweler;
-        $form = $this->createForm(new JewelerRegisterType(), $user);
+        $user = new Jeweler();
+        $form = $this->createForm(new JewelerRegisterType(), $user, [
+            'validation_groups' => 'register',
+            'attr' =>
+                [
+                    'method' => 'post',
+                    //Permet de définir un scope de validation
+                    'novalidate' => 'novalidate', //Permet de zaper la validation required html5
+                    'action' => $this->generateUrl('store_backend_security_register')
+                ]
+        ]);
 
+        //Hydratation du formulaire
         $form->handleRequest($request);
 
+        //Test la validité des datas envoyés
         if ($form->isValid()) {
+
+            //Recupération du factory encoder
             $factory = $this->get('security.encoder_factory');
+            $encoder = $factory->getEncoder($user);
+
+            //J'encode le mdp avec le salt en utilisant le factory
+            $password = $form['password']->getData();
+            $password = $encoder->encodePassword($password, $user->getSalt());
+            $user->setPassword($password);
+
+            //Récupération du groupe et ajout du group au nouvel utilisateur
             $group = $this->getDoctrine()->getEntityManager()->getRepository('StoreBackendBundle:Groups')->find(1);
             $user->addGroup($group);
-            $encoder = $factory->getEncoder($user);
-            $user->setSalt(uniqid(mt_rand(), true));
-            $password = $encoder->encodePassword($user->getPassword(), $user->getSalt());
-            $user->setPassword($password);
+
+            //Persist and flush
             $em->persist($user);
             $em->flush();
+            //J'envoie un message flash de confirmation
+            $this->get('session')->getFlashbag()->add('success','Votre compte à bien été enregistré. ');
+            $this->get('session')->getFlashbag()->add('info','Vous devez valider votre compte par email');
+
+            //Je redirige l'utilisateur vers la page de login
             return $this->redirectToRoute('store_backend_security_login');
         }
 
+        //Retourne la vue de register
         return $this->render('StoreBackendBundle:Security:register.html.twig',['form' => $form->createView()]);
     }
 

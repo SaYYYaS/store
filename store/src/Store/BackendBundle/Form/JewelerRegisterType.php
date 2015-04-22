@@ -67,7 +67,7 @@ class JewelerRegisterType extends AbstractType{
                 'options'           => ['required' => true],
                 'first_name'        => 'mdp',
                 'second_name'       => 'mdp_conf',
-                'error_bubbling'    => true,
+                'error_bubbling'    => false,
                 'first_options'     =>
                     [
                         'label' => 'Mot de passe',
