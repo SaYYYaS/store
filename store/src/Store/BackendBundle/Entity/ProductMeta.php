@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * ProductMeta
  *
  * @ORM\Table(name="product_meta", indexes={@ORM\Index(name="product_id", columns={"product_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\ProductMetaRepository")
  */
 class ProductMeta
 {

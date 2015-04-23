@@ -34,4 +34,16 @@ class CmsRepository extends EntityRepository{
             ->setParameter(':user', $user);
         return $query->getSingleScalarResult();
     }
-} 
+
+    public function getProductCmsCompletion($user){
+        $query = $this->getEntityManager()
+            ->createQuery("
+            SELECT (SELECT count(p) FROM StoreBackendBundle:Product AS p WHERE p.jeweler = :user) AS all_products,
+            count(pr) AS products_in_cms
+            FROM StoreBackendBundle:Cms AS cms
+            JOIN cms.product as pr
+            WHERE cms.jeweler = :user")
+            ->setParameter(':user', $user);
+        return $query->getSingleResult();
+    }
+}

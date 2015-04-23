@@ -40,9 +40,19 @@ class MainController extends Controller
         $categories     = $em->getRepository('StoreBackendBundle:Category')->getCategoryByUser($user);
         $business       = $em->getRepository('StoreBackendBundle:Business')->getBusinessByUser($user,10);
         $jeweler        = $em->getRepository('StoreBackendBundle:Jeweler')->getJewelerByUser($user);
-        $last_sales     = $em->getRepository('StoreBackendBundle:Orders')->getLastSalesByUser($user, new \DateTime('now - 6 month'));
+        $last_sales     = $em->getRepository('StoreBackendBundle:Orders')->getStatsLastSalesByUser($user, new \DateTime('now - 6 month'));
 
-        dump($last_sales);
+        //ratio products in cms
+        $prods_per_cms  = $em->getRepository('StoreBackendBundle:Cms')->getProductCmsCompletion($user);
+        $prods_per_cms  = round(($prods_per_cms['products_in_cms'] / $prods_per_cms['all_products']) *100,1);
+        //ratio products by details
+        $prods_compl_details  = $em->getRepository('StoreBackendBundle:Product')->getProductCompletionDetails($user);
+        $prods_compl_details  = round(($prods_compl_details / $nbrprods)*100,1);
+        //ratio products by meta
+        $prods_compl_metas  = $em->getRepository('StoreBackendBundle:ProductMeta')->getProductCompletionMetas($user);
+        $prods_compl_metas  = round(($prods_compl_metas / $nbrprods ) * 100,1) ;
+
+        dump($prods_per_cms);
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
                 'nbrprods'      => $nbrprods,
@@ -63,7 +73,10 @@ class MainController extends Controller
                 'likes'         => $likes,
                 'categories'    => $categories,
                 'totalmoney'    => $totalmoney,
-                'last_sales'    => $last_sales
+                'last_sales'    => $last_sales,
+                'prods_per_cms' => $prods_per_cms,
+                'prods_compl_details' => $prods_compl_details,
+                'prods_compl_metas'     => $prods_compl_metas
             ]
         );
     }

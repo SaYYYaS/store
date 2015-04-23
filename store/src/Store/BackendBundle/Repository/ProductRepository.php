@@ -71,4 +71,24 @@ class ProductRepository extends EntityRepository{
             ->setParameter(1,$user);
         return $query->getSingleScalarResult();
     }
+
+    /**
+     * Fiche meta_title , meta_description, keyword et resume dans tout les produits
+     * nbr bij total et les bijou qui ont une descr,comp et resume
+     * @param null $user
+     * @return mixed
+     */
+    public function getProductCompletionDetails($user = null){
+        $query = $this->getEntityManager()->createQuery(
+            "
+            SELECT count(p)
+            FROM StoreBackendBundle:Product as p
+            WHERE p.jeweler = :user
+            AND p.summary IS NOT NULL
+            AND p.description IS NOT NULL
+            AND p.composition IS NOT NULL
+            "
+        )->setParameter(':user', $user);
+        return $query->getSingleScalarResult();
+    }
 } 

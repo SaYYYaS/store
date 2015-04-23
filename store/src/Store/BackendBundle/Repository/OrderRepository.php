@@ -69,7 +69,7 @@ class OrderRepository extends EntityRepository{
      * @param \DateTime $now
      * @return mixed
      */
-    public function getLastSalesByUser($user = null,\DateTime $date, \DateTime $now = null){
+    public function getStatsLastSalesByUser($user = null,\DateTime $date, \DateTime $now = null){
         if(is_null($now)){
             $now = new \DateTime('now');
         }
@@ -85,7 +85,6 @@ class OrderRepository extends EntityRepository{
                 ':date' => $date->format('Y-m'),
                 ':now' => $now->format('Y-m')
             ]);
-        dump($date->format('Y-m'));
         return $query->getResult();
 
     }
