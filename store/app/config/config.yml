@@ -71,6 +71,9 @@ doctrine:
                 dql:
                     datetime_functions:
                         date_format: Store\BackendBundle\Doctrine\Extensions\DateFormat
+                        date_format: Store\BackendBundle\Doctrine\Extensions\Month
+                    numeric_functions:
+                        round: Store\BackendBundle\Doctrine\Extensions\Round
 
 # Swiftmailer Configuration
 swiftmailer:
