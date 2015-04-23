@@ -29,7 +29,7 @@
                 <th>Actions</th>
             </tr>
             </thead>
-            <tbody style="word-break: break-all;word-break: break-word;">
+            <tbody style="word-break: break-all;">
             {% for product in products %}
                 <tr>
                     <td>
@@ -49,17 +49,9 @@
                     </td>
                     <td>{{ product.quantity }}</td>
                     <td class="activable-element">
-                        {% if product.active %}
-                            <a href="{{ path('store_backend_product_activate',{id : product.id,active: 0}) }}"
-                               data-url="{{ path('store_backend_product_activate',{id : product.id,active: 1}) }}">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        {% else %}
-                            <a href="{{ path('store_backend_product_activate',{id : product.id, active: 1}) }}"
-                               data-url="{{ path('store_backend_product_activate',{id : product.id,active: 0}) }}" >
-                                <i class="fa fa-times"></i>
-                            </a>
-                        {% endif %}
+                        {% set path_a = path('store_backend_product_activate',{id : product.id,active: 1}) %}
+                        {% set path_b = path('store_backend_product_activate',{id : product.id,active: 0}) %}
+                        {{  product.active|active(path_a, path_b)|raw }}
                     </td>
                     <td class="activable-element">
                         {% if product.cover %}
