@@ -78,25 +78,25 @@
                     init.push(function () {
                         var uploads_data = [
                             {% for stats in last_sales %}
-                            { date: "{{ stats['month_year']  }}", v: {{ stats['sales'] }} }
+                            { period: "{{ stats['month_year']  }}", v: {{ stats['sales'] }} }
                             {% if not loop.last %},{% endif %}
                             {% endfor %}
                         ];
                         Morris.Line({
                             element: 'hero-graph',
                             data: uploads_data,
-                            xkey: 'date',
+                            xkey: 'period',
                             ykeys: ['v'],
-                            labels: ['Nombre de commandes'],
+                            labels: ['Nb. de commandes'],
                             lineColors: ['#fff'],
                             lineWidth: 2,
                             pointSize: 4,
                             gridLineColor: 'rgba(255,255,255,.5)',
                             resize: true,
                             gridTextColor: '#fff',
-                            xLabels: "date",
+                            xLabels: "period",
                             xLabelFormat: function(d) {
-                                return ['Jan','Fev','Mar','Avr','Mai','Ju','Jul','Auo','Sep','Oct','Nov', 'Dec'][d.getMonth()] + '' + d.getFullYear().toString().substr(2,2);
+                                return ['Jan','Fev','Mar','Avr','Mai','Ju','Jul','Auo','Sep','Oct','Nov', 'Dec'][d.getMonth()] + ' - ' + d.getFullYear().toString().substr(2,2);
                             }
                         });
                     });
@@ -323,13 +323,7 @@
                     <div class="panel-padding no-padding-vr" style="overflow: hidden; width: auto; height: 300px;">
                         {% for order in orders %}
                             <div class="ticket">
-                                {% if order.state == 0 %}
-                                    <span class="label label-danger ticket-label">Rejected</span>
-                                {% elseif order.state == 1 %}
-                                    <span class="label label-warning ticket-label">Pending</span>
-                                {% elseif order.state == 2 %}
-                                    <span class="label label-success ticket-label">Completed</span>
-                                {% endif %}
+                                {{  order.state|state|raw }}
                                 {% for product in order.product %}
                                     <a href="{{ path('store_backend_product_view', {id: product.id, name: product.title}) }}{% if not loop.last %},{% endif %} " title="" class="ticket-title">{{ product.title }}<span>[#{{ order.id }}]</span></a>
                                 {% endfor %}

@@ -69,13 +69,13 @@ class OrderRepository extends EntityRepository{
      * @param \DateTime $now
      * @return mixed
      */
-    public function getStatsLastSalesByUser($user = null,\DateTime $date, \DateTime $now = null){
+    public function getStatsLastSalesByUser($user,\DateTime $date, \DateTime $now = null){
         if(is_null($now)){
             $now = new \DateTime('now');
         }
         $query = $this->getEntityManager()
             ->createQuery("
-            SELECT COUNT(o) AS sales, DATE_FORMAT(o.date,'%Y-%m') AS month_year
+            SELECT COUNT(o) AS sales, DATE_FORMAT(o.dateCreated,'%Y-%m') AS month_year
             FROM StoreBackendBundle:Orders AS o
             WHERE o.jeweler = :user
             GROUP BY month_year
@@ -86,6 +86,46 @@ class OrderRepository extends EntityRepository{
                 ':now' => $now->format('Y-m')
             ]);
         return $query->getResult();
+    }
 
+    /**
+     * Requete qui me sort le nb de comamndes sur les 6 derniers mois
+     *
+     */
+    public function getOrderGraphByMYUser($user, $month, $year){
+
+        $query = $this->getEntityManager()
+            ->createQuery("
+            SELECT count(o) AS nb
+            FROM StoreBackendBundle:Order o
+            WHERE o.jeweler = :user
+            AND MONTH(o.dateCreated) = :month
+            AND YEAR(o.dateCreated) = :year
+            ")->setParameters([
+            ':user' => $user,
+            ':month' => $month,
+            ':year' => $year
+        ]);
+    }
+
+    /**
+     * Requete qui me sort le nb de comamndes sur les 6 derniers mois
+     *
+     */
+    public function getOrderGraphByUser($user,$dateBegin){
+
+        $query = $this->getEntityManager()
+            ->createQuery("
+            SELECT count(o) AS nb, DATE_FORMAT(:dateBegin,'%Y-m') AS d
+            FROM StoreBackendBundle:Order o
+            WHERE o.jeweler = :user
+            AND MONTH(o.dateCreated) = :month
+            AND YEAR(o.dateCreated) = :year
+            ")->setParameters([
+                ':user' => $user,
+                ':dateBegin' => $dateBegin->format('Y-m-d'),
+                ':month' => $dateBegin->format('m'),
+                ':year' => $dateBegin->format('Y')
+            ]);
     }
 } 
