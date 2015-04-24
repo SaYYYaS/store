@@ -44,6 +44,7 @@ class StoreBackendExtension extends \Twig_Extension {
 
     public function active($active, $activate_path, $disactivate_path){
 
+        $link = '';
         switch($active){
             case 1:
                 $link = "<a href=\" ". $disactivate_path . " \"

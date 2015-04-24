@@ -6,8 +6,8 @@ security:
     encoders:
         # L'encodage se fera au niveau de l'entité Jeweler
         Store\BackendBundle\Entity\Jeweler:
-            algorithm:   sha512 #algorithme sur 512
-            iterations: 10 #Nombre de hash
+            algorithm:        sha512 #algorithme sur 512
+            iterations:       10 #Nombre de hash
             encode_as_base64: true
 
     # Il s'agit des roles des utilisateurs qui vont se connecter à l'authentification
@@ -47,6 +47,11 @@ security:
             pattern:    ^/admin #l'uri en REGEX derriere mon parefeu
             # it's important to notice that in this case _demo_security_check and _demo_login
             # are route names and that they are specified in the StoreBackendBundle
+            remember_me:
+                key:      "%secret%"
+                lifetime: 3156000 # 365 jours
+                path:     /
+                domain:   ~ # Prend la valeur par defaut du domaine courant
             form_login:
                 # Le chemin vers la verification du login
                 check_path: store_backend_security_login_check

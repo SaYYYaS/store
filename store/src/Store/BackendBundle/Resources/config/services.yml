@@ -1,6 +1,36 @@
 services:
-    store_backendbundle.flash_messenger:
+
+    store.backend.flash_messenger:
         class: Store\BackendBundle\Messenger\Flash
         arguments: ["@session"]
         tags:
             - { name: kernel.event_listener, event: kernel.response}
+
+    # Nom (id) du service (on met listeler.auth car c'est un type de service précis )
+    store.backend.listener.auth:
+        # Nom de la classe déclarée en service
+        class: Store\BackendBundle\Listener\AuthListener
+        # Injection des dépendances dans le constructeur
+        # doctrine va nous servir à mettre à jour l'entité
+        # security.context permet de récuperer l'user en session par le token
+        # ce sont des services enregistrés par defaut, on utilise @ pour ne pas traiter comme une string
+        arguments: ["@doctrine.orm.entity_manager","@security.context"]
+        # Tags permet de définir une "catégorie" (à la manière de tags sur un article d'un blog)
+        # tags:name   =  Le nom du tag
+        # tags:event  =  l'évenement rataché au service (qui doit extends de event) sera injecté dans la method
+        # tags:method =  la méthode à appeler qui prend forcément
+        tags:
+            - { name: backend, event: security.interactive_login, method: onAuthSuccess}
+
+    #Nom(id) de la nature de la class (on ne met pas email.email car c'est un service
+    store.backend.email:
+        class: Store\BackendBundle\Email\Email
+        arguments: ["@twig","@mailer"]
+        tags:
+            - { name: backend, method: send, alias: automailer }
+
+    store.backend.notification:
+        class: Store\BackendBundle\Notification\Notification
+        arguments: ["@session"]
+        tags :
+             - { name: backend}

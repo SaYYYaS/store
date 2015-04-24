@@ -32,17 +32,9 @@
                         <td>{{ supplier.description }}</td>
                         <td><img src="{{ supplier.image }}" alt=""/></td>
                         <td class="activable-element">
-                            {% if supplier.active %}
-                                <a href="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 0}) }}"
-                                   data-url="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 1}) }}">
-                                    <i class="fa fa-check"></i>
-                                </a>
-                            {% else %}
-                                <a href="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 1}) }}"
-                                   data-url="{{ path('store_backend_supplier_activate',{id : supplier.id,active: 0}) }}">
-                                    <i class="fa fa-crosshairs"></i>
-                                </a>
-                            {% endif %}
+                            {% set path_a = path('store_backend_supplier_activate',{id : supplier.id,active: 1}) %}
+                            {% set path_b = path('store_backend_supplier_activate',{id : supplier.id,active: 0}) %}
+                            {{  supplier.active|active(path_a, path_b)|raw }}
                         </td>
                         <td>{{ supplier.dateCreated|date('d/m/Y') }}</td>
                         <td>

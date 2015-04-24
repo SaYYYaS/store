@@ -217,6 +217,13 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     private $dateCreated;
 
     /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="date_auth", type="datetime", nullable=true)
+     */
+    private $dateAuth;
+
+    /**
      * @ORM\ManyToMany(targetEntity="Groups", inversedBy="jeweler")
      * @ORM\JoinTable(name="jeweler_groups" ,
      *   joinColumns = {
@@ -467,6 +474,24 @@ class Jeweler implements AdvancedUserInterface, \Serializable
     {
         return $this->dateCreated;
     }
+
+    /**
+     * @param \DateTime $dateAuth
+     */
+    public function setDateAuth($dateAuth)
+    {
+        $this->dateAuth = $dateAuth;
+    }
+
+    /**
+     * @return \DateTime
+     */
+    public function getDateAuth()
+    {
+        return $this->dateAuth;
+    }
+
+
 
     /**
      * Set locked

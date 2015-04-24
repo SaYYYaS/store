@@ -120,6 +120,12 @@ class ProductController extends Controller
                 $this->get('session')->getFlashbag()->add('warning', "Vous n'avez qu'un seul produit en stock");
             }
 
+            //Si ma quantité est inférieure à 5 je crée une notif
+            if($product->getQuantity() < 5){
+                $this->get('store.backend.notification')
+                    ->notify("Attention, votre produit {$product->getTitle()} est bientôt épuisé", 1);
+            }
+
             return $this->redirectToRoute('store_backend_product_list');
         }
 
@@ -155,6 +161,13 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
+
+            //Si ma quantité est inférieure à 5 je crée une notif
+            if($product->getQuantity() < 5){
+                $this->get('store.backend.notification')
+                    ->notify("Attention, votre produit {$product->getTitle()} est bientôt épuisé");
+            }
+
             return $this->redirectToRoute('store_backend_product_list');
         }
         return $this->render('StoreBackendBundle:Product:edit.html.twig',['form' => $form->createView()]);

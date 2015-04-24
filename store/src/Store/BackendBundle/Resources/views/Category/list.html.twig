@@ -30,18 +30,9 @@
                         <td><a href="{{ path('store_backend_category_view',{'id' : category.id, 'name' : category.title}) }}">{{ category.title }}</a></td>
                         <td class="col-md-3">{{ category.description }}</td>
                         <td class="activable-element">
-                            {% if category .active %}
-                                <a href="{{ path('store_backend_category_activate',{id : category.id,active: 0}) }}"
-                                   data-url="{{ path('store_backend_category_activate',{id : category.id,active: 1}) }}">
-                                    <i class="fa fa-check">
-
-                                    </i></a>
-                            {% else %}
-                                <a href="{{ path('store_backend_category_activate',{id : category.id,active: 1}) }}"
-                                   data-url="{{ path('store_backend_category_activate',{id : category.id,active: 0}) }}">
-                                    <i class="fa fa-times"></i>
-                                </a>
-                            {% endif %}
+                            {% set path_a = path('store_backend_category_activate',{id : category.id,active: 1}) %}
+                            {% set path_b = path('store_backend_category_activate',{id : category.id,active: 0}) %}
+                            {{  category.active|active(path_a, path_b)|raw }}
                         </td>
                         <td>
                             <span class="label label-info">{{ category.product|length }} produit(s)</span>

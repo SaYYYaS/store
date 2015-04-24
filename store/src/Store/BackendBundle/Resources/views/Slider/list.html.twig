@@ -30,17 +30,9 @@
                     <td><a href="{{ path('store_backend_slider_view',{'id' : slider.id }) }}">{{ slider.id }}</a></td>
                     <td>{{ slider.caption|raw }}</td>
                     <td class="activable-element">
-                        {% if slider.active %}
-                            <a href="{{ path('store_backend_slider_activate',{id : slider.id,active: 0}) }}"
-                               data-url="{{ path('store_backend_slider_activate',{id : slider.id,active: 1}) }}">
-                                <i class="fa fa-check"></i>
-                            </a>
-                        {% else %}
-                            <a href="{{ path('store_backend_slider_activate',{id : slider.id,active: 1}) }}"
-                               data-url="{{ path('store_backend_slider_activate',{id : slider.id,active: 0}) }}">
-                                <i class="fa fa-times"></i>
-                            </a>
-                        {% endif %}
+                        {% set path_a = path('store_backend_slider_activate',{id : slider.id,active: 1}) %}
+                        {% set path_b = path('store_backend_slider_activate',{id : slider.id,active: 0}) %}
+                        {{  slider.active|active(path_a, path_b)|raw }}
                     </td>
                     <td>{{ slider.position }}</td>
                     <td>{{ slider.image|default('PAS D\'IMAGE') }}</td>

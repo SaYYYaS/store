@@ -24,7 +24,15 @@
         {% endif %}
         <div id="content-wrapper" style="padding-bottom:6em">
 
+            {#//Inclusion des msg flash#}
             {{ include('StoreBackendBundle:Partial:flashdatas.html.twig') }}
+
+            {% if app.session.get('alert') is not empty %}
+                <div class="alert alert-dark alert-{{ app.session.get('alert')['priority'] }}">
+                    {{  app.session.get('alert')['message'] }}
+                </div>
+            {% endif %}
+
             <div class="page-header">
 
                 <div class="row">

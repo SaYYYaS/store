@@ -16,6 +16,10 @@ class MainController extends Controller
      */
     public function indexAction()
     {
+//        $mail = $this->get('store.backendbundle.email');
+//        $mail->send();
+
+
         //stats bloc
         $user = $this->getUser();
         $em             = $this->getDoctrine()->getManager();
@@ -52,7 +56,6 @@ class MainController extends Controller
         $prods_compl_metas  = $em->getRepository('StoreBackendBundle:ProductMeta')->getProductCompletionMetas($user);
         $prods_compl_metas  = round(($prods_compl_metas / $nbrprods ) * 100,1) ;
 
-        dump($prods_per_cms);
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
                 'nbrprods'      => $nbrprods,
