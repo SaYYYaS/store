@@ -55,7 +55,7 @@
         {% endif %}
         {% if is_granted('ROLE_COMMERCIAL') %}
             <li class="{% if app.request.attributes.get('_route') == 'store_backend_jeweler_profil' %} active {% endif %}">
-                <a href="{{ path('store_backend_jeweler_profil', {id: app.security.getToken().getUser().getId()}) }}"><i class="fa fa-user"></i>&nbsp;Boutique</a>
+                <a href="{{ path('store_backend_jeweler_profil', {id: app.user.id}) }}"><i class="fa fa-user"></i>&nbsp;Boutique</a>
             </li>
         {% endif %}
     </ul> <!-- / .navbar-nav -->

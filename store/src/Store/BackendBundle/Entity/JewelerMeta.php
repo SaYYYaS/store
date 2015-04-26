@@ -8,7 +8,7 @@ use Doctrine\ORM\Mapping as ORM;
  * JewelerMeta
  *
  * @ORM\Table(name="jeweler_meta", indexes={@ORM\Index(name="jeweler_id", columns={"jeweler_id"})})
- * @ORM\Entity
+ * @ORM\Entity(repositoryClass="Store\BackendBundle\Repository\JewelerMetaRepository")
  */
 class JewelerMeta
 {

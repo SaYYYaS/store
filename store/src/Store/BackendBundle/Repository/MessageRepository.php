@@ -20,10 +20,9 @@ class MessageRepository extends EntityRepository{
     public function getCountByUser($user){
         $query = $this->getEntityManager()->createQuery(
             "
-            SELECT count(msg.id) AS nbrmsgs
+            SELECT count(msg) AS nbrmsgs
             FROM StoreBackendBundle:Message AS msg
-            JOIN msg.product AS p
-            WHERE p.jeweler = :user
+            WHERE msg.jeweler = :user
             "
         )->setParameter(':user', $user);
         return $query->getSingleScalarResult();

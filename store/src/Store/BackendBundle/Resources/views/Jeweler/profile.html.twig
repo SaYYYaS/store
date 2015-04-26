@@ -1,0 +1,205 @@
+{% extends 'StoreBackendBundle::layout.html.twig' %}
+{% block classtitle %}user{% endblock %}
+{% block titlepage %}
+    Ma boutique
+{% endblock %}
+{% block content %}
+
+    <!-- 5. $PROFILE ===================================================================================
+
+		Profile
+-->
+    <div class="profile-full-name">
+        Boutique de <span class="text-semibold">{{ jeweler.username }}</span>
+    </div>
+    <div class="profile-row">
+        <div class="left-col">
+            <div class="profile-block">
+                <div class="panel profile-photo">
+                    <img src="{{ jeweler.image }}" alt="">
+                </div><br>
+                <a href="#" class="btn btn-info"><i class="fa fa-star"></i>&nbsp;{{ likes }}</a>
+                <a href="#" class="btn btn-success"><i class="fa fa-shopping-cart"></i>&nbsp;{{ nbrorders }}</a>
+                <a href="#" class="btn btn-danger"><i class="fa fa-plane"></i>&nbsp;{{ nbrsuppliers }}</a>
+            </div>
+
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="fa fa-pencil"></i>&nbsp;Description</span>
+                </div>
+                <div class="panel-body">
+                    {{ jeweler.description }}
+                </div>
+            </div>
+
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <span class="panel-title"><i class="fa fa-bar-chart-o"></i>&nbsp;Stats</span>
+                </div>
+                <div class="list-group">
+                    <a href="#" class="list-group-item"><strong class="badge badge-info" >{{ nbrprods }}</strong> Produits</a>
+                    <a href="#" class="list-group-item"><strong class="badge badge-info">{{ nbrpages }}</strong> Pages</a>
+                    <a href="#" class="list-group-item"><strong class="badge badge-info">{{ nbrcats }}</strong> Catégories</a>
+                </div>
+            </div>
+
+            {% if tags is not empty %}
+            <div class="panel panel-transparent profile-skills">
+                <div class="panel-heading">
+                    <span class="panel-title">Mots-clefs</span>
+                </div>
+                    <div class="panel-body">
+                        {% for tag in tags %}
+                            <span class="label label-primary">{{ tag.word }}</span>
+                        {% endfor %}
+                    </div>
+            </div>
+            {% endif %}
+
+            <div class="panel panel-transparent">
+                <div class="panel-heading">
+                    <span class="panel-title">Liens utiles</span>
+                </div>
+                <div class="list-group">
+                    {% if  jeweler_meta.littlemarket is defined %}
+                    <a href="{{ jeweler_meta.littlemarket }}" class="list-group-item">
+                        <i class="profile-list-icon fa fa-dollar" style="color: #4ab6d5">
+                        </i> LittleMarket
+                    </a>
+                    {% endif %}
+                    {% if jeweler_meta.dawanda is defined %}
+                    <a href="{{ jeweler_meta.dawanda }}" class="list-group-item">
+                        <i class="profile-list-icon fa fa-paperclip" style="color: #1a7ab9">
+                        </i> Dawanda
+                    </a>
+                    {% endif %}
+                    {% if jeweler_meta.website is defined %}
+                    <a href="{{ jeweler_meta.website }}" class="list-group-item">
+                        <i class="profile-list-icon fa fa-share-square" style="color: #888">
+                        </i> Site web
+                    </a>
+                    {% endif %}
+                </div>
+            </div>
+
+        </div>
+        <div class="right-col">
+
+            <hr class="profile-content-hr no-grid-gutter-h">
+
+            <div class="profile-content">
+
+                <ul id="profile-tabs" class="nav nav-tabs">
+                    <li class="active">
+                        <a href="#profile-tabs-board" data-toggle="tab">5 Commandes</a>
+                    </li>
+                    <li>
+                        <a href="#profile-tabs-activity" data-toggle="tab">{{ nbrcoms }} Commentaires</a>
+                    </li>
+                    <li>
+                        <a href="#profile-tabs-followers" data-toggle="tab">{{ nbrmsgs }} Messages</a>
+                    </li>
+                    <li>
+                        <a href="#profile-tabs-following" data-toggle="tab">Mes informations</a>
+                    </li>
+                </ul>
+
+                <div class="tab-content tab-content-bordered panel-padding">
+                    <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
+                        <div class="comment">
+                            <div class="comment-body">
+                                <div class="comment-text">
+                                    <div class="comment-heading">
+                                        <a href="#" title="">Robert Jang</a><span>14 hours ago</span>
+                                    </div>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
+                                </div>
+                            </div> <!-- / .comment-body -->
+
+                        </div> <!-- / .comment -->
+
+
+
+                    </div> <!-- / .tab-pane -->
+                    <div class="tab-pane fade" id="profile-tabs-activity">
+                        <div class="timeline">
+                            <!-- Timeline header -->
+                            <div class="tl-header now">Now</div>
+
+                            <div class="tl-entry">
+                                <div class="tl-time">
+                                    1h ago
+                                </div>
+                                <div class="tl-icon bg-warning"><i class="fa fa-envelope"></i></div>
+                                <div class="panel tl-body">
+                                    <h4 class="text-warning">Lorem ipsum dolor sit amet</h4>
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.
+                                </div> <!-- / .tl-body -->
+                            </div> <!-- / .tl-entry -->
+
+                            <div class="tl-entry left">
+                                <div class="tl-time">
+                                    2h ago
+                                </div>
+                                <div class="tl-icon bg-success"><i class="fa fa-envelope"></i></div>
+                                <div class="panel tl-body">
+                                    <a href="#">Denise Steiner</a> shared an image on <a href="#">The Gallery</a>
+                                    <div class="tl-wide text-center" style="padding: 10px;margin-top:15px;margin-bottom: 15px;background: #f1f1f1">
+                                    </div>
+                                    <i class="text-muted text-sm">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.</i>
+                                </div> <!-- / .tl-body -->
+                            </div> <!-- / .tl-entry -->
+
+                            <!-- Timeline header -->
+                            <div class="tl-header">Yesterday</div>
+
+                            <div class="tl-entry left">
+                                <div class="tl-time">
+                                    5:47 pm
+                                </div>
+                                <div class="panel tl-body">
+                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+                                </div> <!-- / .tl-body -->
+                            </div> <!-- / .tl-entry -->
+
+                        </div> <!-- / .timeline -->
+                    </div> <!-- / .tab-pane -->
+
+
+                    {#Boucler sur les messages#}
+                    <div class="tab-pane fade widget-followers" id="profile-tabs-followers">
+                        <div class="follower">
+                            <img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
+                            <div class="body">
+                                <div class="follower-controls">
+                                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+                                </div>
+                                <a href="#" class="follower-name">John Doe</a><br>
+                                <a href="#" class="follower-username">@jdoe</a>
+                            </div>
+                        </div>
+                    </div> <!-- / .tab-pane -->
+
+
+                    {#Afficher les informations sur la boutique #}
+                    <div class="tab-pane fade widget-followers" id="profile-tabs-following">
+                        <div class="follower">
+                            <img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
+                            <div class="body">
+                                <div class="follower-controls">
+                                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
+                                </div>
+                                <a href="#" class="follower-name">John Doe</a><br>
+                                <a href="#" class="follower-username">@jdoe</a>
+                            </div>
+                        </div>
+                    </div> <!-- / .tab-pane -->
+
+
+                </div> <!-- / .tab-content -->
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
