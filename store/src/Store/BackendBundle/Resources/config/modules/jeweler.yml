@@ -1,0 +1,5 @@
+store_backend_jeweler_profil:
+    path: /profil/{id}
+    defaults: { _controller: 'StoreBackendBundle:Jeweler:profil'}
+    requirements:
+        id: \d+

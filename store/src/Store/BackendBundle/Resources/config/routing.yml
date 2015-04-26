@@ -35,3 +35,8 @@ store_backend_suppliers:
 store_backend_sliders:
     resource: "@StoreBackendBundle/Resources/config/modules/slider.yml"
     prefix:   /sliders
+
+#Importation des routes jeweler
+store_backend_jewelers:
+    resource: "@StoreBackendBundle/Resources/config/modules/jeweler.yml"
+    prefix:   /jeweler
