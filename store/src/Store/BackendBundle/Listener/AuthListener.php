@@ -28,7 +28,6 @@ class AuthListener
     private $securityContext;
 
     public function __construct(EntityManager $em, SecurityContextInterface $securityContext){
-
         $this->em = $em;
         $this->securityContext = $securityContext;
     }
@@ -38,7 +37,7 @@ class AuthListener
      *  qui est l'action de login dans la securité
      * @param InteractiveLoginEvent $event
      */
-    public function onAuthSuccess(InteractiveLoginEvent $event)
+    public function onAuthSuccess(GetResponseEvent  $event)
     {
         $now = new \DateTime('now');
         $user = $this->securityContext->getToken()->getUser();
