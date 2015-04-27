@@ -115,16 +115,8 @@ class ProductController extends Controller
                 'Votre produit a bien été crée');
 
             $quantity = $product->getQuantity();
-            if($quantity == 1)
-            {
-                $this->get('session')->getFlashbag()->add('warning', "Vous n'avez qu'un seul produit en stock");
-            }
 
             //Si ma quantité est inférieure à 5 je crée une notif
-            if($product->getQuantity() < 5){
-                $this->get('store.backend.notification')
-                    ->notify("Attention, votre produit {$product->getTitle()} est bientôt épuisé", 1);
-            }
 
             return $this->redirectToRoute('store_backend_product_list');
         }
@@ -161,12 +153,6 @@ class ProductController extends Controller
             $em = $this->getDoctrine()->getManager();
             $em->persist($product);
             $em->flush();
-
-            //Si ma quantité est inférieure à 5 je crée une notif
-            if($product->getQuantity() < 5){
-                $this->get('store.backend.notification')
-                    ->notify("Attention, votre produit {$product->getTitle()} est bientôt épuisé");
-            }
 
             return $this->redirectToRoute('store_backend_product_list');
         }

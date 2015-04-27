@@ -8,6 +8,7 @@ services:
 #        class: AppBundle\Directory\ClassName
 #        arguments: ["@another_service_name", "plain_value", "%parameter_name%"]
 
+#Deplacer ce service dans le bundle backend
     store.backend.twig.backend_store_extension:
         #Notre class qui va étendre Twig, je l'ai mis ici pour le rendre dispo sur tout mes bunduleeh
         class: Store\BackendBundle\Twig\Extensions\StoreBackendExtension

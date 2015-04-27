@@ -64,18 +64,52 @@
     <ul class="nav navbar-nav pull-right right-navbar-nav">
 
     <!-- 3. $NAVBAR_ICON_BUTTONS =======================================================================
-
-                                Navbar Icon Buttons
-
-                                NOTE: .nav-icon-btn triggers a dropdown menu on desktop screens only. On small screens .nav-icon-btn acts like a hyperlink.
-
-                                Classes:
-                                * 'nav-icon-btn-info'
-                                * 'nav-icon-btn-success'
-                                * 'nav-icon-btn-warning'
-                                * 'nav-icon-btn-danger'
     -->
         {#Emplacement des 2 li message et megaphone#}
+    <li class="nav-icon-btn nav-icon-btn-danger dropdown">
+        <a href="#notifications" class="dropdown-toggle" data-toggle="dropdown">
+            <span class="label">{{ app.session.get('product')|length }}</span>
+            <i class="nav-icon fa fa-bullhorn"></i>
+            <span class="small-screen-text">Notifications</span>
+        </a>
+
+        <!-- NOTIFICATIONS -->
+
+        <!-- Javascript -->
+        <script>
+            init.push(function () {
+                $('#main-navbar-notifications').slimScroll({ height: 250 });
+            });
+        </script>
+        <!-- / Javascript -->
+
+        <div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
+            <div class="notifications-list" id="main-navbar-notifications" style="overflow: hidden; width: auto; height: 250px;">
+                {% if app.session.get('product') is not empty %}
+                    {% for alert in app.session.get('product') %}
+                        <div class="notification">
+                            <div class="notification-title text-{{ alert.priority }}">PRODUCT</div>
+                            <div class="notification-description">{{ alert.message }}</div>
+                            <div class="notification-ago">{{ alert.date|date('d/m/Y') }}</div>
+                            <div class="notification-icon fa fa-warning bg-{{ alert.priority }}"></div>
+                        </div> <!-- / .notification -->
+                    {% endfor %}
+                {% endif %}
+                <hr/>
+                {% if app.session.get('category') is not empty %}
+                    {% for alert in app.session.get('category') %}
+                        <div class="notification">
+                            <div class="notification-title text-{{ alert.priority }}">CATEGORY</div>
+                            <div class="notification-description">{{ alert.message }}</div>
+                            <div class="notification-ago">{{ alert.date|date('d/m/Y') }}</div>
+                            <div class="notification-icon fa fa-warning bg-{{ alert.priority }}"></div>
+                        </div> <!-- / .notification -->
+                    {% endfor %}
+                {% endif %}
+            </div> <!-- / .notifications-list -->
+            <a href="#" class="notifications-link">MORE NOTIFICATIONS</a>
+        </div> <!-- / .dropdown-menu -->
+    </li>
     <!-- /3. $END_NAVBAR_ICON_BUTTONS -->
 
     <li>

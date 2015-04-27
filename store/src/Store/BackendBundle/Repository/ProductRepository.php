@@ -54,7 +54,8 @@ class ProductRepository extends EntityRepository{
             SELECT p.quantity as quantity, p.title, p.id
             FROM StoreBackendBundle:Product AS p
             WHERE p.jeweler = :user
-            AND p.quantity < :min_qte
+            AND p.quantity <= :min_qte
+            ORDER BY quantity DESC
             "
         )->setParameters([':user' => $user, ':min_qte' => $min_qte]);
         return $query->getResult();

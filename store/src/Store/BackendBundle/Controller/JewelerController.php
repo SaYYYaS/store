@@ -19,6 +19,7 @@ class JewelerController extends Controller {
         $jeweler = $id;
 
         $em             = $this->getDoctrine()->getManager();
+        //stats and counts
         $nbrprods       = $em->getRepository('StoreBackendBundle:Product')->getCountByUser($jeweler);
         $likes          = $em->getRepository('StoreBackendBundle:Product')->getLikesByUser($jeweler);
         $nbrcats        = $em->getRepository('StoreBackendBundle:Category')->getCountByUser($jeweler);
@@ -29,8 +30,10 @@ class JewelerController extends Controller {
         $nbrmsgs        = $em->getRepository('StoreBackendBundle:Message')->getCountByUser($jeweler);
 
 
-        //meta-informations
-        $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser($jeweler,10);
+        //jeweler's related infos
+        $coms           = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($jeweler);
+        $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser($jeweler);
+        $msgs           = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser($jeweler);
         $jeweler_meta   = $em->getRepository('StoreBackendBundle:JewelerMeta')->getMetasByUser($jeweler);
         $tags           = $em->getRepository('StoreBackendBundle:Tag')->getTagsByUser($jeweler);
 
@@ -46,6 +49,9 @@ class JewelerController extends Controller {
             'likes'          => $likes,
             'jeweler_meta'   => $jeweler_meta,
             'tags'           => $tags,
+            'coms'           => $coms,
+            'orders'         => $orders,
+            'msgs'            => $msgs
         ]);
     }
 }

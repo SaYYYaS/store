@@ -14,13 +14,13 @@ services:
         # doctrine va nous servir à mettre à jour l'entité
         # security.context permet de récuperer l'user en session par le token
         # ce sont des services enregistrés par defaut, on utilise @ pour ne pas traiter comme une string
-        arguments: ["@doctrine.orm.entity_manager","@security.context"]
+        arguments: ["@doctrine.orm.entity_manager","@security.context","@store.backend.notification"]
         # Tags permet de définir une "catégorie" (à la manière de tags sur un article d'un blog)
         # tags:name   =  Le nom du tag
         # tags:event  =  l'évenement rataché au service (qui doit extends de event) sera injecté dans la method
         # tags:method =  la méthode à appeler qui prend forcément
         tags:
-            - { name: kernel.event_listener, event: security.interactive_login, method: onAuthSuccess}
+            - { name: kernel.event_listener, event: security.interactive_login, method: onAuthSuccess }
 
     #Nom(id) de la nature de la class (on ne met pas email.email car c'est un service
     store.backend.email:
@@ -34,3 +34,27 @@ services:
         arguments: ["@session"]
         tags :
              - { name: backend}
+
+    store.backend.listener.product.persist:
+        class: Store\BackendBundle\Listener\ProductListener
+        # Arguments du constructeur, service de notif que l'on a crée juste au dessus
+        # ATTENTION l'injection de dépendance se fait si mon service n'est pas déjà injecté,
+        # Notemment par le tag qui est associé à mon service !
+        arguments: ["@store.backend.notification"]
+        #tags me dit que ma classe utilisera le mécanisme d'écouteur de Sf2
+        tags:
+            # name correspond au mécanisme ou ma classe sera affecté
+            # et plus particulièrement au mécanisme d'écouteur de doctrine
+
+            # event sera l'évenement déclancheur de mon service, il est relatif au name
+            # et plus particulièrement à la modification d'un objet
+            # la methode qui sera appellée après déclanchement de mon évent
+            # et plus particulièrement la méthode appellée dans mon service: postUpdate()
+            # Evenement doctrine: lifecycle, correspond à une liste d'event exhaustive
+
+            # preRemove : quand je rémove un objet en bdd
+            # prePersist : quand je crée mon objet en bdd
+            # preUpdate : quand je modifie mon objet en bdd
+            - { name: doctrine.event_listener, event: postUpdate  ,  method:  postUpdate  }
+            - { name: doctrine.event_listener, event: postPersist ,  method:  postPersist }
+            - { name: doctrine.event_listener, event: preUpdate   ,  method:  preUpdate   }

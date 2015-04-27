@@ -118,6 +118,13 @@ class CategoryController extends Controller
         if($form->isValid()){
             $em = $this->getDoctrine()->getManager();
             $em->persist($category);
+
+            if($category->getProduct()->count() == 0){
+                $msg = "Attention, la catégorie '{$category->getTitle()}' ne contient aucun produits";
+                $this->get('store.backend.notification')
+                    ->notify($category->getId(), $msg, 'category', 'danger');
+            }
+
             $em->flush();
             return $this->redirectToRoute('store_backend_category_list');
         }

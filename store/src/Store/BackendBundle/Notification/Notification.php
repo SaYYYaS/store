@@ -32,11 +32,30 @@ class Notification {
 
     /**
      * Notification d'une action
-     * @param $msg
-     * @param string $priority
+     * @param $id : id de mon objet
+     * @param $msg : le msg à afficher
+     * @param $nature : product | cs | category
+     * @param string $priority | concerne la pirorité du message
      */
-    public function notify($msg, $priority = 'alert'){
+    public function notify($id, $msg, $nature, $priority = 'alert'){
 
-        $this->session->set('alert', ['message' =>$msg, 'priority' => $priority]);
+        // Nous récupérons le tableau de notifications par sa nature
+                                         // $nature => session key, [] => !isset(key) new []
+        $tabsession = $this->session->get($nature,[]);
+
+        // Nous stockons dans ce tableau la notif
+        // avec un message, une priorité et une date
+        $tabsession[$id] = [
+            'message' => $msg,
+            'priority' => $priority,
+            'date' => new \DateTime('now')
+        ];
+
+        // Enfin nous enregistrons le tableau des notification en session
+        $this->session->set($nature, $tabsession);
+    }
+
+    public function getSession(){
+        return $this->session;
     }
 }

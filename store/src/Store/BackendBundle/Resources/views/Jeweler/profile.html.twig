@@ -91,7 +91,7 @@
 
                 <ul id="profile-tabs" class="nav nav-tabs">
                     <li class="active">
-                        <a href="#profile-tabs-board" data-toggle="tab">5 Commandes</a>
+                        <a href="#profile-tabs-board" data-toggle="tab">{{ nbrorders }} Commandes</a>
                     </li>
                     <li>
                         <a href="#profile-tabs-activity" data-toggle="tab">{{ nbrcoms }} Commentaires</a>
@@ -104,23 +104,26 @@
                     </li>
                 </ul>
 
+
                 <div class="tab-content tab-content-bordered panel-padding">
+                    {#Orders#}
                     <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
-                        <div class="comment">
-                            <div class="comment-body">
-                                <div class="comment-text">
-                                    <div class="comment-heading">
-                                        <a href="#" title="">Robert Jang</a><span>14 hours ago</span>
+                        {% for order in orders %}
+                            <div class="comment">
+                                <div class="comment-body">
+                                    <div class="comment-text">
+                                        <div class="comment-heading">
+                                            <a href="#" title="">Robert Jang</a><span>14 hours ago</span>
+                                        </div>
+                                        Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
                                     </div>
-                                    Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore.
-                                </div>
-                            </div> <!-- / .comment-body -->
+                                </div> <!-- / .comment-body -->
 
-                        </div> <!-- / .comment -->
-
-
-
+                            </div> <!-- / .comment -->
+                        {% endfor %}
                     </div> <!-- / .tab-pane -->
+
+                    {#coms#}
                     <div class="tab-pane fade" id="profile-tabs-activity">
                         <div class="timeline">
                             <!-- Timeline header -->
