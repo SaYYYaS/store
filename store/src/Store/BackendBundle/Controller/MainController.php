@@ -48,7 +48,7 @@ class MainController extends Controller
 
         //ratio products in cms
         $prods_per_cms  = $em->getRepository('StoreBackendBundle:Cms')->getProductCmsCompletion($user);
-        $prods_per_cms  = round(($prods_per_cms['products_in_cms'] / $prods_per_cms['all_products']) *100,1);
+        $prods_per_cms  = round(($prods_per_cms['products_in_cms'] / $nbrprods) *100,1);
         //ratio products by details
         $prods_compl_details  = $em->getRepository('StoreBackendBundle:Product')->getProductCompletionDetails($user);
         $prods_compl_details  = round(($prods_compl_details / $nbrprods)*100,1);

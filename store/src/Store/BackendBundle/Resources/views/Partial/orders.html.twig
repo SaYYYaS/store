@@ -1,0 +1,46 @@
+<li class="nav-icon-btn nav-icon-btn-warning dropdown">
+    <a href="#orders" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="label">{{ orders|length }}</span>
+        <i class="nav-icon fa fa-bullhorn"></i>
+        <span class="small-screen-text">Orders</span>
+    </a>
+
+    <!-- Orders -->
+
+    <!-- Javascript -->
+    <script>
+        init.push(function () {
+            $('#main-navbar-orders').slimScroll({ height: 250 });
+        });
+    </script>
+    <!-- / Javascript -->
+
+    <div class="dropdown-menu widget-notifications no-padding" style="width: 300px">
+        <div class="notifications-list" id="main-navbar-orders" style="overflow: hidden; width: auto; height: 250px;">
+            {% if orders is not empty %}
+                {% for order in orders %}
+
+                    {% if order.state == 0 %}
+                        {% set state = 'danger' %}
+                    {% elseif order.state == 2 %}
+                        {% set state = 'success' %}
+                    {% elseif order.state == 1 %}
+                        {% set state = 'warning' %}
+                    {% endif %}
+
+                    <div class="notification">
+                        <div class="notification-title text-{{ state }}">{{ order.user.firstname ~ ' ' ~ order.user.lastname }}
+                            {{ order.state|state|raw }}</div>
+                        <div class="notification-description">
+                                Total : {{ order.total }} €
+                        </div>
+
+                        <div class="notification-ago">{{ order.dateCreated.format('d/m/Y à h:i') }}</div>
+                        <div class="notification-icon fa fa-money bg-{{ state }}"></div>
+                    </div> <!-- / .notification -->
+                {% endfor %}
+            {% endif %}
+        </div> <!-- / .notifications-list -->
+        <a href="#" class="notifications-link">MORE ORDERS</a>
+    </div> <!-- / .dropdown-menu -->
+</li>

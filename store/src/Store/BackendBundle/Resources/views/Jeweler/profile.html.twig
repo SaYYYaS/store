@@ -110,7 +110,7 @@
                     {#Orders#}
                     <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
                         {% for order in orders %}
-                            {{ dump(order.product[0]) }}
+                            {{ dump() }}
                             <div class="comment">
                                 <div class="comment-body">
                                     <div class="comment-text">
@@ -133,33 +133,35 @@
 
                     {#coms#}
                     <div class="tab-pane fade" id="profile-tabs-activity">
-                        <div class="timeline">
-                            <!-- Timeline header -->
-                            <div class="tl-header now">Now</div>
+                        {% if coms is not empty %}
+                            <div class="timeline">
+                                <!-- Timeline header -->
+                                <div class="tl-header now">Now</div>
 
-                            {% for com in coms %}
-                            <div class="tl-entry">
-                                <div class="tl-time">
-                                    {{ com.dateCreated.format('d/m/y à h:i')|default('now') }}
-                                </div>
+                                {% for com in coms %}
+                                    <div class="tl-entry">
+                                        <div class="tl-time">
+                                            {{ com.dateCreated.format('d/m/y à h:i')|default('now') }}
+                                        </div>
 
-                                {% if com.state == 0 %}
-                                    {% set state = 'success' %}
-                                {% elseif com.state == 1 %}
-                                    {% set state = 'warning' %}
-                                {% elseif com.state == 2 %}
-                                    {% set state = 'danger' %}
-                                {% endif %}
+                                        {% if com.state == 0 %}
+                                            {% set state = 'success' %}
+                                        {% elseif com.state == 1 %}
+                                            {% set state = 'warning' %}
+                                        {% elseif com.state == 2 %}
+                                            {% set state = 'danger' %}
+                                        {% endif %}
 
-                                <div class="tl-icon bg-{{ state }}"><i class="fa fa-envelope"></i></div>
-                                <div class="panel tl-body">
-                                    <h4 class="text-warning">{{ com.product.title }}</h4>
-                                    {{ com.content }}
-                                </div> <!-- / .tl-body -->
-                            </div> <!-- / .tl-entry -->
-                            {% endfor %}
+                                        <div class="tl-icon bg-{{ state }}"><i class="fa fa-envelope"></i></div>
+                                        <div class="panel tl-body">
+                                            <h4 class="text-warning">{{ com.product.title }}</h4>
+                                            {{ com.content }}
+                                        </div> <!-- / .tl-body -->
+                                    </div> <!-- / .tl-entry -->
+                                {% endfor %}
 
-                        </div> <!-- / .timeline -->
+                            </div> <!-- / .timeline -->
+                        {% endif %}
                     </div> <!-- / .tab-pane -->
 
 

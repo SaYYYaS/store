@@ -7,6 +7,7 @@ use Store\BackendBundle\Form\CategoryType;
 use Symfony\Bundle\FrameworkBundle\Controller\Controller;
 use Symfony\Component\HttpFoundation\JsonResponse;
 use Symfony\Component\HttpFoundation\Request;
+use Sensio\Bundle\FrameworkExtraBundle\Configuration\Security;
 
 /**
  * Class CategoryController
@@ -60,6 +61,7 @@ class CategoryController extends Controller
 
     /**
      * Create a category
+     * @Security("is_granted('Pas le droit accès edition catégorie',id)")
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @internal param $id
      * @internal param $name
@@ -96,6 +98,7 @@ class CategoryController extends Controller
 
     /**
      * Create a category
+     * @Security("is_granted('Pas le droit accès edition catégorie',id)")
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param \Store\BackendBundle\Entity\Category $id
      * @internal param $id

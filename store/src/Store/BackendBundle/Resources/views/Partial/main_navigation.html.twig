@@ -30,7 +30,7 @@
         </li>
         {% if is_granted('ROLE_COMMERCIAL') %}
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_product_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_product_list') }}"><i class="fa fa-bookmark"></i>&nbsp;Products</a>
+            <a href="{{ path('store_backend_product_list') }}"><i class="fa fa-bookmark"></i>&nbsp;Produits</a>
         </li>
         {% endif %}
         {% if is_granted('ROLE_COMMERCIAL') %}
@@ -40,22 +40,22 @@
         {% endif %}
         {% if is_granted('ROLE_EDITOR') %}
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_cms_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_cms_list') }}"><i class="fa fa-briefcase"></i>&nbsp;Content Managing System</a>
+            <a href="{{ path('store_backend_cms_list') }}"><i class="fa fa-briefcase"></i>&nbsp;CMS</a>
         </li>
         {% endif %}
         {% if is_granted('ROLE_COMMERCIAL') %}
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_supplier_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_supplier_list') }}"><i class="fa fa-plane"></i>&nbsp;Suppliers</a>
+            <a href="{{ path('store_backend_supplier_list') }}"><i class="fa fa-plane"></i>&nbsp;Fournisseurs</a>
         </li>
         {% endif %}
         {% if is_granted('ROLE_COMMERCIAL') %}
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_slider_list' %} active {% endif %}">
-            <a href="{{ path('store_backend_slider_list') }}"><i class="fa fa-picture-o"></i>&nbsp;Sliders</a>
+            <a href="{{ path('store_backend_slider_list') }}"><i class="fa fa-picture-o"></i>&nbsp;Diaporama</a>
         </li>
         {% endif %}
         {% if is_granted('ROLE_COMMERCIAL') %}
             <li class="{% if app.request.attributes.get('_route') == 'store_backend_jeweler_profil' %} active {% endif %}">
-                <a href="{{ path('store_backend_jeweler_profil', {id: app.user.id}) }}"><i class="fa fa-user"></i>&nbsp;Boutique</a>
+                <a href="{{ path('store_backend_jeweler_profil', {id: app.user.id}) }}"><i class="fa fa-user"></i>&nbsp;Ma Boutique</a>
             </li>
         {% endif %}
     </ul> <!-- / .navbar-nav -->
@@ -111,6 +111,11 @@
         </div> <!-- / .dropdown-menu -->
     </li>
     <!-- /3. $END_NAVBAR_ICON_BUTTONS -->
+
+        {#Inclure mes messages depuis le controller, render va appeler le controlleur Layout et son action getMessages#}
+        {#A la différence de include qui va include une vue statique, render va appeler dynamiquement un controller et une action de controlleur#}
+        {{ render(controller('StoreBackendBundle:Layout:getMessages')) }}
+        {{ render(controller('StoreBackendBundle:Layout:getOrders')) }}
 
     <li>
         <form class="navbar-form pull-left">

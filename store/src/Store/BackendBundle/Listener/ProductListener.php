@@ -68,7 +68,7 @@ class ProductListener {
                 $tabsession = $this->notification->getSession()->get('product');
 
                 // Nous stockons dans ce tableau la notif
-                // avec un message, une priorité et une date
+                // éffaçons
                 unset($tabsession[$key]);
 
                 // Enfin nous enregistrons le tableau des notification en session

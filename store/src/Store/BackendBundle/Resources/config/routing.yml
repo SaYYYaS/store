@@ -24,7 +24,11 @@ store_backend_categories:
 #Importation des routes cms (pour le confort de l'utilisateur on garde cms au lieu de cmss)
 store_backend_cms:
     resource: "@StoreBackendBundle/Resources/config/modules/cms.yml"
-    prefix:   /cms
+    # {_locale} : Argument spéciale au routin reconnu par le systeme d'i18n de symfony
+    prefix:   /{_locale}/cms
+    requirements:
+        #le underscore de _locale à pour sens de désigner ce bout route comme interne
+        _locale: en|fr|es
 
 #Importation des routes supplier
 store_backend_suppliers:

@@ -49,6 +49,7 @@ class ProductController extends Controller
 
     /**
      * Delete a product
+     * @Security("is_granted('Pas le droit accès edition produit',id)")
      * @param $id
      * @internal param $name
      * @return \Symfony\Component\HttpFoundation\Response
@@ -66,6 +67,7 @@ class ProductController extends Controller
 
     /**
      * Create new product
+     * @Security("is_granted('Pas le droit accès edition produit',id)")
      * @param \Symfony\Component\HttpFoundation\Request $request Qui va récuperer les donnés html passé au serveur via methode
      * @return \Symfony\Component\HttpFoundation\RedirectResponse
      */
@@ -127,6 +129,7 @@ class ProductController extends Controller
     }
 
     /**
+     * @Security("is_granted('Pas le droit accès edition produit',id)")
      * Edit a product
      * @param \Symfony\Component\HttpFoundation\Request $request
      * @param null|\Store\BackendBundle\Entity\Product $id (utilisation paramConverter pour convertir in en Product et implicitement find)

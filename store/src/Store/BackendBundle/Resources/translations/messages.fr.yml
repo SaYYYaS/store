@@ -1,0 +1,14 @@
+cms :
+    list:
+        title : Liste des pages CMS
+        table :
+            th:
+                title      : Titre
+                summary    : Résumé
+                state      : Status
+                nb         : Nombre de produit associés
+                date       : Date de création
+                actions    : Actions
+            td:
+
+                nb         : Nombre

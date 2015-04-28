@@ -22,7 +22,7 @@ class Notification {
     protected $session;
 
     /**
-     * Constructeur qui recevra
+     * Constructeur qui recevra la session
      */
     function __construct(Session $session)
     {

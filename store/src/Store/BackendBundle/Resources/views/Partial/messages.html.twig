@@ -1,0 +1,33 @@
+<li class="nav-icon-btn nav-icon-btn-success dropdown">
+    <a href="#messages" class="dropdown-toggle" data-toggle="dropdown">
+        <span class="label">{{ msgs|length }}</span>
+        <i class="nav-icon fa fa-envelope"></i>
+        <span class="small-screen-text">Income messages</span>
+    </a>
+    <!-- Javascript -->
+    <script>
+        init.push(function () {
+            $('#main-navbar-messages').slimScroll({ height: 250 });
+        });
+    </script>
+    <!-- / Javascript -->
+
+    <!-- MESSAGES -->
+    <div class="dropdown-menu widget-messages-alt no-padding" style="width: 300px;">
+        <div class="messages-list" id="main-navbar-messages" style="overflow: hidden; width: auto; height: 250px;">
+            {% for msg in msgs %}
+                <div class="message">
+                    <img src="assets/demo/avatars/2.jpg" alt="" class="message-avatar">
+                    <a href="#" class="message-subject">{{ msg.title }}</a>
+                    <div class="message-description">
+                        De: <a href="#">{{ msg.user.firstname ~ ' ' ~ msg.user.lastname }}</a>
+                        &nbsp;&nbsp;·&nbsp;&nbsp;
+                        {{ msg.dateCreated.format('d/m/Y à h:i') }}
+                        <p>{{ msg.content|truncate(30, true, '...') }}</p>
+                    </div>
+                </div> <!-- / .message -->
+            {% endfor %}
+        </div> <!-- / .messages-list -->
+        <a href="#" class="messages-link">MORE MESSAGES</a>
+    </div> <!-- / .dropdown-menu -->
+</li>

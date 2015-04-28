@@ -78,6 +78,13 @@ class Orders
 
     /**
      * @var \Doctrine\Common\Collections\Collection
+     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order")
+     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     **/
+    private $orderDetail;
+
+    /**
+     * @var \Doctrine\Common\Collections\Collection
      *
      * @ORM\ManyToMany(targetEntity="Product", inversedBy="order")
      * @ORM\JoinTable(name="order_detail",
@@ -91,12 +98,19 @@ class Orders
      */
     private $product;
 
+
+    /**
+     * @ORM\OneToMany('targetEntity="OrderDetail"
+     */
+//    private $details;
+
     /**
      * Constructor
      */
     public function __construct()
     {
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->orderDetail = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -311,5 +325,38 @@ class Orders
     function __toString()
     {
         return (string)$this->id;
+    }
+
+    /**
+     * Add orderDetail
+     *
+     * @param \Store\BackendBundle\Entity\OrderDetail $orderDetail
+     * @return Orders
+     */
+    public function addOrderDetail(\Store\BackendBundle\Entity\OrderDetail $orderDetail)
+    {
+        $this->orderDetail[] = $orderDetail;
+
+        return $this;
+    }
+
+    /**
+     * Remove orderDetail
+     *
+     * @param \Store\BackendBundle\Entity\OrderDetail $orderDetail
+     */
+    public function removeOrderDetail(\Store\BackendBundle\Entity\OrderDetail $orderDetail)
+    {
+        $this->orderDetail->removeElement($orderDetail);
+    }
+
+    /**
+     * Get orderDetail
+     *
+     * @return \Doctrine\Common\Collections\Collection 
+     */
+    public function getOrderDetail()
+    {
+        return $this->orderDetail;
     }
 }

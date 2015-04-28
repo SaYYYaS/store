@@ -58,3 +58,12 @@ services:
             - { name: doctrine.event_listener, event: postUpdate  ,  method:  postUpdate  }
             - { name: doctrine.event_listener, event: postPersist ,  method:  postPersist }
             - { name: doctrine.event_listener, event: preUpdate   ,  method:  preUpdate   }
+
+
+    store.backend.authorization.voter:
+        class: Store\BackendBundle\Security\Authorization\Voter\OwnerVoter
+        # Mecanisme de sécurité au niveau des votes de la gestion des roles
+        # Implémente notre service parmi le mécanisme de Vote des autorisations
+        # de la sécurité
+        tags:
+            - { name: security.voter }

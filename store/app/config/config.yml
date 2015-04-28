@@ -5,7 +5,11 @@ imports:
 
 framework:
     #esi:             ~
-    #translator:      { fallbacks: ["%locale%"] }
+    # Composant de Traduction à activer si j'ai un site multilingue
+    # le parametre fallbacks a l'interieur est la langue prise par défaut
+    # dans le mécanisme de traduction
+    # %locale% est un paramètre défini dans parameters.yml
+    translator:      { fallbacks: ["%locale%"] }
     secret:          "%secret%"
     router:
         resource: "%kernel.root_dir%/config/routing.yml"
@@ -33,6 +37,7 @@ twig:
         resources:
             - 'StoreBackendBundle:Partial:form.html.twig'
 
+
 # Assetic Configuration
 assetic:
     debug:          "%kernel.debug%"
@@ -49,6 +54,7 @@ assetic:
 # Doctrine Configuration
 doctrine:
     dbal:
+        #Variables qui sont cherché dans parameters.yml
         driver:   "%database_driver%"
         host:     "%database_host%"
         port:     "%database_port%"
