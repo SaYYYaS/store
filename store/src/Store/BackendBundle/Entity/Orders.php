@@ -78,10 +78,9 @@ class Orders
 
     /**
      * @var \Doctrine\Common\Collections\Collection
-     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="order")
-     * @ORM\JoinColumn(name="order_id", referencedColumnName="id")
+     * @ORM\OneToMany(targetEntity="OrderDetail", mappedBy="orders")
      **/
-    private $orderDetail;
+    private $details;
 
     /**
      * @var \Doctrine\Common\Collections\Collection
@@ -110,7 +109,7 @@ class Orders
     public function __construct()
     {
         $this->product = new \Doctrine\Common\Collections\ArrayCollection();
-        $this->orderDetail = new \Doctrine\Common\Collections\ArrayCollection();
+        $this->details = new \Doctrine\Common\Collections\ArrayCollection();
     }
 
 
@@ -328,35 +327,35 @@ class Orders
     }
 
     /**
-     * Add orderDetail
+     * Add details
      *
-     * @param \Store\BackendBundle\Entity\OrderDetail $orderDetail
+     * @param \Store\BackendBundle\Entity\OrderDetail $details
      * @return Orders
      */
-    public function addOrderDetail(\Store\BackendBundle\Entity\OrderDetail $orderDetail)
+    public function addDetail(\Store\BackendBundle\Entity\OrderDetail $details)
     {
-        $this->orderDetail[] = $orderDetail;
+        $this->details[] = $details;
 
         return $this;
     }
 
     /**
-     * Remove orderDetail
+     * Remove details
      *
-     * @param \Store\BackendBundle\Entity\OrderDetail $orderDetail
+     * @param \Store\BackendBundle\Entity\OrderDetail $details
      */
-    public function removeOrderDetail(\Store\BackendBundle\Entity\OrderDetail $orderDetail)
+    public function removeDetail(\Store\BackendBundle\Entity\OrderDetail $details)
     {
-        $this->orderDetail->removeElement($orderDetail);
+        $this->details->removeElement($details);
     }
 
     /**
-     * Get orderDetail
+     * Get details
      *
      * @return \Doctrine\Common\Collections\Collection 
      */
-    public function getOrderDetail()
+    public function getDetails()
     {
-        return $this->orderDetail;
+        return $this->details;
     }
 }

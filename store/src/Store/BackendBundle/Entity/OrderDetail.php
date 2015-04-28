@@ -16,23 +16,23 @@ use Doctrine\ORM\Mapping as ORM;
  * @ORM\Table(name="order_detail")
  * @ORM\Entity
  */
-class OrderDetail {
+class OrderDetail
+{
+
     /**
-     * @ORM\Column(name="order_id", type="integer", nullable=false)
      * @ORM\Id
-     * @ORM\ManyToOne(targetEntity="Order")
+     * @ORM\ManyToOne(targetEntity="Orders", inversedBy="orderDetail")
      * @ORM\JoinColumns({
      *   @ORM\JoinColumn(name="order_id", referencedColumnName="id")
      * })
      */
-    private $order;
+    private $orders;
 
     /**
-     * @ORM\Column(name="product_id", type="integer", nullable=false)
      * @ORM\Id
      * @ORM\ManyToOne(targetEntity="Product")
      * @ORM\JoinColumns({
-     *   @ORM\JoinColumn(name="jeweler_id", referencedColumnName="id")
+     *   @ORM\JoinColumn(name="product_id", referencedColumnName="id")
      * })
      */
     private $product;
@@ -51,28 +51,27 @@ class OrderDetail {
      */
     private $price;
 
-
     /**
-     * Set order
+     * Set orders
      *
-     * @param integer $order
+     * @param integer $orders
      * @return OrderDetail
      */
-    public function setOrder($order)
+    public function setOrders($orders)
     {
-        $this->order = $order;
+        $this->orders = $orders;
 
         return $this;
     }
 
     /**
-     * Get order
+     * Get orders
      *
      * @return integer 
      */
-    public function getOrder()
+    public function getOrders()
     {
-        return $this->order;
+        return $this->orders;
     }
 
     /**

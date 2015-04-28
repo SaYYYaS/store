@@ -110,20 +110,21 @@
                     {#Orders#}
                     <div class="widget-article-comments tab-pane panel no-padding no-border fade in active" id="profile-tabs-board">
                         {% for order in orders %}
-                            {{ dump() }}
                             <div class="comment">
                                 <div class="comment-body">
                                     <div class="comment-text">
                                         <div class="comment-heading">
                                             <a href="#" title="">{{ order.user.firstname ~ ' ' ~ order.user.lastname }}|{{ order.user.email }}</a><span>{{ order.date.format('d/m/Y') }}</span>
                                         </div>
-                                        <p>Total :{{ order.total }}</p>
-                                        {% for product in order.product %}
+                                        <p>Total :{{ order.total }}€</p>
+                                        {% for detail in order.details %}
                                             <ul>
-                                                <li></li>
+                                                <li>
+                                                    Quantité : {{ detail.quantity }}, Produit: {{ detail.product.title }}, Prix: {{ detail.price }} €
+                                                </li>
                                             </ul>
                                         {% endfor %}
-                                        <i class="fa fa-location-arrow"></i>{{ order.address }}
+                                        <i class="fa fa-map-marker"></i> <strong>Addresse : </strong> {{ order.address }}
                                     </div>
                                 </div> <!-- / .comment-body -->
 
