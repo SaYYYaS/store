@@ -141,8 +141,13 @@
 
                                 {% for com in coms %}
                                     <div class="tl-entry">
-                                        <div class="tl-time">
-                                            {{ com.dateCreated.format('d/m/y à h:i')|default('now') }}
+                                        <div class="tl-time" style="text-align: center !important;">
+                                            {{ com.dateCreated.format('d/m/y')|default('now') }}
+                                            <p>à</p>
+                                           <p>
+                                            {{ com.dateCreated.format('h:i')|default('00:00') }}
+                                           </p>
+
                                         </div>
 
                                         {% if com.state == 0 %}
@@ -193,14 +198,16 @@
                     {#Afficher les informations sur la boutique #}
                     <div class="tab-pane fade widget-followers" id="profile-tabs-following">
                         <div class="follower">
-                            <img src="assets/demo/avatars/1.jpg" alt="" class="follower-avatar">
-                            <div class="body">
-                                <div class="follower-controls">
-                                    <a href="#" class="btn btn-sm btn-success"><i class="fa fa-check"></i><span>&nbsp;&nbsp;Following</span></a>
-                                </div>
-                                <a href="#" class="follower-name">John Doe</a><br>
-                                <a href="#" class="follower-username">@jdoe</a>
-                            </div>
+                           {{ jeweler_meta.city }}
+                            ,{{ jeweler_meta.address }}
+                            <br/>
+                            {{ jeweler_meta.website }}
+                            <br/>
+                            {{ jeweler_meta.retour }}
+                            <br/>
+                            Delai :{{ jeweler_meta.delai }}
+                            <br/>
+                            {{ jeweler_meta.phone }}
                         </div>
                     </div> <!-- / .tab-pane -->
 

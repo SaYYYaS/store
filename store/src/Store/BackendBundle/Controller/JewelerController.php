@@ -30,11 +30,12 @@ class JewelerController extends Controller {
         $nbrmsgs        = $em->getRepository('StoreBackendBundle:Message')->getCountByUser($jeweler);
 
 
-        //jeweler's related infos
+        //jeweler's related infos in tab
         $coms           = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($jeweler);
         $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser($jeweler);
         $msgs           = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser($jeweler);
         $jeweler_meta   = $em->getRepository('StoreBackendBundle:JewelerMeta')->getMetasByUser($jeweler);
+
         $tags           = $em->getRepository('StoreBackendBundle:Tag')->getTagsByUser($jeweler);
 
         return $this->render('StoreBackendBundle:Jeweler:profile.html.twig',[
