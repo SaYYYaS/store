@@ -1,7 +1,21 @@
 cms:
     form:
+
         title:
             not_blank: Votre titre ne doit pas être vide.
             length:
                 min : Votre titre doit faire au moins {{ limit }} caractères.
                 max : Votre titre peut faire au maxium {{ limit }} caractères.
+
+        summary:
+            not_blank: La résumé ne doit pas être vide.
+            length:
+                min : Votre résumé doit faire au moins {{ limit }} caractères.
+                max : Votre résumé peut faire au maximum {{ limit }} caractères.
+
+        description:
+            not_blank: La déscription ne doit pas être vide.
+            length:
+                min : Votre déscription doit faire au moins {{ limit }} caractères.
+                max : Votre déscription peut faire au maximum {{ limit }} caractères.
+        choice: Choix non valide

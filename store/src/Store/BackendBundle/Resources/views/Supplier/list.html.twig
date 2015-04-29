@@ -11,6 +11,7 @@
     </div>
     <div class="table-primary table table-bordered">
         <div class="table-info">
+            <span>Total: {{ suppliers.getTotalItemCount }}</span>
             <table class="table table-bordered text-center" style="word-wrap: break-word;">
                 <thead>
                 <tr>
@@ -56,6 +57,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="text-center navigation">
+                {{ knp_pagination_render(suppliers) }}
+            </div>
         </div>
     </div>
 {% endblock %}

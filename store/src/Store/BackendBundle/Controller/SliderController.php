@@ -19,12 +19,21 @@ class SliderController extends Controller
      * View list of Sliders
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère toutes les pages slider de ma base de données
         $sliders = $em->getRepository('StoreBackendBundle:Slider')->getSlidersByUser($this->getUser());
-        return $this->render('StoreBackendBundle:Slider:list.html.twig', ['sliders' => $sliders]);
+
+        //Je récupère le bundle paginator
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $sliders,
+            $request->query->get('page', 1)/*page number in url arg */,
+            5/*limit product per page*/
+        );
+
+        return $this->render('StoreBackendBundle:Slider:list.html.twig', ['sliders' => $pagination]);
     }
 
     /**

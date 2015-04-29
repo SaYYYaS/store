@@ -43,14 +43,14 @@ class Cms
      *
      * @ORM\Column(name="summary", type="text", nullable=true)
      * @Assert\Length(
-     * min = "11",
+     * min = "10",
      * max = "100",
-     * minMessage = "Votre résumé doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre résumé peut faire au maximum {{ limit }} caractères",
+     * minMessage = "cms.form.summary.length.min",
+     * maxMessage = "cms.form.summary.length.max",
      * groups = {"new", "edit"}
      * )
      *
-     * @Assert\NotBlank( message = "La résumé ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\NotBlank( message = "cms.form.summary.not_blank", groups = {"new", "edit"})
      */
     private $summary;
 
@@ -58,10 +58,10 @@ class Cms
      * @var string
      *
      * @ORM\Column(name="description", type="text", nullable=true)
-     * @StoreAssert\StripTagsLength(maxMessage = "Votre chaine de caractère est supérieur à {{ limit }} ",
+     * @StoreAssert\StripTagsLength(maxMessage = "cms.form.description.length.max",
      * max = "500", groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "La description ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\NotBlank( message = "cms.form.description.not_blank", groups = {"new", "edit"})
      */
     private $description;
 
@@ -96,7 +96,7 @@ class Cms
      * @var integer
      *
      * @ORM\Column(name="state", type="integer", nullable=true)
-     * @Assert\Choice(choices = {"0", "1", "2"}, message = "Choix non valide", groups = {"new", "edit"})
+     * @Assert\Choice(choices = {"0", "1", "2"}, message = "cms.form.state.choice", groups = {"new", "edit"})
      */
     private $state;
 

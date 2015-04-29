@@ -17,14 +17,23 @@ class SupplierController extends Controller
 {
     /**
      * View list of categories
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère tous les produits de ma base de données
         $suppliers = $em->getRepository('StoreBackendBundle:Supplier')->getSupplierByUser($this->getUser());
-        return $this->render('StoreBackendBundle:Supplier:list.html.twig',['suppliers' => $suppliers]);
+
+        //Je récupère le bundle paginator
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $suppliers,
+            $request->query->get('page', 1)/*page number in url arg */,
+            1/*limit product per page*/
+        );
+        return $this->render('StoreBackendBundle:Supplier:list.html.twig',['suppliers' => $pagination]);
     }
 
     /**

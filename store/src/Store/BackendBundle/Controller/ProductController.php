@@ -19,10 +19,10 @@ class ProductController extends Controller
 {
     /**
      * View list of products
-     * @throws \Symfony\Component\Security\Core\Exception\AccessDeniedException
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
 //        Methode numero 1 restreindre l'accès au niveau de mon action de controlleur
 //        if (false === $this->get('security.context')->isGranted('ROLE_COMMERCIAL')) {
@@ -32,8 +32,16 @@ class ProductController extends Controller
         //Conteneur d'objet de doctrine
         $em = $this->getDoctrine()->getManager();
         //Récupère tous les produits de ma base de données
-        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUser($this->getUser());
-        return $this->render('StoreBackendBundle:Product:list.html.twig', ['products' => $products]);
+        $products = $em->getRepository('StoreBackendBundle:Product')->getProductByUserBuilder($this->getUser())->getQuery();
+
+        //Je récupère le bundle paginator
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $products,
+            $request->query->get('page', 1)/*page number in url arg */,
+            5/*limit product per page*/
+        );
+        return $this->render('StoreBackendBundle:Product:list.html.twig', ['products' => $pagination]);
     }
 
     /**

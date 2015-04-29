@@ -27,11 +27,12 @@
     </div>
 <div class="table-primary table table-bordered">
     <div class="table-info">
+        <span>Total: {{ cmss.getTotalItemCount }}</span>
         {% if cmss is not empty %}
             <table class="table table-bordered text-center" style="word-wrap: break-word;">
                 <thead>
                 <tr>
-                    <th>id</th>
+                    <th{% if cmss.isSorted('cms.id') %} class="sorted"{% endif %}>{{ knp_pagination_sortable(cmss, 'id', 'cms.id') }}</th>
                     <th>{{ "cms.list.table.th.title"|trans }}</th>
                     <th>{{ "cms.list.table.th.summary"|trans }}</th>
                     <th>{{ "cms.list.table.th.state"|trans }}</th>
@@ -87,6 +88,9 @@
                 {% endfor %}
                 </tbody>
             </table>
+            <div class="text-center navigation">
+                {{ knp_pagination_render(cmss) }}
+            </div>
         {% endif %}
     </div>
 </div>

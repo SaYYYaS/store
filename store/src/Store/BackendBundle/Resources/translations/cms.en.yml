@@ -25,7 +25,6 @@ cms :
             label   : Movie
             pholder : Video link
 
-
     list:
         add_new: Add new page
         choice:

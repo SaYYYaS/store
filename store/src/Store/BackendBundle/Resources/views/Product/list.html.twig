@@ -12,19 +12,20 @@
     </div>
 <div class="table-primary table table-bordered">
     <div class="table-info">
-        <table class="table table-bordered text-center" style=" word-wrap: break-word;">
+        <span>Total: {{ products.getTotalItemCount }}</span>
+        <table class="table table-bordered text-center dataTable" style=" word-wrap: break-word;">
             <thead>
             <tr>
-                <th>Id</th>
-                <th>Réference</th>
-                <th>titre</th>
-                <th>Description</th>
-                <th>Prix</th>
-                <th>Quantité</th>
-                <th>Actif</th>
-                <th>Page d'Accuel</th>
-                <th>Date actif</th>
-                <th>Categories </th>
+                <th>{{ knp_pagination_sortable(products, 'id', 'p.id') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Reférence', 'p.ref') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Titre', 'p.title') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Résumé', 'p.summary') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Prix', 'p.price') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Quantité', 'p.quantity') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Activé', 'p.active') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Visible', 'p.cover') }}</th>
+                <th>{{ knp_pagination_sortable(products, 'Date Actif', 'p.dateCreated') }}</th>
+                <th>Categories</th>
                 <th>Fournisseurs</th>
                 <th>Actions</th>
             </tr>
@@ -89,6 +90,9 @@
             {% endfor %}
             </tbody>
         </table>
+        <div class="text-center navigation">
+            {{ knp_pagination_render(products) }}
+        </div>
     </div>
 </div>
 

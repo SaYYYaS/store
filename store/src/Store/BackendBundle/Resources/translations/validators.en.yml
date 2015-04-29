@@ -5,3 +5,14 @@ cms:
             length:
                 min : Your message cant have less than {{ limit }} caracteres.
                 max : Your message cant have more  than {{ limit }} caracteres.
+        summary:
+            not_blank: Summary can't be blank.
+            length:
+                min : Your summary cant have less than {{ limit }} caracteres.
+                max : Your summary cant have more  than {{ limit }} caracteres.
+        description:
+            not_blank: description can't be blank.
+            length:
+                min : Your description cant have less than {{ limit }} caracteres.
+                max : Your description cant have more  than {{ limit }} caracteres.
+        choice: Unvalid choice

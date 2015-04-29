@@ -17,14 +17,23 @@ class CMSController extends Controller
 {
     /**
      * View list of CMSs
+     * @param \Symfony\Component\HttpFoundation\Request $request
      * @return \Symfony\Component\HttpFoundation\Response
      */
-    public function listAction()
+    public function listAction(Request $request)
     {
         $em = $this->getDoctrine()->getManager();
         //Récupère toutes les pages cms de ma base de données
         $cmss = $em->getRepository('StoreBackendBundle:Cms')->getCmsByUser($this->getUser());
-        return $this->render('StoreBackendBundle:CMS:list.html.twig', ['cmss' => $cmss]);
+
+        //Je récupère le bundle paginator
+        $paginator  = $this->get('knp_paginator');
+        $pagination = $paginator->paginate(
+            $cmss,
+            $request->query->get('page', 1)/*page number in url arg */,
+            2/*limit product per page*/
+        );
+        return $this->render('StoreBackendBundle:CMS:list.html.twig', ['cmss' => $pagination]);
     }
 
     /**
