@@ -79,7 +79,7 @@ class CmsType extends AbstractType{
                         'placeholder' => 'cms.form.movie.pholder',
                     ]
             ]);
-
+        #TODO :translate choices
         $builder->add('state','choice',
             [
                 'label' => 'Status',

@@ -30,11 +30,11 @@ class Cms
      * @Assert\Length(
      * min = "6",
      * max = "100",
-     * minMessage = "Votre titre doit faire au moins {{ limit }} caractères",
-     * maxMessage = "Votre titre peut faire au maximum {{ limit }} caractères",
+     * minMessage = "cms.form.title.length.min",
+     * maxMessage = "cms.form.title.length.max",
      * groups = {"new", "edit"})
      *
-     * @Assert\NotBlank( message = "La titre ne doit pas être vide", groups = {"new", "edit"})
+     * @Assert\NotBlank( message = "cms.form.title.not_blank", groups = {"new", "edit"})
      */
     private $title;
 

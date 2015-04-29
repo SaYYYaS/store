@@ -1,0 +1,7 @@
+cms:
+    form:
+        title:
+            not_blank: Title can't be blank.
+            length:
+                min : Your message cant have less than {{ limit }} caracteres.
+                max : Your message cant have more  than {{ limit }} caracteres.

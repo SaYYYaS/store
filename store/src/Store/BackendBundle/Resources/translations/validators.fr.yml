@@ -1,0 +1,7 @@
+cms:
+    form:
+        title:
+            not_blank: Votre titre ne doit pas être vide.
+            length:
+                min : Votre titre doit faire au moins {{ limit }} caractères.
+                max : Votre titre peut faire au maxium {{ limit }} caractères.
