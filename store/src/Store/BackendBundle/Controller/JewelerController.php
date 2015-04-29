@@ -41,7 +41,7 @@ class JewelerController extends Controller {
 
 
         $jeweler_meta   = $em->getRepository('StoreBackendBundle:JewelerMeta')->getMetasByUser($jeweler);
-        $form = $this->createForm(new InformationsType(),$jeweler_meta,[
+        $form = $this->createForm(new InformationsType($jeweler),$jeweler_meta,[
 //        'validation_groups' => 'edit',
             'attr' =>
             [
@@ -56,7 +56,6 @@ class JewelerController extends Controller {
 
         //Si la totalité de formulaire est valide
         if($form->isValid()){
-
             //Flush de l'entité en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($jeweler_meta);

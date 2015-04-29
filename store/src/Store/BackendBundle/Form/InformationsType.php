@@ -138,7 +138,7 @@ class InformationsType extends AbstractType{
                     ]
             ]);
 
-        $builder->add('Jeweler', new JewelerRegisterType());
+        $builder->add('Jeweler', new JewelerType());
 
         $builder->add('envoyer','submit',
             [
