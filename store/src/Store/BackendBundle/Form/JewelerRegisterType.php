@@ -35,6 +35,17 @@ class JewelerRegisterType extends AbstractType{
                     ]
             ]);
 
+        $builder->add('description',null,
+            [
+                'label'     => 'Description de la bijouterie',
+                'required'  => true,
+                'attr'      =>
+                    [
+                        'class'         => 'form-control',
+                        'placeholder'   => 'Des informations cools'
+                    ]
+            ]);
+
         $builder->add('username',null,
         [
             'label'     => 'Nom d\'utilisateur',

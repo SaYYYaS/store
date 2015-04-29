@@ -10,10 +10,11 @@ namespace Store\BackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormTypeInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-class InformationsType {
+class InformationsType extends AbstractType{
 
     /**
      * Methode qui va construire le formulaire
@@ -24,78 +25,124 @@ class InformationsType {
     {
         //Methode add permet d'ajouter des champs dans le formulaire
         //Le nom de mes champs sont mes attributs de l'entité cms
-        $builder->add('title',null,
+        $builder->add('city',null,
             [
-                'label' => 'Nom de la page',
+                'label' => 'Ville',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'Mettre un nom de page',
+                        'placeholder' => 'Votre ville',
                     ]
             ]);
 
-        $builder->add('dateActive','date',
+        $builder->add('address',null,
             [
-                'label' => 'Date d\'activation',
-                'widget' => 'single_text',
-                'format' => 'dd/MM/yyyy',
-                'attr' => ['class' => 'date form-control']
-            ]);
-
-        $builder->add('summary',null,
-            [
-                'label' => 'Résumé',
+                'label' => 'Addresse',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'Résumé de la catégorie',
+                        'placeholder' => 'Votre addresse',
                     ]
             ]);
-
-        $builder->add('description',null,
+        $builder->add('phone',null,
             [
-                'label' => 'Description',
+                'label' => 'N° de telephone',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'Description de la catégorie',
+                        'placeholder' => '0612345678',
                     ]
             ]);
 
-        $builder->add('image','url',
+        $builder->add('propos',null,
             [
-                'label' => 'Image',
+                'label' => 'A propos',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'http://image.com/image.jpg',
+                        'placeholder' => 'Informations de base',
                     ]
             ]);
 
-        $builder->add('video',null,
+        $builder->add('website',null,
             [
-                'label' => 'Vidéo',
+                'label' => 'Site web',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'Lien vers la vidéo',
+                        'placeholder' => 'http://www.monsite.com',
                     ]
             ]);
 
-        $builder->add('state','choice',
+
+        $builder->add('dawanda',null,
             [
-                'label' => 'Status',
-                'choices' => ['0' => 'Inactif', '1' => 'En cours', '2' => 'En ligne'], //Les choix disponibles
-                'preferred_choices' => ['1'], //Le choix par défaut
-                'required' => true, //liste déroulante
+                'label' => 'Danwanda',
                 'attr' =>
                     [
                         'class' => 'form-control',
+                        'placeholder' => 'votre dawanda',
                     ]
             ]);
+
+
+        $builder->add('littlemarket',null,
+            [
+                'label' => 'LittleMarket',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'votre littlemarket',
+                    ]
+            ]);
+
+
+        $builder->add('retour',null,
+            [
+                'label' => 'Retours',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Vos conditions de retour',
+                    ]
+            ]);
+
+
+        $builder->add('delai',null,
+            [
+                'label' => 'Délais',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'En heure (h.)',
+                    ]
+            ]);
+
+        $builder->add('expedition',null,
+            [
+                'label' => 'Expédition de colis',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Processus de transport de colis',
+                    ]
+            ]);
+
+        $builder->add('mention',null,
+            [
+                'label' => 'Mentions légales',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Siège social et status, CDV et CGV',
+                    ]
+            ]);
+
+        $builder->add('Jeweler', new JewelerRegisterType());
 
         $builder->add('envoyer','submit',
             [
+                'label' => 'Enregistrer mes informations',
                 'attr' =>
                     [
                         'class' => 'pull-right btn btn-primary',
@@ -117,7 +164,7 @@ class InformationsType {
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver){
 
-        $resolver->setDefaults(['data_class' => 'Store\BackendBundle\Entity\Cms']);
+        $resolver->setDefaults(['data_class' => 'Store\BackendBundle\Entity\JewelerMeta']);
     }
 
     /**
