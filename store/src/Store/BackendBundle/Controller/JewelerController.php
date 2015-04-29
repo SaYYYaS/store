@@ -32,7 +32,7 @@ class JewelerController extends Controller {
 
         //jeweler's related infos in tab
         $coms           = $em->getRepository('StoreBackendBundle:Comment')->getCommentsByUser($jeweler);
-        $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser($jeweler);
+        $orders         = $em->getRepository('StoreBackendBundle:Orders')->getOrdersByUser($jeweler, null);
         $msgs           = $em->getRepository('StoreBackendBundle:Message')->getMessagesByUser($jeweler);
         $jeweler_meta   = $em->getRepository('StoreBackendBundle:JewelerMeta')->getMetasByUser($jeweler);
 

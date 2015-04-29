@@ -141,10 +141,15 @@ class CMSController extends Controller
         $em->persist($cms);
         $em->flush();
 
-        //Flash message
-        $state = $active ?'activée' : 'désactivée';
+        //Flash message & getting translator
+        $l18n = $this->get('translator');
+        $state = $active ?'activated' : 'disabled';
+        $state = $l18n->trans($state);
         $template = $active ?'success' : 'warning';
-        $this->get('session')->getFlashbag()->add($template,'La page : "' . $cms . '" à été ' . $state  . '.' );
+        $this->get('session')->getFlashbag()->add($template,
+           $l18n->trans('cms.flashdata.state',['%state%' => $state, '%page%' => $cms->getTitle()], 'cms')
+        );
+
 
         if ($request->isXmlHttpRequest())
         {

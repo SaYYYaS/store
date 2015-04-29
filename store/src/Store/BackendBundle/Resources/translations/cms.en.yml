@@ -1,0 +1,51 @@
+#Je vais pouvoir traduire mes textes de vues et mes textes de Controllers
+
+cms :
+    flashdata:
+         state: the "%page%" has been %state%
+
+    form:
+        title:
+            label   : Page's name
+            pholder : Give a good page name
+        date_activation:
+            label  : Activation date
+        status         :
+            label   : Status
+        summary:
+            label   : Summary
+            pholder : short description
+        description    :
+            label   : Description
+            pholder : Long description of the page
+        image          :
+            label   : Image
+            pholder : Image link
+        movie          :
+            label   : Movie
+            pholder : Video link
+
+
+    list:
+        add_new: Add new page
+        choice:
+            i18n: Choose your language, %username%
+        btn   :
+            fr   : French
+            en   : English
+        nb: There is %count% page founded | there are %count% pages founded
+        title : CMS page list
+        table :
+            th:
+                title      : Summary
+                summary    : State
+                state      : Creation date
+                nb         : Number of associated products
+                date       : Creation date
+                actions    : Action
+            td:
+                            nb         : Nombre
+                            actions    :
+                                show      : Show
+                                edit      : Edit
+                                del       : Delete

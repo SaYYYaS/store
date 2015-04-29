@@ -1,0 +1,48 @@
+cms :
+    flashdata:
+        state: La page : "%page%" a été %state%
+
+    form:
+        title:
+            label      : Nom de la page
+            pholder: Mettre un nom de page
+        date_activation:
+            label  : Date d'activation
+        status         :
+            label  : Status
+        summary:
+            label  : Résumé
+            pholder: Courte description
+        description    :
+            label  : Déscription
+            pholder: Description concernant la page
+        image          :
+            label  : Image
+            pholder: lien vers l'image
+        movie          :
+            label  : Vidéo
+            pholder: Lien vers la vidéo
+
+    list:
+        add_new: Ajouter une page
+        choice:
+            i18n: Choisisez votre langue, %username%
+        nb: Il y'a %count% page | Il y'a %count% pages
+        btn   :
+            fr   : Français
+            en   : Anglais
+        title : Liste des pages CMS
+        table :
+            th:
+                title      : Titre
+                summary    : Résumé
+                state      : Status
+                nb         : Nombre de produit associés
+                date       : Date de création
+                actions    : Actions
+            td:
+                nb         : Nombre
+                actions    :
+                    show      : Voir
+                    edit      : Editer
+                    del       : Supprimer

@@ -1,4 +1,11 @@
 <?php
+/**
+ * Created by PhpStorm.
+ * User: wac31
+ * Date: 29/04/15
+ * Time: 11:25
+ */
+
 namespace Store\BackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
@@ -6,35 +13,30 @@ use Symfony\Component\Form\FormBuilderInterface;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
-/**
- * Class categoryType
- * Formulaire de création de cms
- * @package Store\BackendBundle\Form
- */
-class CmsType extends AbstractType{
+class InformationsType {
 
     /**
-    * Methode qui va construire le formulaire
-    * @param FormBuilderInterface $builder
-    * @param array $options
-    */
+     * Methode qui va construire le formulaire
+     * @param FormBuilderInterface $builder
+     * @param array $options
+     */
     public function buildForm(FormBuilderInterface $builder, array $options)
     {
         //Methode add permet d'ajouter des champs dans le formulaire
         //Le nom de mes champs sont mes attributs de l'entité cms
         $builder->add('title',null,
-        [
-            'label' => 'cms.form.title.label',
-            'attr' =>
             [
-                'class' => 'form-control',
-                'placeholder' => 'cms.form.title.pholder',
-            ]
-        ]);
+                'label' => 'Nom de la page',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'placeholder' => 'Mettre un nom de page',
+                    ]
+            ]);
 
         $builder->add('dateActive','date',
             [
-                'label' => 'cms.form.date_activation.label',
+                'label' => 'Date d\'activation',
                 'widget' => 'single_text',
                 'format' => 'dd/MM/yyyy',
                 'attr' => ['class' => 'date form-control']
@@ -42,41 +44,41 @@ class CmsType extends AbstractType{
 
         $builder->add('summary',null,
             [
-                'label' => 'cms.form.summary.label',
+                'label' => 'Résumé',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'cms.form.summary.pholder',
+                        'placeholder' => 'Résumé de la catégorie',
                     ]
             ]);
 
         $builder->add('description',null,
             [
-                'label' => 'cms.form.description.label',
+                'label' => 'Description',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'cms.form.description.pholder',
+                        'placeholder' => 'Description de la catégorie',
                     ]
             ]);
 
         $builder->add('image','url',
             [
-                'label' => 'cms.form.image.label',
+                'label' => 'Image',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'cms.form.image.pholder',
+                        'placeholder' => 'http://image.com/image.jpg',
                     ]
             ]);
 
         $builder->add('video',null,
             [
-                'label' => 'cms.form.movie.label',
+                'label' => 'Vidéo',
                 'attr' =>
                     [
                         'class' => 'form-control',
-                        'placeholder' => 'cms.form.movie.pholder',
+                        'placeholder' => 'Lien vers la vidéo',
                     ]
             ]);
 
@@ -102,10 +104,10 @@ class CmsType extends AbstractType{
     }
 
     /**
-    * Methode qui lie mon formulaire à l'entité cms
-    * Car mon formulaire enregistre un cms dans la table cms
-    * @param OptionsResolver $resolver
-    */
+     * Methode qui lie mon formulaire à l'entité cms
+     * Car mon formulaire enregistre un cms dans la table cms
+     * @param OptionsResolver $resolver
+     */
     public function configureOptions(OptionsResolver $resolver){
     }
 
@@ -115,18 +117,18 @@ class CmsType extends AbstractType{
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver){
 
-        $resolver->setDefaults(['data_class' => 'Store\BackendBundle\Entity\Cms','translation_domain' => 'cms']);
+        $resolver->setDefaults(['data_class' => 'Store\BackendBundle\Entity\Cms']);
     }
 
     /**
-    * Retourne le nom du formulaire selon la structure ns_bundle_controller
-    * Returns the name of this type.
-    *
-    * @return string The name of this type
-    */
+     * Retourne le nom du formulaire selon la structure ns_bundle_controller
+     * Returns the name of this type.
+     *
+     * @return string The name of this type
+     */
     public function getName()
     {
-        return "store_backend_cms";
+        return "store_backend_informations";
     }
 
 }

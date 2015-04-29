@@ -1,14 +1,2 @@
-#Je vais pouvoir traduire mes textes de vues et mes textes de Controllers
-
-cms :
-    list:
-        nb: There is %count% page founded | there are %count% pages founded
-        title : CMS page list
-        table :
-            th:
-                title      : Summary
-                summary    : State
-                state      : Creation date
-                nb         : Number of associated products
-                date       : Creation date
-                actions    : Action
+activated: Activated
+disabled: Disabled
