@@ -148,6 +148,17 @@ class InformationsType extends AbstractType{
                         'class' => 'pull-right btn btn-primary',
                     ]
             ]);
+
+        $builder->add('optin','checkbox',
+            [
+                'label' => 'Accepter la newsletter',
+                'attr' =>
+                    [
+                        'class' => 'checkbox',
+
+                    ]
+            ]);
+
     }
 
     /**
@@ -177,5 +188,4 @@ class InformationsType extends AbstractType{
     {
         return "store_backend_informations";
     }
-
 }

@@ -19,6 +19,7 @@ class AppKernel extends Kernel
             new Store\BackendBundle\StoreBackendBundle(),
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
+            new Store\FrontendBundle\StoreFrontendBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
