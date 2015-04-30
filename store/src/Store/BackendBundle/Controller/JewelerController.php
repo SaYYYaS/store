@@ -56,6 +56,8 @@ class JewelerController extends Controller {
 
         //Si la totalité de formulaire est valide
         if($form->isValid()){
+
+            $jeweler->upload();
             //Flush de l'entité en bdd
             $em = $this->getDoctrine()->getManager();
             $em->persist($jeweler_meta);

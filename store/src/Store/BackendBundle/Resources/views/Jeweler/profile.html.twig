@@ -197,32 +197,7 @@
 
                     {#Afficher les informations sur la boutique #}
                     <div class="tab-pane fade widget-followers" id="profile-tabs-following">
-                        <div class="panel-body">
-                            <div class="note note-info"><i class="fa fa-pencil"></i> &nbsp;Modifier mes informations personnelles</div>
-                            {{ form_start(form) }}
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    {{ form_row(form.propos) }}
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    {{ form_row(form.city) }}
-                                </div>
-                            </div>
-                            {{ form_widget(form.Jeweler.description) }}
-                            {{ form_row(form.address) }}
-                            <div class="row">
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    {{ form_row(form.phone) }}
-                                </div>
-                                <div class="col-xs-6 col-sm-6 col-md-6">
-                                    {{ form_row(form.website) }}
-                                </div>
-                            </div>
-                            {{ form_row(form.envoyer) }}
-                            {{ form_widget(form._token) }}
-                            {{ form_end(form,{'render_rest' : false}) }}
-
-                        </div>
+                        {% include 'StoreBackendBundle:Jeweler:_form_informations.html.twig' %}
                     </div> <!-- / .tab-pane -->
 
 

@@ -33,6 +33,47 @@ class JewelerType extends AbstractType{
                         'placeholder'   => 'Des informations cools'
                     ]
             ]);
+
+        $builder->add('title',null,[
+           'label' => 'Titre de la boutique',
+            'required' => true,
+            'attr' => [
+                'class' => 'form-control',
+                'placeholder' => 'Titre de la boutique'
+            ]
+        ]);
+
+        $builder->add('email','email',[
+            'label' => 'Votre Email',
+            'required' => true,
+            'attr' => [
+                'class' => 'form-control',
+                'placeholder' => 'Titre de la boutique'
+            ]
+        ]);
+
+        $builder->add('file','file',
+            [
+                'label' => 'Image de présentation',
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                        'accept' => 'image/*',
+                        'capture' => 'capture'
+                    ]
+            ]);
+
+        $builder->add('type','choice',
+            [
+                'label' => 'Type de structure',
+                'choices' => ['0' => 'Aucun', '1' => 'SARL', '2' => 'SA'], //Les choix disponibles
+                'preferred_choices' => ['0'], //Le choix par défaut
+                'required' => true, //liste déroulante
+                'attr' =>
+                    [
+                        'class' => 'form-control',
+                    ]
+            ]);
     }
 
     public function getName(){
