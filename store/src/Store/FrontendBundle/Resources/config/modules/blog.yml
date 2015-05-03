@@ -1,0 +1,8 @@
+#Page view for cms
+store_frontend_blog_view:
+   path:     /view/{id}/{name}
+   requirements:
+     id: \d+
+     name: (.)*
+     _method: GET
+   defaults: {_controller: 'StoreFrontendBundle:Blog:view'}

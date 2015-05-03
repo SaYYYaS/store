@@ -102,3 +102,53 @@ knp_paginator:
         #Ici je peux choisir mes propres templates de pagination que j'inclurais dans mes vues
         pagination: StoreBackendBundle:Partial:sliding.html.twig     # sliding pagination controls template
         sortable: KnpPaginatorBundle:Pagination:sortable_link.html.twig # sort link template
+
+##FOS Elastica
+fos_elastica:
+    default_manager: orm
+    clients:
+        default: { host: localhost, port: 9200 }
+    indexes:
+        website:
+            client: default
+            index_name: website_qa
+            types:
+              supplier:
+                 mappings:
+                   name: {type: string }
+                   description: {type: string }
+              jeweler:
+                 mappings:
+                   username: {type: string }
+                   email: {type: string }
+                   title: {type: string }
+                   description: {type: string }
+              product:
+                mappings:
+                    title: { type: string }
+                    summary: { type: string }
+                    description: { type: string }
+                    composition: { type: string }
+                    price: { type: string }
+                    taxe: { type: string }
+                    jeweler:
+                    #Definit une relation OneToMany ou ManyToMany
+                      type: "nested"
+                      properties:
+                         username: {type: string }
+                         email: {type: string }
+                         title: {type: string }
+                         description: {type: string }
+                    category:
+                      type: "nested"
+                      properties:
+                         title: {type: string }
+                         description: {type: string }
+                persistence:
+                    driver: orm
+                    model: Store\BackendBundle\Entity\Product
+                    repository: Store\BackendBundle\Repository\ProductRepository
+                    provider:
+                        query_builder_method: activeProductQueryBuilder
+                    finder: ~
+                    listener: ~ # by default, listens to "insert", "update" and "delete"

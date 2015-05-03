@@ -1,6 +1,3 @@
-store_backend_homepage:
-    path:     /hello/{name}
-    defaults: { _controller: StoreBackendBundle:Default:index }
 #Structure de la route ns_bundle_action
 store_backend_index:
     path:     /dashboard

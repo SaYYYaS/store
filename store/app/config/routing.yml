@@ -1,7 +1,14 @@
+##
+# Frontend prefix and import
+##
+
 store_frontend:
     resource: "@StoreFrontendBundle/Resources/config/routing.yml"
     prefix:   /
 
+##
+# Backend prefix and import
+##
 store_backend:
     resource: "@StoreBackendBundle/Resources/config/routing.yml"
     prefix:   /admin

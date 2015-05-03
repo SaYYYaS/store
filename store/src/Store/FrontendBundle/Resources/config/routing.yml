@@ -1,0 +1,8 @@
+store_frontend_index:
+    path:     /dashboard
+    defaults: { _controller:StoreFrontendBundle:Main:index }
+
+#Importation des routes blog
+store_backend_products:
+    resource: "@StoreFrontendBundle/Resources/config/modules/blog.yml"
+    prefix:   /blog

@@ -56,6 +56,15 @@ class MainController extends Controller
         $prods_compl_metas  = $em->getRepository('StoreBackendBundle:ProductMeta')->getProductCompletionMetas($user);
         $prods_compl_metas  = round(($prods_compl_metas / $nbrprods ) * 100,1) ;
 
+        //Récupère l'index )
+        $index_fos = $this->get('fos_elastica.index.website');
+        //Récupère le finder
+        $finder_fos = $this->get('fos_elastica.finder.website.product');
+
+        $data = $finder_fos->find("LAURA");
+        dump($data);
+
+
         return $this->render('StoreBackendBundle:Main:index.html.twig',
             [
                 'nbrprods'      => $nbrprods,

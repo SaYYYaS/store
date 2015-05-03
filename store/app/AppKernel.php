@@ -20,6 +20,7 @@ class AppKernel extends Kernel
             new \Knp\Bundle\PaginatorBundle\KnpPaginatorBundle(),
             new \Doctrine\Bundle\FixturesBundle\DoctrineFixturesBundle(),
             new Store\FrontendBundle\StoreFrontendBundle(),
+            new \FOS\ElasticaBundle\FOSElasticaBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
