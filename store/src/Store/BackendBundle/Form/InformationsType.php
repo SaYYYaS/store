@@ -140,6 +140,14 @@ class InformationsType extends AbstractType{
 
         $builder->add('Jeweler', new JewelerType());
 
+
+        //We can also process like this by traversing entity to reach the needed field to add
+//        $builder->add('description','text', ['mapped' => true, 'property_path' => 'jeweler.description']);
+//        $builder->add('email','email', ['mapped' => true, 'property_path' => 'jeweler.email']);
+//        $builder->add('title','text', ['mapped' => true, 'property_path' => 'jeweler.title']);
+//        $builder->add('type',null, ['mapped' => true, 'property_path' => 'jeweler.type']);
+//        $builder->add('file','file', ['mapped' => true, 'property_path' => 'jeweler.file']);
+
         $builder->add('envoyer','submit',
             [
                 'label' => 'Enregistrer mes informations',

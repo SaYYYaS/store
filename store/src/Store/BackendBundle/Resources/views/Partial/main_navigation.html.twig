@@ -26,7 +26,7 @@
     <div>
     <ul class="nav navbar-nav">
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_index' %} active {% endif %}">
-            <a href="{{ path('store_backend_index') }}"><i class="fa fa-home"></i>&nbsp;Home</a>
+            <a href="{{ path('store_backend_index') }}"><i class="fa fa-home"></i>&nbsp;</a>
         </li>
         {% if is_granted('ROLE_COMMERCIAL') %}
         <li class="{% if app.request.attributes.get('_route') == 'store_backend_product_list' %} active {% endif %}">
@@ -55,7 +55,7 @@
         {% endif %}
         {% if is_granted('ROLE_COMMERCIAL') %}
             <li class="{% if app.request.attributes.get('_route') == 'store_backend_jeweler_profil' %} active {% endif %}">
-                <a href="{{ path('store_backend_jeweler_profil', {id: app.user.id}) }}"><i class="fa fa-user"></i>&nbsp;Ma Boutique</a>
+                <a href="{{ path('store_backend_jeweler_profil', {id: app.user.id}) }}"><i class="fa fa-user"></i>&nbsp;Boutique</a>
             </li>
         {% endif %}
     </ul> <!-- / .navbar-nav -->
