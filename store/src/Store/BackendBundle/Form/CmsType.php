@@ -3,6 +3,8 @@ namespace Store\BackendBundle\Form;
 
 use Symfony\Component\Form\AbstractType;
 use Symfony\Component\Form\FormBuilderInterface;
+use Symfony\Component\Form\FormEvent;
+use Symfony\Component\Form\FormEvents;
 use Symfony\Component\OptionsResolver\OptionsResolver;
 use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 
@@ -92,6 +94,7 @@ class CmsType extends AbstractType{
                     ]
             ]);
 
+
         $builder->add('envoyer','submit',
             [
                 'attr' =>
@@ -99,6 +102,21 @@ class CmsType extends AbstractType{
                         'class' => 'pull-right btn btn-primary',
                     ]
             ]);
+
+        //Utilisation d'un event pour mettre en majuscule le titre si < 10
+        $builder->get('title')->addEventListener(
+            FormEvents::SUBMIT,
+            function(FormEvent $event){
+                $data = $event->getData();
+                if(strlen($data) < 10)
+                {
+                    $data = strtoupper($data);
+                    $event->setData($data);
+                }
+            }
+        );
+
+
     }
 
     /**
