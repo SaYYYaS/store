@@ -77,7 +77,9 @@ class CMSController extends Controller
         //J'associe mon jeweler à ma page cms
         $cms->setJeweler($user);
 
-        $form = $this->createForm(new CmsType($user), $cms, [
+        $status = $this->container->getParameter('cms');
+
+        $form = $this->createForm(new CmsType($user,$status), $cms, [
             'validation_groups' => 'new',
             'attr' =>
                 [

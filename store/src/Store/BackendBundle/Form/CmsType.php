@@ -15,6 +15,22 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
  */
 class CmsType extends AbstractType{
 
+
+    /**
+     * @var
+     */
+    private $data;
+    /**
+     * @var
+     */
+    private $options;
+
+    public function __construct($data, $options){
+
+        $this->data = $data;
+        $this->options = $options;
+    }
+
     /**
     * Methode qui va construire le formulaire
     * @param FormBuilderInterface $builder
@@ -85,7 +101,7 @@ class CmsType extends AbstractType{
         $builder->add('state','choice',
             [
                 'label' => 'Status',
-                'choices' => ['0' => 'Inactif', '1' => 'En cours', '2' => 'En ligne'], //Les choix disponibles
+                'choices' => $this->options['status'], //Les choix disponibles
                 'preferred_choices' => ['1'], //Le choix par défaut
                 'required' => true, //liste déroulante
                 'attr' =>
