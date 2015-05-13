@@ -16,18 +16,14 @@ use Symfony\Component\OptionsResolver\OptionsResolverInterface;
 class CmsType extends AbstractType{
 
 
-    /**
-     * @var
-     */
-    private $data;
+
     /**
      * @var
      */
     private $options;
 
-    public function __construct($data, $options){
+    public function __construct($options){
 
-        $this->data = $data;
         $this->options = $options;
     }
 
@@ -40,6 +36,9 @@ class CmsType extends AbstractType{
     {
         //Methode add permet d'ajouter des champs dans le formulaire
         //Le nom de mes champs sont mes attributs de l'entité cms
+
+        $builder->setPropertyPath('CmsType');
+        dump($builder->getPropertyPath());
         $builder->add('title',null,
         [
             'label' => 'cms.form.title.label',
@@ -149,7 +148,10 @@ class CmsType extends AbstractType{
      */
     public function setDefaultOptions(OptionsResolverInterface $resolver){
 
-        $resolver->setDefaults(['data_class' => 'Store\BackendBundle\Entity\Cms','translation_domain' => 'cms']);
+        $resolver->setDefaults([
+            'data_class' => 'Store\BackendBundle\Entity\Cms',
+            'translation_domain' => 'cms'
+        ]);
     }
 
     /**

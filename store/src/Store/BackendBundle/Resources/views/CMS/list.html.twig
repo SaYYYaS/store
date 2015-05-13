@@ -39,10 +39,10 @@
                     <th>Active</th>
                     <th>{{ "cms.list.table.th.nb" |trans }}</th>
                     <th>{{ "cms.list.table.th.date"|trans }}</th>
-                    <th>{{ "cms.list.table.th.action"|trans }}</th>
+                    <th>Actions</th>
                 </tr>
                 </thead>
-                <tbody style="word-break: break-all; word-break: break-word;">
+                <tbody style="word-break: break-all;">
                 {% for cms in cmss %}
                     <tr>
                         <td><a href="{{ path('store_backend_cms_view',{'id' : cms.id,'name' : cms.title}) }}">{{ cms.id }}</a></td>

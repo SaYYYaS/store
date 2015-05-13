@@ -79,7 +79,7 @@ class CMSController extends Controller
 
         $status = $this->container->getParameter('cms');
 
-        $form = $this->createForm(new CmsType($user,$status), $cms, [
+        $form = $this->createForm(new CmsType($status), $cms, [
             'validation_groups' => 'new',
             'attr' =>
                 [
@@ -113,7 +113,8 @@ class CMSController extends Controller
     public function editAction(Request $request,Cms $id){
         $cms = $id;
 
-        $form = $this->createForm(new CmsType(), $cms, [
+        $status = $this->container->getParameter('cms');
+        $form = $this->createForm(new CmsType($status), $cms, [
             'validation_groups' => 'edit',
             'attr' =>
                 [
