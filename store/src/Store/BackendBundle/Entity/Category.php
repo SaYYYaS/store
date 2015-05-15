@@ -77,7 +77,7 @@ class Category
     /**
      * @var \Doctrine\Common\Collections\Collection
      *
-     * @ORM\ManyToMany(targetEntity="Product", mappedBy="category")
+     * @ORM\ManyToMany(targetEntity="Store\BackendBundle\Model\CategorySubjectInterface", mappedBy="category")
      */
     private $product;
 

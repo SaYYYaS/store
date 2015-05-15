@@ -3,6 +3,7 @@
 namespace Store\BackendBundle\Entity;
 
 use Doctrine\ORM\Mapping as ORM;
+use Store\BackendBundle\Model\CategorySubjectInterface;
 use Symfony\Component\Validator\Constraints as Assert;
 use Symfony\Bridge\Doctrine\Validator\Constraints\UniqueEntity;
 use Store\BackendBundle\Validator\Constraints as StoreAssert;
@@ -16,7 +17,7 @@ use Store\BackendBundle\Validator\Constraints as StoreAssert;
  * @UniqueEntity(fields = "title", message = "Votre titre de bijoux existe déjà", groups = {"new"})
  *
  */
-class Product
+class Product implements CategorySubjectInterface
 {
     /**
      * @var integer

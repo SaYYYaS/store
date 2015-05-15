@@ -71,6 +71,8 @@ doctrine:
         #     path:     "%database_path%"
 
     orm:
+        resolve_target_entities:
+            Store\BackendBundle\Model\CategorySubjectInterface: Store\BackendBundle\Entity\Product
         auto_generate_proxy_classes: "%kernel.debug%"
         entity_managers:
             default:
